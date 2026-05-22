@@ -636,11 +636,11 @@ function renderServices(full = false) {
         'Painting and renovation services for every part of your home',
         'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
       )}
-      <div class="services-grid">
+      <div class="services-grid${full ? '' : ' services-bento'}">
         ${services
           .map(
             (service, index) => `
-              <article class="service-card">
+              <article class="service-card${!full && (index === 2 || index === 3) ? ' service-card-featured' : ''}">
                 <span class="service-icon service-icon-${(index % 4) + 1}" aria-hidden="true"></span>
                 <h3>${service.title}</h3>
                 <p>${service.body}</p>
@@ -765,7 +765,7 @@ function renderTestimonials(block) {
         'What homeowners say about Pixel Paint',
         'Real feedback from painting and renovation clients across Central Florida.'
       )}
-      <div class="reviews-grid">
+      <div class="reviews-grid reviews-carousel">
         ${items
           .map(
             (item) => `
