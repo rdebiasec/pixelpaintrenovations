@@ -1,0 +1,16 @@
+{
+  "name": "pixel-renovations-site",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:static",
+    "build:static": "node scripts/i18n-build.mjs && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5",
+    "vite": "^7.2.4"
+  }
+}
