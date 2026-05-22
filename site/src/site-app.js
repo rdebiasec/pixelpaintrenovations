@@ -231,14 +231,14 @@ const pages = {
       'Trusted painting and renovation team serving Lake Nona, Orlando, and Central Florida. Interior & exterior painting, kitchen and bathroom updates, and warranty-backed craftsmanship.',
     hero: {
       eyebrow: 'House Painting & Renovations',
-      headline: 'Trusted painters and renovators for homes across Central Florida',
+      headline: "Lake Nona's go-to paint & renovation crew.",
       body:
-        'Looking for a reliable local team for painting or renovations? Pixel Paint and Renovations delivers quality craftsmanship, clear communication, and results that last — backed by a warranty customers rave about.',
+        'Beautiful finishes, clear communication, and warranty-backed work from a local team neighbors recommend.',
       microcopy: 'Licensed & insured · Background-checked crew · Free estimates · Serving Lake Nona & Orlando metro'
     },
     blocks: [
       { type: 'services' },
-      { type: 'projectShowcase', limit: 3 },
+      { type: 'projectShowcase', limit: 3, layout: 'featured' },
       {
         type: 'textSplit',
         sections: [
@@ -256,7 +256,8 @@ const pages = {
       },
       { type: 'benefits' },
       { type: 'serviceAreas' },
-      { type: 'testimonials', limit: 6 }
+      { type: 'instagramStrip' },
+      { type: 'testimonials', limit: 6, featured: true }
     ]
   },
   servicesPage: {
@@ -359,6 +360,7 @@ const pages = {
           }
         ]
       },
+      { type: 'meetTeam' },
       { type: 'benefits' },
       {
         type: 'values',
@@ -544,6 +546,7 @@ function renderHero(page, pageKey) {
           <div class="hero-copy">
             <span class="eyebrow">${page.hero.eyebrow}</span>
             <h1>${page.hero.headline}</h1>
+            <p class="hero-proof">★ 5.0 neighbor reviews · Warranty-backed · Free estimates</p>
             <p>${page.hero.body}</p>
             <p class="hero-trust">${page.hero.microcopy} · <a href="tel:${CONTACT_PHONE_TEL}">Call ${CONTACT_PHONE_DISPLAY}</a></p>
           </div>
@@ -628,7 +631,54 @@ function renderQuoteForm() {
   `
 }
 
+const serviceGroups = [
+  { title: 'Paint', indices: [0, 1, 4] },
+  { title: 'Renovate', indices: [2, 3], bento: true },
+  { title: 'Exterior care', indices: [5, 6] },
+  { title: 'Restore', indices: [7] }
+]
+
+const accentClasses = ['service-accent-blue', 'service-accent-magenta', 'service-accent-yellow']
+
+function renderServiceCard(index, featured = false) {
+  const service = services[index]
+  const accent = accentClasses[index % 3]
+  return `
+    <article class="service-card ${accent}${featured ? ' service-card-featured' : ''}">
+      <span class="service-icon service-icon-${(index % 4) + 1}" aria-hidden="true"></span>
+      <h3>${service.title}</h3>
+      <p>${service.body}</p>
+      ${service.learnHref ? `<a class="learn-link" href="${route(service.learnHref)}">Learn more</a>` : ''}
+    </article>`
+}
+
 function renderServices(full = false) {
+  if (full) {
+    return `
+      <section id="services">
+        ${sectionHeading(
+          'What We Do',
+          'Painting and renovation services for every part of your home',
+          'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
+        )}
+        ${serviceGroups
+          .map(
+            (group) => `
+          <div class="services-group">
+            <h3 class="services-subheading">${group.title}</h3>
+            <div class="services-grid${group.bento ? ' services-bento' : ''}">
+              ${group.indices
+                .map((index) => renderServiceCard(index, group.bento && (index === 2 || index === 3)))
+                .join('')}
+            </div>
+          </div>`
+          )
+          .join('')}
+        <div class="section-actions"><a class="text-link" href="${href('contact/')}">Get a Free Quote</a></div>
+      </section>
+    `
+  }
+
   return `
     <section id="services">
       ${sectionHeading(
@@ -636,20 +686,11 @@ function renderServices(full = false) {
         'Painting and renovation services for every part of your home',
         'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
       )}
-      <div class="services-grid${full ? '' : ' services-bento'}">
+      <div class="services-grid services-bento">
         ${services
-          .map(
-            (service, index) => `
-              <article class="service-card${!full && (index === 2 || index === 3) ? ' service-card-featured' : ''}">
-                <span class="service-icon service-icon-${(index % 4) + 1}" aria-hidden="true"></span>
-                <h3>${service.title}</h3>
-                <p>${service.body}</p>
-                ${service.learnHref ? `<a class="learn-link" href="${route(service.learnHref)}">Learn more</a>` : ''}
-              </article>`
-          )
+          .map((service, index) => renderServiceCard(index, index === 2 || index === 3))
           .join('')}
       </div>
-      ${full ? `<div class="section-actions"><a class="text-link" href="${href('contact/')}">Get a Free Quote</a></div>` : ''}
     </section>
   `
 }
@@ -669,9 +710,33 @@ function renderSocialGalleryIntro() {
   `
 }
 
-function renderProjectShowcase(block) {
+function getProjectItems(block) {
   const limit = block.limit || projectShowcase.length
-  const items = projectShowcase.slice(0, limit)
+  if (block.layout === 'featured' && limit <= projectShowcase.length) {
+    const featuredIndex = 1
+    const order = [featuredIndex, ...projectShowcase.map((_, i) => i).filter((i) => i !== featuredIndex)]
+    return order.slice(0, limit).map((i) => projectShowcase[i])
+  }
+  return projectShowcase.slice(0, limit)
+}
+
+function renderProjectCard(item, options = {}) {
+  const { featured = false, accentIndex = 0 } = options
+  return `
+    <article class="project-card project-card-accent-${accentIndex % 3}${featured ? ' project-card-featured' : ''}">
+      <div class="project-card-media">
+        <img src="${href(item.image)}" alt="${item.title}" loading="lazy" />
+        <div class="project-card-body">
+          <h3>${item.title}</h3>
+          <p>${item.body}</p>
+        </div>
+      </div>
+    </article>`
+}
+
+function renderProjectShowcase(block) {
+  const items = getProjectItems(block)
+  const isFeatured = block.layout === 'featured'
 
   return `
     <section id="projects" class="projects-section">
@@ -682,17 +747,10 @@ function renderProjectShowcase(block) {
           ? 'A sample of the services Pixel Paint delivers across Lake Nona, Orlando, and Central Florida.'
           : 'Recent project types we handle every week across the Orlando metro.'
       )}
-      <div class="projects-grid">
+      <div class="projects-grid${isFeatured ? ' projects-featured' : ''}">
         ${items
-          .map(
-            (item) => `
-              <article class="project-card">
-                <img src="${href(item.image)}" alt="${item.title}" loading="lazy" />
-                <div class="project-card-body">
-                  <h3>${item.title}</h3>
-                  <p>${item.body}</p>
-                </div>
-              </article>`
+          .map((item, index) =>
+            renderProjectCard(item, { featured: isFeatured && index === 0, accentIndex: index })
           )
           .join('')}
       </div>
@@ -754,9 +812,47 @@ function renderServiceAreas() {
 function renderTestimonials(block) {
   const limit = block.limit || testimonials.length
   const filter = block.filter
-  const items = testimonials
-    .filter((item) => !filter || item.service.toLowerCase().includes(filter.toLowerCase()))
-    .slice(0, limit)
+  let items = testimonials.filter(
+    (item) => !filter || item.service.toLowerCase().includes(filter.toLowerCase())
+  )
+
+  if (block.featured) {
+    const featuredIndex = items.findIndex((item) => item.name === 'Larry Truong')
+    const featured = featuredIndex >= 0 ? items.splice(featuredIndex, 1)[0] : items.shift()
+    items = items.slice(0, limit - 1)
+
+    return `
+      <section id="reviews" class="reviews-section">
+        ${sectionHeading(
+          'Customer Reviews',
+          'What homeowners say about Pixel Paint',
+          'Real feedback from painting and renovation clients across Central Florida.'
+        )}
+        <article class="review-featured">
+          <span class="eyebrow">Neighbor review</span>
+          <blockquote>${featured.quote}</blockquote>
+          <footer>★★★★★ · Lake Nona homeowner · ${featured.service}</footer>
+        </article>
+        <div class="reviews-grid reviews-carousel">
+          ${items
+            .map(
+              (item) => `
+              <article class="review-card">
+                <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote>${item.quote}</blockquote>
+                <footer>
+                  <strong>${item.name}</strong>
+                  <span>${item.service}</span>
+                </footer>
+              </article>`
+            )
+            .join('')}
+        </div>
+      </section>
+    `
+  }
+
+  items = items.slice(0, limit)
 
   return `
     <section id="reviews" class="reviews-section">
@@ -823,6 +919,56 @@ function renderCta(block) {
   `
 }
 
+function renderInstagramStrip() {
+  return `
+    <section class="instagram-strip">
+      <span class="eyebrow">Follow along</span>
+      <p>
+        Latest on
+        <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">@pixelpaint.renovations</a>
+      </p>
+    </section>
+  `
+}
+
+function renderMeetTeam() {
+  return `
+    <section id="team" class="meet-team">
+      ${sectionHeading(
+        'Our Team',
+        'Meet Mauricio Tascon',
+        'The project manager behind every Pixel Paint job — from first walkthrough to final warranty follow-up.'
+      )}
+      <article class="meet-team-card">
+        <img
+          class="meet-team-badge"
+          src="${href('logo-icon.png')}"
+          alt="Mauricio Tascon, Pixel Paint project manager"
+          width="120"
+          height="120"
+        />
+        <div class="meet-team-copy">
+          <h3>Mauricio Tascon</h3>
+          <p class="meet-team-role">Project Manager &amp; Founder</p>
+          <p>
+            Mauricio stays involved on every project — coordinating crews, sharing progress updates, and making sure
+            your home is protected and finished to the standard neighbors talk about. Background-checked painters,
+            premium materials, and warranty-backed follow-through start with his oversight on site.
+          </p>
+        </div>
+      </article>
+    </section>
+  `
+}
+
+function renderSectionDivider() {
+  return `
+    <div class="section-divider" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  `
+}
+
 function renderContact() {
   return `
     <section id="contact" class="contact-layout">
@@ -865,6 +1011,8 @@ function renderBlock(block) {
   if (block.type === 'values') return renderValues(block)
   if (block.type === 'cta') return renderCta(block)
   if (block.type === 'contact') return renderContact()
+  if (block.type === 'instagramStrip') return renderInstagramStrip()
+  if (block.type === 'meetTeam') return renderMeetTeam()
   return ''
 }
 
@@ -905,6 +1053,64 @@ function bindForm(form) {
   })
 }
 
+function bindScrollMotion() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  document.querySelectorAll('main > section:not(.home-hero):not(.page-hero)').forEach((section) => {
+    section.classList.add('motion-section')
+    if (prefersReduced) {
+      section.classList.add('motion-visible')
+      return
+    }
+    section.classList.add('motion-hidden')
+  })
+
+  if (!prefersReduced) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('motion-visible')
+            entry.target.classList.remove('motion-hidden')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    )
+
+    document.querySelectorAll('.motion-section.motion-hidden').forEach((section) => observer.observe(section))
+
+    const bannerImg = document.querySelector('.home-hero .hero-banner img')
+    if (bannerImg) {
+      let ticking = false
+      const onScroll = () => {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(() => {
+          const offset = Math.min(window.scrollY * 0.12, 24)
+          bannerImg.style.transform = `translate3d(0, ${offset}px, 0) scale(1.02)`
+          ticking = false
+        })
+      }
+      window.addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
+    }
+  }
+
+  const logoImg = document.querySelector('.logo img')
+  if (logoImg) {
+    logoImg.classList.add('logo-pulse')
+    logoImg.addEventListener(
+      'animationend',
+      () => {
+        logoImg.classList.remove('logo-pulse')
+      },
+      { once: true }
+    )
+  }
+}
+
 function bindInteractions(app) {
   const navToggle = document.querySelector('.nav-toggle')
   navToggle?.addEventListener('click', () => {
@@ -920,6 +1126,7 @@ function bindInteractions(app) {
   })
 
   app.querySelectorAll('.lead-form').forEach(bindForm)
+  bindScrollMotion()
 }
 
 export function mountPage(pageKey) {
@@ -935,7 +1142,9 @@ export function mountPage(pageKey) {
       ${renderHeader(pageKey)}
       <main>
         ${renderHero(page, pageKey)}
-        ${page.blocks.map(renderBlock).join('')}
+        ${page.blocks
+          .map((block, index) => `${index > 0 ? renderSectionDivider() : ''}${renderBlock(block)}`)
+          .join('')}
       </main>
       ${renderFooter()}
       ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${href('contact/')}">Get a Free Quote</a>` : ''}
