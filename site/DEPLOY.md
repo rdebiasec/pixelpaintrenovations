@@ -25,17 +25,26 @@ Then open **http://localhost:5180/pixel-renovations/** (assets use the repo subp
 
 Deploys automatically when `main` changes under `site/**` via [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml).
 
-### First-time setup
+### First-time setup (same auth as dbx-solutions)
 
-1. Create public repo `rdebiasec/pixel-renovations` on GitHub.
-2. Push `main`:
-   ```bash
-   git remote add origin git@github.com:rdebiasec/pixel-renovations.git
-   git push -u origin main
-   ```
-3. **Repo Settings → Pages → Build and deployment:**
-   - Source: **GitHub Actions**
-4. Confirm the **Deploy to GitHub Pages** workflow succeeds in the Actions tab.
+From the repo root, use [`deploy2github.sh`](../deploy2github.sh) — it creates the GitHub repo (if needed), sets `origin` without storing credentials, pushes `main` with a PAT in the push URL only, and enables Pages (GitHub Actions source).
+
+```bash
+export GITHUB_PAT="your_github_pat"   # or GH_TOKEN — same as dbx
+chmod +x deploy2github.sh
+./deploy2github.sh
+```
+
+Alternatively, push manually after setting a clean remote:
+
+```bash
+git remote add origin https://github.com/rdebiasec/pixel-renovations.git
+git push https://$GITHUB_PAT@github.com/rdebiasec/pixel-renovations.git main
+```
+
+> **Authentication tips:** If your shell does not have credentials cached, export `GITHUB_PAT` or `GH_TOKEN` before running `deploy2github.sh`, or enter the PAT at the secure prompt. Generate tokens from GitHub **Settings → Developer settings → Personal access tokens**. Use fine-grained tokens scoped to this repo with **Contents: Read & Write** and **Pages: Read and write** (or classic `repo` scope).
+
+After the first push, confirm the **Deploy to GitHub Pages** workflow succeeds in the Actions tab.
 
 ### Build behavior
 
