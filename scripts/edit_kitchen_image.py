@@ -22,50 +22,53 @@ def build_masks(img_bgr):
     sat = hsv[:, :, 1]
     hue = hsv[:, :, 0]
 
-    # Charcoal cabinets only — dark green marble backsplash has L ~45–90, keep it
-    cabinet = (L < 42) & (sat < 40)
-
-    # Green wall / marble / sage backsplash — dark green marble + lighter sage tones
-    green_hue = (hue >= 28) & (hue <= 95)
-    green_dom = (g.astype(np.int16) > b_ch.astype(np.int16) - 5) & (
-        (g.astype(np.int16) > r.astype(np.int16) - 15) | green_hue
+    # Charcoal cabinets: neutral grey-brown, low saturation
+    neutral = (
+        (np.abs(r.astype(np.int16) - g.astype(np.int16)) < 14)
+        & (np.abs(g.astype(np.int16) - b_ch.astype(np.int16)) < 14)
+        & (np.abs(r.astype(np.int16) - b_ch.astype(np.int16)) < 18)
     )
-    green_wall = green_dom & (A.astype(np.int16) < 135) & (L > 22) & (L < 210) & (sat > 10)
+    cabinet = neutral & (sat < 45) & (L > 32) & (L < 120)
 
-    # Ceiling: top band, non-cabinet, moderate luminance
+    # Green marble / sage wall — high saturation separates from charcoal cabinets
+    green_wall = (
+        (hue >= 26)
+        & (hue <= 95)
+        & (sat > 35)
+        & (g.astype(np.int16) > b_ch.astype(np.int16) - 4)
+        & (L > 18)
+        & (L < 178)
+    )
+
     ceiling_geo = np.zeros((h, w), dtype=bool)
-    ceiling_geo[:188, :] = True
-    ceiling_surface = (
-        (L > 40) & (L < 200) & (A > 108) & (A < 142) & ceiling_geo & ~bright
-    )
-    ceiling_surface |= green_wall & ceiling_geo
-    ceiling_surface[cabinet] = False
+    ceiling_geo[:158, :] = True
+    ceiling_surface = ceiling_geo & ~bright & ~cabinet & (L > 40) & (L < 210)
 
-    # Backsplash geometry — between cabinets, around window
     backsplash_geo = np.zeros((h, w), dtype=bool)
-    backsplash_geo[168:700, :] = True
-    backsplash = green_wall & backsplash_geo & ~ceiling_geo & ~bright
-    backsplash[cabinet] = False
+    backsplash_geo[158:700, :] = True
+    backsplash = green_wall & backsplash_geo & ~bright & ~cabinet
 
-    # Exclude window (center, blue/night sky tones)
     window_geo = np.zeros((h, w), dtype=bool)
     window_geo[240:560, 420:820] = True
-    window = window_geo & (b_ch.astype(np.int16) > r.astype(np.int16) + 5) & (sat < 85)
+    window = window_geo & (b_ch.astype(np.int16) > r.astype(np.int16) + 5) & (sat < 90)
     backsplash[window] = False
 
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    erode_k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
 
-    def feather(mask_bool):
-        m = cv2.morphologyEx(mask_bool.astype(np.uint8) * 255, cv2.MORPH_CLOSE, kernel)
+    def feather(mask_bool, erode=False):
+        m = mask_bool.astype(np.uint8) * 255
+        if erode:
+            m = cv2.erode(m, erode_k, iterations=1)
+        m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, kernel)
         m = cv2.morphologyEx(m, cv2.MORPH_OPEN, kernel)
-        m = cv2.GaussianBlur(m, (9, 9), 0)
+        m = cv2.GaussianBlur(m, (7, 7), 0)
         return m.astype(np.float32) / 255.0
 
     ceiling_m = feather(ceiling_surface)
-    backsplash_m = feather(backsplash)
-
-    # Soften cabinet edges on backsplash
-    backsplash_m[cabinet] *= 0.05
+    backsplash_m = feather(backsplash, erode=True)
+    backsplash_m[cabinet] = 0.0
+    ceiling_m[cabinet] = 0.0
 
     return ceiling_m, backsplash_m, L.astype(np.float32)
 
@@ -91,8 +94,8 @@ def generate_weathered_brick(w, h, seed=42):
     )
     mortar_color = np.array([172, 162, 148], dtype=np.float32)
 
-    brick_h, brick_w = 26, 58
-    mortar = 4
+    brick_h, brick_w = 22, 50
+    mortar = 3
     rows = h // (brick_h + mortar) + 4
     cols = w // (brick_w + mortar) + 4
 
@@ -251,7 +254,7 @@ def enhance_realism(img_rgb, ceiling_mask, backsplash_mask):
     grain = rng.normal(0, 1.0, result.shape).astype(np.float32)
     surface = np.maximum(ceiling_mask, backsplash_mask)
     surface = cv2.GaussianBlur(surface, (5, 5), 0)
-    result += grain * surface[:, :, None] * 0.35
+    result += grain * surface[:, :, None] * 0.2
 
     return np.clip(result, 0, 255).astype(np.uint8)
 
