@@ -5,7 +5,7 @@ set -euo pipefail
 # CONFIG
 ########################################
 GITHUB_USER="rdebiasec"
-REPO_NAME="pixel-renovations"
+REPO_NAME="pixelpaintrenovations"
 PRIVATE=false
 DEFAULT_BRANCH="main"
 

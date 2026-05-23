@@ -5,7 +5,7 @@ export const CONTACT_PHONE_TEL = '+14078837891'
 export const BUSINESS_LOCATION = 'Lake Nona, FL'
 export const INSTAGRAM_URL = 'https://www.instagram.com/pixelpaint.renovations/'
 export const FACEBOOK_URL = 'https://www.facebook.com/pixelpaint.renovations/'
-export const SITE_URL = 'https://rdebiasec.github.io/pixel-renovations'
+export const SITE_URL = 'https://rdebiasec.github.io/pixelpaintrenovations'
 export const OG_IMAGE = 'og-image.jpg'
 export const HERO_IMAGE = 'hero.jpg'
 

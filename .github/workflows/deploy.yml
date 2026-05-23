@@ -47,7 +47,7 @@ jobs:
             echo "base_path=/" >> $GITHUB_OUTPUT
           else
             echo "has_custom_domain=false" >> $GITHUB_OUTPUT
-            echo "base_path=/pixel-renovations/" >> $GITHUB_OUTPUT
+            echo "base_path=/pixelpaintrenovations/" >> $GITHUB_OUTPUT
           fi
 
       - name: Build
