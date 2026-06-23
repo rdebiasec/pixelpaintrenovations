@@ -169,17 +169,19 @@ function attrsForExternal(url) {
 
 function renderServiceSubnav(pageKey) {
   const hash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : ''
+  const links = serviceSubnav
+    .map((item) => {
+      const isCurrent = item.page === pageKey && (!item.anchor || hash === item.anchor)
+      return `<a href="${href(item.path)}"${isCurrent ? ' aria-current="page"' : ''}>${item.label}</a>`
+    })
+    .join('')
   return `
     <div class="service-subnav" aria-label="Specialty services">
       <div class="service-subnav-inner">
         <span class="service-subnav-label">Popular services</span>
-        ${serviceSubnav
-          .map((item) => {
-            const isCurrent =
-              item.page === pageKey && (!item.anchor || hash === item.anchor)
-            return `<a href="${href(item.path)}"${isCurrent ? ' aria-current="page"' : ''}>${item.label}</a>`
-          })
-          .join('')}
+        <div class="service-subnav-links">
+          ${links}
+        </div>
       </div>
     </div>
   `
@@ -231,7 +233,7 @@ function renderHero(page, pageKey) {
       <section class="hero home-hero" id="top">
         <div class="hero-shell">
           <div class="hero-banner">
-            <img src="${href(HERO_IMAGE)}" alt="Stylized cartoon illustration of Lake Nona — Veterans Hospital, Town Center with chrome Disco dog and Wave Hotel, and Boxi Park shipping containers under a Florida sky" />
+            <img src="${href(HERO_IMAGE)}" alt="Lake Nona landmark panorama featuring the VA Medical Center architecture, Town Center with the Disco dog and Wave Hotel, and Boxi Park container buildings in one seamless scene" />
           </div>
           <div class="hero-split">
             <div class="hero-copy-primary">
@@ -1151,21 +1153,7 @@ function bindScrollMotion() {
 
     document.querySelectorAll('.motion-section.motion-hidden').forEach((section) => observer.observe(section))
 
-    const bannerImg = document.querySelector('.home-hero .hero-banner img')
-    if (bannerImg) {
-      let ticking = false
-      const onScroll = () => {
-        if (ticking) return
-        ticking = true
-        requestAnimationFrame(() => {
-          const offset = Math.min(window.scrollY * 0.12, 24)
-          bannerImg.style.transform = `translate3d(0, ${offset}px, 0)`
-          ticking = false
-        })
-      }
-      window.addEventListener('scroll', onScroll, { passive: true })
-      onScroll()
-    }
+    // Keep the home hero static so the landmark panorama remains stable.
   }
 
   const logoImg = document.querySelector('.logo img')
