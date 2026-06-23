@@ -13,397 +13,26 @@ import {
   OG_IMAGE,
   HERO_IMAGE
 } from './legal/constants.js'
-
-const nav = [
-  { page: 'home', path: '', label: 'Home' },
-  { page: 'servicesPage', path: 'services/', label: 'Services' },
-  { page: 'projectsPage', path: 'projects/', label: 'Projects' },
-  { page: 'aboutPage', path: 'about/', label: 'About' },
-  { page: 'contactPage', path: 'contact/', label: 'Contact' }
-]
-
-const serviceOptions = [
-  'Interior painting',
-  'Exterior painting',
-  'Kitchen renovations',
-  'Bathroom refresh',
-  'Cabinet painting & refinishing',
-  'Pressure washing & paver sealing',
-  'Fence & deck staining',
-  'Stucco repair & prep-for-sale touch-ups',
-  'Other'
-]
-
-const services = [
-  {
-    title: 'Interior Painting',
-    body: 'Full-home and room-by-room interior painting with premium grades, careful prep, and clean job sites every day.',
-    learnHref: 'services/'
-  },
-  {
-    title: 'Exterior Painting',
-    body: 'Weather-ready exterior coatings, crack sealing, and thorough surface prep built for Florida sun, rain, and heat.',
-    learnHref: 'services/'
-  },
-  {
-    title: 'Kitchen Renovations',
-    body: 'Cabinet painting, countertops, backsplash, lighting, and hardware updates that transform how you use your kitchen.',
-    learnHref: 'kitchen-renovations/'
-  },
-  {
-    title: 'Bathroom Refresh',
-    body: 'Tile refinishing, wallpaper removal, texture repair, and modern paint finishes without a full gut renovation.',
-    learnHref: 'bathroom-renovations/'
-  },
-  {
-    title: 'Cabinet Painting',
-    body: 'Factory-smooth cabinet refinishing with durable finishes, color guidance, and updated hardware options.',
-    learnHref: 'services/'
-  },
-  {
-    title: 'Pressure Washing',
-    body: 'Driveways, pavers, siding, and outdoor surfaces cleaned, sanded, and sealed to look new again.',
-    learnHref: 'services/'
-  },
-  {
-    title: 'Fence & Deck Staining',
-    body: 'Even stain application over imperfect surfaces with neighbor-friendly prep and a polished final finish.',
-    learnHref: 'services/'
-  },
-  {
-    title: 'Stucco & Touch-Ups',
-    body: 'Crack sealing, stucco repair, and listing-ready touch-ups so your home shows beautifully inside and out.',
-    learnHref: 'services/'
-  }
-]
-
-const whyChooseUs = [
-  ['Responsive communication', 'Mauricio and your project manager stay in touch with clear updates from quote through completion.'],
-  ['Background-checked crew', 'Professional painters who respect your home, keep work areas clean, and minimize disruption.'],
-  ['Premium materials & prep', 'High-quality paint grades, crack sealing, color samples, and prep that holds up in Florida conditions.'],
-  ['Warranty you can trust', 'Post-job follow-through and warranty support that customers mention again and again in reviews.'],
-  ['Flexible & detail-oriented', 'Last-minute changes, small extras, and thoughtful fixes handled without losing momentum.'],
-  ['Competitive, transparent pricing', 'Fair quotes, on-time schedules, and craftsmanship that neighbors recommend.']
-]
-
-const serviceAreas = [
-  {
-    title: 'Lake Nona & Southeast Orlando',
-    areas: ['Lake Nona', 'Laureate Park', 'Narcoossee', 'St. Cloud', 'Medical City']
-  },
-  {
-    title: 'Central Orlando',
-    areas: ['Orlando', 'Winter Park', 'Baldwin Park', 'College Park', 'Downtown Orlando']
-  },
-  {
-    title: 'Southwest Metro',
-    areas: ['Kissimmee', "Hunter's Creek", 'Meadow Woods', 'Southchase', 'Celebration']
-  },
-  {
-    title: 'Greater Central Florida',
-    areas: ['Surrounding communities by request', 'HOA and multi-unit projects welcome']
-  }
-]
-
-const projectShowcase = [
-  {
-    title: 'Exterior painting & paver sealing',
-    body: 'Full exterior repaints, pressure washing, sanding, and paver sealing built for Florida weather.',
-    image: 'projects/project-exterior-painting-paver-sealing.jpg'
-  },
-  {
-    title: 'Kitchen transformations',
-    body: 'Cabinet painting, countertops, backsplash, lighting, and hardware updates.',
-    image: 'projects/project-kitchen-transformations.jpg'
-  },
-  {
-    title: 'Interior whole-home painting',
-    body: 'Premium interior finishes with protected floors, furniture, and spotless daily cleanup.',
-    image: 'projects/project-interior-whole-home-painting.jpg'
-  },
-  {
-    title: 'Bathroom refresh & tile refinishing',
-    body: 'Modernize dated bathrooms with tile refinishing, wallpaper removal, and new paint.',
-    image: 'projects/project-bathroom-tile-refinishing.jpg'
-  },
-  {
-    title: 'Exterior pressure washing',
-    body: 'Driveways, siding, pavers, and outdoor surfaces cleaned and restored to like-new condition.',
-    image: 'projects/project-exterior-pressure-washing.jpg'
-  },
-  {
-    title: 'Fence & deck staining',
-    body: 'Even stain application with neighbor-friendly prep and polished results.',
-    image: 'projects/project-fence-deck-staining.jpg'
-  },
-  {
-    title: 'Business projects',
-    body: 'Organized crews for offices, retail, HOA, and multi-unit properties with clear communication.',
-    image: 'projects/project-business-projects.jpg'
-  },
-  {
-    title: 'Prep-for-sale touch-ups',
-    body: 'Listing-ready painting, stucco repair, and fast turnarounds before market.',
-    image: 'projects/project-prep-for-sale-touch-ups.jpg'
-  }
-]
-
-const testimonials = [
-  {
-    name: 'Larry Truong',
-    service: 'Exterior painting',
-    quote:
-      'Mauricio and the Pixel Paint team did a fantastic job with a full cleaning and exterior painting of my home as well as pressure washing, sanding and sealing pavers. He provided regular updates, and I appreciated him taking care of smaller items during the process.'
-  },
-  {
-    name: 'Ricardo De Biase',
-    service: 'Exterior painting',
-    quote:
-      'Great price. The crew Mauricio runs is amazing and very professional, my house was painted perfectly, on time and within a reasonable price and no one beats Pixel\'s warranty.'
-  },
-  {
-    name: 'Irene Montanaro',
-    service: 'Bathroom refresh',
-    quote:
-      'He was able to paint and refinish our tile making it appear much more modern. He also stripped two layers of old wallpaper, textured the wall and painted it. The entire process was very professional and the work area was kept clean.'
-  },
-  {
-    name: 'Jennifer Fitzgerald',
-    service: 'Kitchen renovation',
-    quote:
-      'Mauricio and his team at Pixel Paint completely transformed what was a very brown dull kitchen into something I am so excited to host friends and family in! Process was smooth and quick from start to finish.'
-  },
-  {
-    name: 'Justin Q',
-    service: 'Exterior painting',
-    quote:
-      'Pixel Paint is one of the few companies that doesn\'t forget you even after the job is done. When we had an issue years later, Mauricio replied within minutes that he\'d take care of us. They live up to their word.'
-  },
-  {
-    name: 'Eric Whitten',
-    service: 'Kitchen renovation',
-    quote:
-      'We used Mauricio and his team to renovate our kitchen, including painting cabinets, new countertops, new backsplash, and new lighting. Responsive, easy to work with, and a great overall value.'
-  },
-  {
-    name: 'Kristina Herndon',
-    service: 'Interior painting',
-    quote:
-      'We had them do a full interior paint job of our house — it looks great! The crew was friendly, professional, and quiet as a mouse while they worked. We highly recommend their services.'
-  },
-  {
-    name: 'Josie Kassem',
-    service: 'Exterior painting',
-    quote:
-      'Pixel Paint Renovations did an outstanding job providing us with information about different types of paint and painting our house professionally. Their warranty is second to none.'
-  },
-  {
-    name: 'Pamela Bolingbroke',
-    service: 'Interior painting',
-    quote:
-      'I managed a paint manufacturing company for 15 years and typically painted my homes myself. I feel qualified to give Pixel Paint Renovations a five star rating for workmanship and materials.'
-  },
-  {
-    name: 'Michelle Ospina',
-    service: 'Commercial painting',
-    quote:
-      'Highly recommend. They are very responsive and solution-oriented. All workers are background checked and the project manager is regularly on site overseeing all work.'
-  },
-  {
-    name: 'Luis D',
-    service: 'Exterior painting',
-    quote:
-      'From the very beginning Mauricio was great in explaining everything and going over color options. Jonathan and John did a phenomenal job painting and were great at keeping the site as clean as possible.'
-  },
-  {
-    name: 'Kristi House',
-    service: 'Interior & exterior',
-    quote:
-      'We had a great experience with Mauricio and his team. They are professional, detailed and easy to work with. Highly recommend!'
-  }
-]
-
-const pages = {
-  home: {
-    path: '',
-    title: 'Pixel Paint Renovations | House Painting & Home Renovations in Orlando',
-    description:
-      'Trusted painting and renovation team serving Lake Nona, Orlando, and Central Florida. Interior & exterior painting, kitchen and bathroom updates, and warranty-backed craftsmanship.',
-    hero: {
-      eyebrow: 'House Painting & Renovations',
-      headline: "Lake Nona's go-to paint & renovation crew.",
-      body:
-        'Beautiful finishes, clear communication, and warranty-backed work from a local team neighbors recommend.',
-      microcopy: 'Licensed & insured · Background-checked crew · Free estimates · Serving Lake Nona & Orlando metro'
-    },
-    blocks: [
-      { type: 'services' },
-      { type: 'projectShowcase', limit: 3, layout: 'featured' },
-      {
-        type: 'textSplit',
-        sections: [
-          {
-            title: 'Renovation excellence rooted in Lake Nona',
-            body:
-              'Pixel Paint and Renovations Inc was built on Mauricio Tascon\'s commitment to treating every home like his own. From single-room refreshes to full exterior repaints and kitchen transformations, the team has earned repeat business across Orlando through word of mouth and neighbor referrals.'
-          },
-          {
-            title: 'From quote to final walkthrough',
-            body:
-              'Whether you need help choosing paint grades, sealing Florida stucco cracks, or coordinating a kitchen update before listing your home, Pixel brings organized crews, on-site oversight, and the kind of follow-through that keeps clients coming back for the next project.'
-          }
-        ]
-      },
-      { type: 'benefits' },
-      { type: 'serviceAreas' },
-      { type: 'instagramStrip' },
-      { type: 'testimonials', limit: 6, featured: true }
-    ]
-  },
-  servicesPage: {
-    path: 'services/',
-    title: 'Services | Pixel Paint Renovations',
-    description:
-      'Interior and exterior painting, kitchen renovations, bathroom refreshes, cabinet refinishing, pressure washing, and stucco repair in Central Florida.',
-    hero: {
-      eyebrow: 'Our Services',
-      headline: 'Complete painting and renovation services for your home',
-      body:
-        'From premium interior and exterior painting to kitchen cabinets, bathroom tile refinishing, and prep-for-sale touch-ups, Pixel Paint handles projects with the same care on every job site.'
-    },
-    blocks: [{ type: 'services', full: true }, { type: 'testimonials', limit: 4 }]
-  },
-  kitchenPage: {
-    path: 'kitchen-renovations/',
-    title: 'Kitchen Renovations | Pixel Paint Renovations',
-    description:
-      'Kitchen cabinet painting, countertops, backsplash, lighting, and hardware updates in Lake Nona and Orlando.',
-    hero: {
-      eyebrow: 'Kitchen Renovations',
-      headline: 'Transform your kitchen without starting from scratch',
-      body:
-        'Refresh dated cabinets with durable finishes, update countertops and backsplash, add under-cabinet lighting, and modernize hardware — all managed by a responsive local team.'
-    },
-    blocks: [
-      {
-        type: 'textSplit',
-        sections: [
-          {
-            title: 'Cabinet painting & refinishing',
-            body:
-              'Factory-smooth cabinet finishes in modern colors, with expert color pairing for upper and lower cabinets, flat black hardware, and under-cabinet lighting where it makes the biggest impact.'
-          },
-          {
-            title: 'Counters, backsplash & lighting',
-            body:
-              'Coordinate countertop replacement, backsplash installation, and lighting updates in one project so your kitchen feels cohesive, brighter, and ready for guests.'
-          }
-        ]
-      },
-      { type: 'testimonials', filter: 'Kitchen', limit: 3 }
-    ]
-  },
-  bathroomPage: {
-    path: 'bathroom-renovations/',
-    title: 'Bathroom Renovations | Pixel Paint Renovations',
-    description:
-      'Cost-effective bathroom refreshes with tile refinishing, wallpaper removal, texture repair, and professional painting in Central Florida.',
-    hero: {
-      eyebrow: 'Bathroom Refresh',
-      headline: 'Modernize a dated bathroom without a full gut renovation',
-      body:
-        'Paint and refinish existing tile, remove old wallpaper, retexture walls, and deliver a cleaner, brighter bathroom while keeping noise and disruption to a minimum.'
-    },
-    blocks: [
-      {
-        type: 'textSplit',
-        sections: [
-          {
-            title: 'Tile refinishing & paint updates',
-            body:
-              'When a full remodel isn\'t in the budget, refinishing tile and updating wall finishes can make a dated bathroom feel dramatically more modern.'
-          },
-          {
-            title: 'Clean, respectful work sites',
-            body:
-              'Pixel teams protect surrounding areas, keep pathways usable, and communicate clearly so you can stay comfortable at home during the refresh.'
-          }
-        ]
-      },
-      { type: 'testimonials', filter: 'Bathroom', limit: 2 }
-    ]
-  },
-  aboutPage: {
-    path: 'about/',
-    title: 'About | Pixel Paint Renovations',
-    description:
-      'Meet Mauricio Tascon and the Pixel Paint team — professional painters and renovators serving Lake Nona and Central Florida.',
-    hero: {
-      eyebrow: 'About Pixel Paint',
-      headline: 'Professional painters who treat your home like their own',
-      body:
-        'Led by Mauricio Tascon, Pixel Paint and Renovations Inc combines organized project management, premium materials, and the warranty-backed service that keeps neighbors recommending the team.'
-    },
-    blocks: [
-      {
-        type: 'textSplit',
-        sections: [
-          {
-            title: 'Built on trust and referrals',
-            body:
-              'Pixel Paint grew through word of mouth from homeowners across Lake Nona, Laureate Park, and the greater Orlando area. Clients return for second projects because the team communicates clearly, shows up on schedule, and stands behind the work.'
-          },
-          {
-            title: 'How we work',
-            body:
-              'Every project starts with a thorough walk-through, clear scope, and realistic timeline. Crews are background checked, sites are protected daily, and Mauricio stays involved from color selection through final walkthrough.'
-          }
-        ]
-      },
-      { type: 'meetTeam' },
-      { type: 'benefits' },
-      {
-        type: 'values',
-        items: [
-          ['Quality first', 'Premium paint grades, proper prep, and finishes chosen for Florida conditions.'],
-          ['Clear communication', 'Timely updates and a project manager on site when it matters most.'],
-          ['Respect for your home', 'Clean job sites, protected floors and furniture, and considerate neighbors.'],
-          ['Warranty & follow-through', 'Support after the job is done — because great service doesn\'t end at final payment.']
-        ]
-      }
-    ]
-  },
-  contactPage: {
-    path: 'contact/',
-    title: 'Contact | Pixel Paint Renovations',
-    description:
-      'Request a free painting or renovation quote from Pixel Paint and Renovations in Lake Nona and Orlando, FL.',
-    hero: {
-      eyebrow: 'Contact',
-      headline: 'Request a free quote or ask a question',
-      body:
-        'Call, email, or send project details below. Share photos of your space and the services you need — we\'ll respond quickly with next steps.'
-    },
-    blocks: [{ type: 'contact' }, { type: 'testimonials', limit: 6 }]
-  },
-  projectsPage: {
-    path: 'projects/',
-    title: 'Projects | Pixel Paint Renovations',
-    description:
-      'Recent painting and renovation projects across Lake Nona, Orlando, and Central Florida. See our work on Instagram and Facebook.',
-    ogImage: OG_IMAGE,
-    hero: {
-      eyebrow: 'Our Projects',
-      headline: 'Quality craftsmanship across Central Florida homes',
-      body:
-        'From exterior repaints and kitchen updates to community hallway projects, Pixel Paint delivers organized crews, premium materials, and results homeowners recommend.'
-    },
-    blocks: [
-      { type: 'socialGalleryIntro' },
-      { type: 'projectShowcase', full: true }
-    ]
-  }
-}
+import {
+  nav,
+  serviceOptions,
+  serviceSubnav,
+  services,
+  serviceGroups,
+  testimonials,
+  projectShowcase,
+  whyChooseUs,
+  serviceAreas,
+  processSteps,
+  pages,
+  WARRANTY_HEADLINE,
+  WARRANTY_SUMMARY,
+  WARRANTY_QUOTE_NOTE,
+  WARRANTY_FOOTER_LINE,
+  WARRANTY_STRIP_TEXT,
+  WARRANTY_TERMS_PLACEHOLDER
+} from './content/index.js'
+import { initAnalytics, trackEvent } from './analytics.js'
 
 function upsertMeta(attr, key, content) {
   let el = document.querySelector(`meta[${attr}="${key}"]`)
@@ -415,6 +44,16 @@ function upsertMeta(attr, key, content) {
   el.setAttribute('content', content)
 }
 
+function upsertLink(rel, href) {
+  let el = document.querySelector(`link[rel="${rel}"]`)
+  if (!el) {
+    el = document.createElement('link')
+    el.setAttribute('rel', rel)
+    document.head.appendChild(el)
+  }
+  el.setAttribute('href', href)
+}
+
 function setMeta(page) {
   document.title = page.title
   const description = page.description
@@ -422,6 +61,7 @@ function setMeta(page) {
 
   const ogImage = absoluteUrl(page.ogImage || OG_IMAGE)
   const ogUrl = absoluteUrl(page.path || '')
+  upsertLink('canonical', ogUrl)
   upsertMeta('property', 'og:title', page.title)
   upsertMeta('property', 'og:description', description)
   upsertMeta('property', 'og:image', ogImage)
@@ -453,7 +93,38 @@ function injectLocalBusinessSchema() {
       addressRegion: 'FL',
       addressCountry: 'US'
     },
-    areaServed: 'Central Florida',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 28.3683,
+      longitude: -81.2762
+    },
+    areaServed: ['Lake Nona', 'Orlando', 'Central Florida'],
+    priceRange: String.fromCharCode(36, 36),
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      reviewCount: String(testimonials.length),
+      bestRating: '5'
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Painting and renovation services',
+      itemListElement: services.map((service) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          description: service.body,
+          areaServed: 'Central Florida'
+        }
+      }))
+    },
+    review: testimonials.slice(0, 3).map((item) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: item.name },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+      reviewBody: item.quote
+    })),
     sameAs: [INSTAGRAM_URL, FACEBOOK_URL]
   })
   document.head.appendChild(script)
@@ -496,8 +167,27 @@ function attrsForExternal(url) {
     : ''
 }
 
+function renderServiceSubnav(pageKey) {
+  const hash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : ''
+  return `
+    <div class="service-subnav" aria-label="Specialty services">
+      <div class="service-subnav-inner">
+        <span class="service-subnav-label">Popular services</span>
+        ${serviceSubnav
+          .map((item) => {
+            const isCurrent =
+              item.page === pageKey && (!item.anchor || hash === item.anchor)
+            return `<a href="${href(item.path)}"${isCurrent ? ' aria-current="page"' : ''}>${item.label}</a>`
+          })
+          .join('')}
+      </div>
+    </div>
+  `
+}
+
 function renderHeader(pageKey) {
   return `
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header">
       <div class="header-brand">
         <a href="${href('')}" class="logo" aria-label="${COMPANY_LEGAL_NAME} home">
@@ -513,7 +203,7 @@ function renderHeader(pageKey) {
           .join('')}
       </nav>
       <div class="header-actions">
-        <a class="header-phone" href="tel:${CONTACT_PHONE_TEL}">${CONTACT_PHONE_DISPLAY}</a>
+        <a class="header-phone" href="tel:${CONTACT_PHONE_TEL}" data-track="phone_header">${CONTACT_PHONE_DISPLAY}</a>
       </div>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
         <span class="sr-only">Toggle navigation</span>
@@ -539,20 +229,110 @@ function renderHero(page, pageKey) {
   if (pageKey === 'home') {
     return `
       <section class="hero home-hero" id="top">
-        <div class="hero-banner">
-          <img src="${href(HERO_IMAGE)}" alt="Pixel Paint Renovations serving Lake Nona and Central Florida" />
+        <div class="hero-shell">
+          <div class="hero-banner">
+            <img src="${href(HERO_IMAGE)}" alt="Stylized cartoon illustration of Lake Nona — Veterans Hospital, Town Center with chrome Disco dog and Wave Hotel, and Boxi Park shipping containers under a Florida sky" />
+          </div>
+          <div class="hero-split">
+            <div class="hero-copy-primary">
+              <span class="eyebrow">${page.hero.eyebrow}</span>
+              <h1>${page.hero.headline}</h1>
+              <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="#warranty">Written warranty</a> · Free estimates</p>
+              ${page.hero.lead ? `<p class="hero-lead">${page.hero.lead}</p>` : ''}
+            </div>
+            <aside class="hero-form-panel hero-panel hero-panel-form" id="quote">
+              ${renderQuoteFormInner('Request a Free Quote', true)}
+            </aside>
+            <div class="hero-copy-secondary">
+              ${page.hero.body ? `<p class="hero-body">${page.hero.body}</p>` : ''}
+              ${
+                page.hero.highlights?.length
+                  ? `<ul class="hero-highlights">${page.hero.highlights.map((item) => `<li>${item}</li>`).join('')}</ul>`
+                  : ''
+              }
+              <p class="hero-trust">${page.hero.microcopy} · <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_hero">Call ${CONTACT_PHONE_DISPLAY}</a></p>
+            </div>
+          </div>
         </div>
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <span class="eyebrow">${page.hero.eyebrow}</span>
-            <h1>${page.hero.headline}</h1>
-            <p class="hero-proof">★ 5.0 neighbor reviews · Warranty-backed · Free estimates</p>
-            <p>${page.hero.body}</p>
-            <p class="hero-trust">${page.hero.microcopy} · <a href="tel:${CONTACT_PHONE_TEL}">Call ${CONTACT_PHONE_DISPLAY}</a></p>
-          </div>
-          <div class="hero-form-panel" id="quote">
-            ${renderQuoteFormInner('Request a Free Quote', true)}
-          </div>
+      </section>
+    `
+  }
+
+  if (pageKey === 'servicesPage' || pageKey === 'projectsPage' || pageKey === 'contactPage') {
+    const proofSuffix =
+      pageKey === 'servicesPage'
+        ? 'Same PM from quote to finish'
+        : pageKey === 'projectsPage'
+          ? 'Same PM start to finish'
+          : 'Free on-site estimates'
+    const statsLabel =
+      pageKey === 'servicesPage'
+        ? 'Service categories'
+        : pageKey === 'projectsPage'
+          ? 'What you get on every project'
+          : 'Why reach out now'
+
+    const marketingHeroClass =
+      pageKey === 'projectsPage'
+        ? 'hero page-hero page-hero-marketing page-hero-projects'
+        : pageKey === 'servicesPage'
+          ? 'hero page-hero page-hero-marketing page-hero-services'
+          : pageKey === 'contactPage'
+            ? 'hero page-hero page-hero-marketing page-hero-contact'
+            : 'hero page-hero page-hero-marketing'
+
+    return `
+      <section class="${marketingHeroClass}" id="top">
+        <div class="hero-copy">
+          <span class="eyebrow">${page.hero.eyebrow}</span>
+          <h1>${page.hero.headline}</h1>
+          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="${route('')}#warranty">Written warranty</a> · ${proofSuffix}</p>
+          ${page.hero.lead ? `<p class="hero-lead">${page.hero.lead}</p>` : ''}
+          ${page.hero.body ? `<p class="hero-body">${page.hero.body}</p>` : ''}
+          ${
+            page.hero.stats?.length
+              ? `<ul class="hero-stats" aria-label="${statsLabel}">${page.hero.stats
+                  .map(
+                    (stat) =>
+                      `<li class="hero-stat"><strong>${stat.label}</strong><span>${stat.detail}</span></li>`
+                  )
+                  .join('')}</ul>`
+              : ''
+          }
+          ${
+            page.hero.trust
+              ? `<p class="hero-trust">${page.hero.trust} · <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_hero">Call ${CONTACT_PHONE_DISPLAY}</a></p>`
+              : ''
+          }
+        </div>
+      </section>
+    `
+  }
+
+  if (pageKey === 'aboutPage') {
+    return `
+      <section class="hero page-hero page-hero-about" id="top">
+        <div class="hero-copy">
+          <span class="eyebrow">${page.hero.eyebrow}</span>
+          <h1>${page.hero.headline}</h1>
+          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · Referral-driven · <a href="${route('')}#warranty">Written warranty</a></p>
+          ${page.hero.lead ? `<p class="hero-lead">${page.hero.lead}</p>` : ''}
+          ${page.hero.body ? `<p class="hero-body">${page.hero.body}</p>` : ''}
+          ${
+            page.hero.stats?.length
+              ? `<ul class="hero-stats" aria-label="Why neighbors trust Pixel Paint">${page.hero.stats
+                  .map(
+                    (stat) =>
+                      `<li class="hero-stat"><strong>${stat.label}</strong><span>${stat.detail}</span></li>`
+                  )
+                  .join('')}</ul>`
+              : ''
+          }
+          ${
+            page.hero.trust
+              ? `<p class="hero-trust">${page.hero.trust} · <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_hero">Call ${CONTACT_PHONE_DISPLAY}</a></p>`
+              : ''
+          }
         </div>
       </section>
     `
@@ -581,37 +361,50 @@ function renderHero(page, pageKey) {
   `
 }
 
-function renderQuoteFormInner(title, compact = false) {
+function renderQuoteFormInner(title, compact = false, options = {}) {
+  const half = compact ? ' class="field-half"' : ''
+  const full = compact ? ' class="full-field field-full"' : ' class="full-field"'
+  const intro =
+    options.intro ||
+    'Share your project — we respond quickly with next steps and a free estimate.'
+  const photoHint = options.photoHint
+    ? `<p class="form-photo-hint">${options.photoHint}</p>`
+    : ''
   return `
     <form class="lead-form quote-form ${compact ? 'quote-form-compact' : ''}" novalidate>
       <h2>${title}</h2>
-      <p class="form-intro">Tell us about your project and we will follow up quickly.</p>
-      <label for="name">Your Name*
+      <p class="form-intro">${intro}</p>
+      ${photoHint}
+      <label for="name"${half}>Your Name*
         <input id="name" name="name" type="text" required autocomplete="name" />
       </label>
-      <label for="email">Your Email*
+      <label for="email"${half}>Your Email*
         <input id="email" name="email" type="email" required autocomplete="email" />
       </label>
-      <label for="phone">Phone Number*
+      <label for="phone"${half}>Phone Number*
         <input id="phone" name="phone" type="tel" required autocomplete="tel" />
       </label>
-      <label for="address">Address
+      <label for="address"${half}>Address
         <input id="address" name="address" type="text" autocomplete="street-address" />
       </label>
-      <label for="service">I'm Interested In*
+      <label for="service"${compact ? ' class="field-full"' : ''}>I'm Interested In*
         <select id="service" name="service" required>
           <option value="">Please choose an option</option>
           ${serviceOptions.map((option) => `<option value="${option}">${option}</option>`).join('')}
         </select>
       </label>
-      <label for="photo">Upload a photo of your project (optional)
+      <label${full} for="photo">Upload a photo (optional)
         <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp" />
       </label>
-      <label class="full-field" for="message">How may we help you?*
-        <textarea id="message" name="message" rows="4" required placeholder="Share project details, timeline, or questions."></textarea>
+      <label${full} for="message">How may we help you?*
+        <textarea id="message" name="message" rows="${compact ? 3 : 4}" required placeholder="Room(s), timeline, colors, or anything we should know."></textarea>
       </label>
-      <button class="btn btn-primary" type="submit">Submit Request</button>
-      <p class="form-confirmation" hidden>Thank you! Your request has been captured. We will contact you shortly.</p>
+      <p class="form-privacy field-full">We use your information only to respond to your quote request.</p>
+      <button class="btn btn-primary field-full" type="submit">Submit Request</button>
+      <div class="form-status field-full" aria-live="polite" aria-atomic="true">
+        <p class="form-confirmation" hidden>Thank you! Your request has been sent. We will contact you shortly.</p>
+        <p class="form-error" hidden role="alert"></p>
+      </div>
     </form>
   `
 }
@@ -631,20 +424,18 @@ function renderQuoteForm() {
   `
 }
 
-const serviceGroups = [
-  { title: 'Paint', indices: [0, 1, 4] },
-  { title: 'Renovate', indices: [2, 3], bento: true },
-  { title: 'Exterior care', indices: [5, 6] },
-  { title: 'Restore', indices: [7] }
-]
-
 const accentClasses = ['service-accent-blue', 'service-accent-magenta', 'service-accent-yellow']
 
 function renderServiceCard(index, featured = false) {
   const service = services[index]
   const accent = accentClasses[index % 3]
+  const idAttr = service.anchor ? ` id="${service.anchor}"` : ''
+  const media = service.image
+    ? `<div class="service-card-media"><img src="${href(service.image)}" alt="${service.imageAlt || service.title}" loading="lazy" decoding="async" /></div>`
+    : ''
   return `
-    <article class="service-card ${accent}${featured ? ' service-card-featured' : ''}">
+    <article class="service-card ${accent}${featured ? ' service-card-featured' : ''}"${idAttr}>
+      ${media}
       <span class="service-icon service-icon-${(index % 4) + 1}" aria-hidden="true"></span>
       <h3>${service.title}</h3>
       <p>${service.body}</p>
@@ -652,24 +443,28 @@ function renderServiceCard(index, featured = false) {
     </article>`
 }
 
-function renderServices(full = false) {
+const defaultServicesHeading = {
+  eyebrow: 'What We Do',
+  title: 'Painting and renovation services for every part of your home',
+  body:
+    'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
+}
+
+function renderServices(block = {}) {
+  const full = typeof block === 'boolean' ? block : Boolean(block.full)
+  const heading = typeof block === 'object' && block.heading ? block.heading : defaultServicesHeading
+
   if (full) {
     return `
-      <section id="services">
-        ${sectionHeading(
-          'What We Do',
-          'Painting and renovation services for every part of your home',
-          'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
-        )}
+      <section id="services" class="services-catalog">
+        ${sectionHeading(heading.eyebrow, heading.title, heading.body)}
         ${serviceGroups
           .map(
             (group) => `
           <div class="services-group">
             <h3 class="services-subheading">${group.title}</h3>
-            <div class="services-grid${group.bento ? ' services-bento' : ''}">
-              ${group.indices
-                .map((index) => renderServiceCard(index, group.bento && (index === 2 || index === 3)))
-                .join('')}
+            <div class="services-grid services-grid-full">
+              ${group.indices.map((index) => renderServiceCard(index)).join('')}
             </div>
           </div>`
           )
@@ -681,14 +476,10 @@ function renderServices(full = false) {
 
   return `
     <section id="services">
-      ${sectionHeading(
-        'What We Do',
-        'Painting and renovation services for every part of your home',
-        'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
-      )}
+      ${sectionHeading(heading.eyebrow, heading.title, heading.body)}
       <div class="services-grid services-bento">
         ${services
-          .map((service, index) => renderServiceCard(index, index === 2 || index === 3))
+          .map((service, index) => renderServiceCard(index, index <= 3))
           .join('')}
       </div>
     </section>
@@ -699,54 +490,78 @@ function renderSocialGalleryIntro() {
   return `
     <section class="gallery-intro">
       ${sectionHeading(
-        'Project Photos',
-        'See our latest work online',
-        'We post fresh project photos on Instagram and Facebook. Follow Pixel Paint for before-and-after updates, finished kitchens, exterior repaints, and more.'
+        'More Photos',
+        'Follow us for the latest project updates',
+        'We post fresh before-and-after photos on Instagram and Facebook — kitchens, exteriors, bathrooms, and whole-home repaints across Central Florida.'
       )}
       <div class="social-gallery-actions">
-        <a class="text-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">View Instagram</a>
+        <a class="text-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">View Instagram</a>
+        <a class="text-link" href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer" data-track="social_facebook">View Facebook</a>
       </div>
     </section>
   `
 }
 
 function getProjectItems(block) {
-  const limit = block.limit || projectShowcase.length
-  if (block.layout === 'featured' && limit <= projectShowcase.length) {
-    const featuredIndex = 1
-    const order = [featuredIndex, ...projectShowcase.map((_, i) => i).filter((i) => i !== featuredIndex)]
-    return order.slice(0, limit).map((i) => projectShowcase[i])
+  let pool = projectShowcase
+  if (block.filter) {
+    pool = pool.filter((item) => item.tags?.includes(block.filter))
   }
-  return projectShowcase.slice(0, limit)
+
+  const limit = block.limit || pool.length
+  if (block.layout === 'featured' && limit <= pool.length) {
+    const featuredIndex = pool.findIndex((item) => item.tags?.includes('kitchen'))
+    const pick = featuredIndex >= 0 ? featuredIndex : 1
+    const order = [pick, ...pool.map((_, i) => i).filter((i) => i !== pick)]
+    return order.slice(0, limit).map((i) => pool[i])
+  }
+  return pool.slice(0, limit)
 }
 
 function renderProjectCard(item, options = {}) {
   const { featured = false, accentIndex = 0 } = options
+  const alt = item.alt || item.title
+  const location = item.location
+    ? `<span class="project-location">${item.location}</span>`
+    : ''
+  const caption = item.caption ? `<p class="project-caption">${item.caption}</p>` : ''
   return `
     <article class="project-card project-card-accent-${accentIndex % 3}${featured ? ' project-card-featured' : ''}">
       <div class="project-card-media">
-        <img src="${href(item.image)}" alt="${item.title}" loading="lazy" />
-        <div class="project-card-body">
-          <h3>${item.title}</h3>
-          <p>${item.body}</p>
-        </div>
+        <img src="${href(item.image)}" alt="${alt}" loading="lazy" decoding="async" />
+        ${location}
+      </div>
+      <div class="project-card-body">
+        <h3>${item.title}</h3>
+        ${caption}
+        <p>${item.body}</p>
       </div>
     </article>`
+}
+
+const defaultProjectShowcaseHeading = {
+  eyebrow: 'Project Showcase',
+  title: 'Work you can picture in your home',
+  body:
+    'Recent project types we handle every week across Lake Nona, Orlando, and the surrounding metro.'
+}
+
+const fullProjectShowcaseHeading = {
+  eyebrow: 'Project Showcase',
+  title: 'Work you can picture in your home',
+  body:
+    'Every image is from a real Pixel Paint job — protected prep, premium materials, and finishes built for Central Florida.'
 }
 
 function renderProjectShowcase(block) {
   const items = getProjectItems(block)
   const isFeatured = block.layout === 'featured'
+  const defaultHeading = block.full ? fullProjectShowcaseHeading : defaultProjectShowcaseHeading
+  const heading = block.heading ? block.heading : defaultHeading
 
   return `
-    <section id="projects" class="projects-section">
-      ${sectionHeading(
-        'Project Showcase',
-        'Painting and renovation work homeowners trust',
-        block.full
-          ? 'A sample of the services Pixel Paint delivers across Lake Nona, Orlando, and Central Florida.'
-          : 'Recent project types we handle every week across the Orlando metro.'
-      )}
+    <section id="projects" class="projects-section${block.full ? ' projects-catalog' : ''}">
+      ${sectionHeading(heading.eyebrow, heading.title, heading.body)}
       <div class="projects-grid${isFeatured ? ' projects-featured' : ''}">
         ${items
           .map((item, index) =>
@@ -759,6 +574,30 @@ function renderProjectShowcase(block) {
           ? ''
           : `<div class="section-actions"><a class="text-link" href="${href('projects/')}">View All Projects</a></div>`
       }
+    </section>
+  `
+}
+
+function renderProcessSteps() {
+  return `
+    <section id="process" class="process-section">
+      ${sectionHeading(
+        'How It Works',
+        'Three steps, no guesswork',
+        'Know the price before work starts, stay comfortable while we paint, and get a finish backed in writing.'
+      )}
+      <ol class="process-grid">
+        ${processSteps
+          .map(
+            (step, index) => `
+          <li class="process-step">
+            <span class="process-step-num" aria-hidden="true">${index + 1}</span>
+            <h3>${step.title}</h3>
+            <p>${step.body}</p>
+          </li>`
+          )
+          .join('')}
+      </ol>
     </section>
   `
 }
@@ -809,12 +648,45 @@ function renderServiceAreas() {
   `
 }
 
+const EXCLUDED_REVIEWER_NAMES = ['Ricardo De Biase']
+
+function isExcludedReviewer(name) {
+  return EXCLUDED_REVIEWER_NAMES.some((excluded) =>
+    name.toLowerCase().includes(excluded.toLowerCase())
+  )
+}
+
+function renderReviewCard(item, { source } = {}) {
+  const reviewSource = item.source || source
+  const sourceLabel = reviewSource
+    ? `<span class="review-source">${reviewSource} review</span>`
+    : ''
+
+  return `
+    <article class="review-card">
+      ${sourceLabel}
+      <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></div>
+      <blockquote>${item.quote}</blockquote>
+      <footer>
+        <strong>${item.name}</strong>
+        <span>${item.service}</span>
+      </footer>
+    </article>`
+}
+
 function renderTestimonials(block) {
   const limit = block.limit || testimonials.length
   const filter = block.filter
   let items = testimonials.filter(
-    (item) => !filter || item.service.toLowerCase().includes(filter.toLowerCase())
+    (item) =>
+      !isExcludedReviewer(item.name) &&
+      (!filter || item.service.toLowerCase().includes(filter.toLowerCase()))
   )
+
+  const gridClasses = ['reviews-grid', 'reviews-carousel']
+  if (block.columns === 3) {
+    gridClasses.push('reviews-grid-3')
+  }
 
   if (block.featured) {
     const featuredIndex = items.findIndex((item) => item.name === 'Larry Truong')
@@ -822,7 +694,7 @@ function renderTestimonials(block) {
     items = items.slice(0, limit - 1)
 
     return `
-      <section id="reviews" class="reviews-section">
+      <section id="reviews" class="reviews-section" aria-label="Customer reviews">
         ${sectionHeading(
           'Customer Reviews',
           'What homeowners say about Pixel Paint',
@@ -831,58 +703,46 @@ function renderTestimonials(block) {
         <article class="review-featured">
           <span class="eyebrow">Neighbor review</span>
           <blockquote>${featured.quote}</blockquote>
-          <footer>★★★★★ · Lake Nona homeowner · ${featured.service}</footer>
+          <footer><span aria-hidden="true">★★★★★</span><span class="sr-only">5 out of 5 stars</span> · Lake Nona homeowner · ${featured.service}</footer>
         </article>
-        <div class="reviews-grid reviews-carousel">
-          ${items
-            .map(
-              (item) => `
-              <article class="review-card">
-                <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
-                <blockquote>${item.quote}</blockquote>
-                <footer>
-                  <strong>${item.name}</strong>
-                  <span>${item.service}</span>
-                </footer>
-              </article>`
-            )
-            .join('')}
+        <div class="${gridClasses.join(' ')}" role="region" aria-label="More customer reviews">
+          ${items.map((item) => renderReviewCard(item, { source: block.source })).join('')}
         </div>
       </section>
     `
   }
 
-  items = items.slice(0, limit)
+  if (!block.all) {
+    items = items.slice(0, limit)
+  }
+
+  const headingEyebrow =
+    block.heading?.eyebrow || (block.source === 'Google' ? 'Google Reviews' : 'Customer Reviews')
+  const headingTitle =
+    block.heading?.title ||
+    (block.source === 'Google'
+      ? 'What neighbors say on Google'
+      : 'What homeowners say about Pixel Paint')
+  const headingLead =
+    block.heading?.body ||
+    (block.source === 'Google'
+      ? 'Real Google reviews from painting and renovation clients across Central Florida.'
+      : 'Real feedback from painting and renovation clients across Central Florida.')
 
   return `
-    <section id="reviews" class="reviews-section">
-      ${sectionHeading(
-        'Customer Reviews',
-        'What homeowners say about Pixel Paint',
-        'Real feedback from painting and renovation clients across Central Florida.'
-      )}
-      <div class="reviews-grid reviews-carousel">
-        ${items
-          .map(
-            (item) => `
-              <article class="review-card">
-                <div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div>
-                <blockquote>${item.quote}</blockquote>
-                <footer>
-                  <strong>${item.name}</strong>
-                  <span>${item.service}</span>
-                </footer>
-              </article>`
-          )
-          .join('')}
+    <section id="reviews" class="reviews-section" aria-label="Customer reviews">
+      ${sectionHeading(headingEyebrow, headingTitle, headingLead)}
+      <div class="${gridClasses.join(' ')}" role="region" aria-label="Customer review cards">
+        ${items.map((item) => renderReviewCard(item, { source: block.source })).join('')}
       </div>
     </section>
   `
 }
 
 function renderTextSplit(block) {
+  const accentClass = block.accent === 'blue' ? ' text-split-accent-blue' : ''
   return `
-    <section class="text-split">
+    <section class="text-split${accentClass}">
       ${block.sections.map((item) => `<article><h2>${item.title}</h2><p>${item.body}</p></article>`).join('')}
     </section>
   `
@@ -907,25 +767,52 @@ function renderValues(block) {
   `
 }
 
-function renderCta(block) {
+function renderInstagramStrip() {
   return `
-    <section class="cta-panel ${block.final ? 'final-cta' : ''}">
-      <span class="eyebrow">${block.final ? 'Ready to start?' : 'Next step'}</span>
-      <h2>${block.title}</h2>
-      <p>${block.body}</p>
-      ${renderPrimaryAction('Get a Free Quote', 'contact/')}
-      <p class="cta-note">${block.note}</p>
+    <section class="instagram-strip">
+      <span class="eyebrow">Fresh project photos</span>
+      <p>
+        See before-and-after kitchens, exteriors, and whole-home repaints on
+        <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">@pixelpaint.renovations</a>
+        — updated weekly across Central Florida.
+      </p>
     </section>
   `
 }
 
-function renderInstagramStrip() {
+function renderWarrantyPanel() {
   return `
-    <section class="instagram-strip">
-      <span class="eyebrow">Follow along</span>
+    <section id="warranty" class="warranty-panel">
+      ${sectionHeading('Our Warranty', WARRANTY_HEADLINE, `${WARRANTY_SUMMARY} ${WARRANTY_QUOTE_NOTE}`)}
+      <div class="warranty-terms-panel">
+        <p class="warranty-terms-intro">${WARRANTY_QUOTE_NOTE}</p>
+        <dl class="warranty-terms-list">
+          ${WARRANTY_TERMS_PLACEHOLDER.map(
+            ({ term, detail }) => `
+              <div class="warranty-term">
+                <dt>${term}</dt>
+                <dd>${detail}</dd>
+              </div>`
+          ).join('')}
+        </dl>
+        <p class="warranty-terms-note">
+          <span class="eyebrow">Pending review</span>
+          Replace all XXX placeholders with final legal language before launch.
+        </p>
+      </div>
+    </section>
+  `
+}
+
+function renderWarrantyStrip(block) {
+  const warrantyHref = block.homeWarranty ? `${route('')}#warranty` : '#warranty'
+  const stripText = block.text || WARRANTY_STRIP_TEXT
+  return `
+    <section class="warranty-strip" aria-label="Warranty">
+      <span class="eyebrow">Warranty-backed</span>
       <p>
-        Latest on
-        <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">@pixelpaint.renovations</a>
+        ${stripText}
+        <a href="${warrantyHref}">Review full warranty terms</a>
       </p>
     </section>
   `
@@ -935,26 +822,33 @@ function renderMeetTeam() {
   return `
     <section id="team" class="meet-team">
       ${sectionHeading(
-        'Our Team',
-        'Meet Mauricio Tascon',
-        'The project manager behind every Pixel Paint job — from first walkthrough to final warranty follow-up.'
+        'Local crew',
+        'Meet the team behind Pixel Paint and Renovations',
+        `${COMPANY_LEGAL_NAME} serves Lake Nona, Orlando, and Central Florida.`
       )}
       <article class="meet-team-card">
-        <img
-          class="meet-team-badge"
-          src="${href('logo-icon.png')}"
-          alt="Mauricio Tascon, Pixel Paint project manager"
-          width="120"
-          height="120"
-        />
+        <div class="meet-team-visual">
+          <img
+            class="meet-team-badge"
+            src="${href('logo-icon.png')}"
+            alt="Pixel Paint and Renovations logo badge"
+            width="120"
+            height="120"
+          />
+        </div>
         <div class="meet-team-copy">
-          <h3>Mauricio Tascon</h3>
-          <p class="meet-team-role">Project Manager &amp; Founder</p>
+          <h3>Pixel Paint and Renovations</h3>
+          <p class="meet-team-role">Lake Nona painting &amp; renovation</p>
           <p>
-            Mauricio stays involved on every project — coordinating crews, sharing progress updates, and making sure
-            your home is protected and finished to the standard neighbors talk about. Background-checked painters,
-            premium materials, and warranty-backed follow-through start with his oversight on site.
+            We built Pixel Paint around jobs we would trust in our own homes — organized crews, honest timelines,
+            and coatings that survive Florida heat and humidity. One project manager coordinates painters and renovation subs directly,
+            so your questions go to one team that knows your scope.
           </p>
+          <ul class="meet-team-highlights">
+            <li>On-site for walkthroughs, mid-project check-ins, and punch lists</li>
+            <li>Direct line for schedule changes and warranty questions</li>
+            <li>Lake Nona–based — serving Orlando and the wider metro daily</li>
+          </ul>
         </div>
       </article>
     </section>
@@ -969,50 +863,164 @@ function renderSectionDivider() {
   `
 }
 
-function renderContact() {
+function renderContact(block = {}) {
+  const heading = block.heading || {
+    eyebrow: 'Get in touch',
+    title: 'We are ready to help with your next project',
+    body: 'Reach out by phone, email, or the form. Follow us on Instagram and Facebook for recent project photos.'
+  }
+
   return `
-    <section id="contact" class="contact-layout">
-      <div class="contact-details">
-        ${sectionHeading(
-          'Get in touch',
-          'We are ready to help with your next project',
-          'Reach out by phone, email, or the form. Follow us on Instagram and Facebook for recent project photos.'
-        )}
-        <ul class="contact-list">
-          <li><strong>Phone</strong> <a href="tel:${CONTACT_PHONE_TEL}">${CONTACT_PHONE_DISPLAY}</a></li>
-          <li><strong>Email</strong> <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a></li>
-          <li><strong>Location</strong> ${BUSINESS_LOCATION}</li>
-          <li><strong>Instagram</strong> <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">@pixelpaint.renovations</a></li>
-          <li><strong>Facebook</strong> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">Pixel Paint and renovations Inc</a></li>
-        </ul>
-        <div class="map-embed">
-          <iframe
-            title="Lake Nona, Florida map"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://maps.google.com/maps?q=Lake%20Nona%2C%20FL&output=embed"
-          ></iframe>
+    <section id="contact" class="contact-section">
+      <div class="contact-layout">
+        <div class="contact-details">
+          ${sectionHeading(heading.eyebrow, heading.title, heading.body)}
+
+          <div class="contact-trust-badges" aria-label="Why homeowners reach out">
+            <span class="contact-badge">Fully insured</span>
+            <span class="contact-badge">Written warranty</span>
+            <span class="contact-badge">Free estimates</span>
+            <span class="contact-badge">Local crew</span>
+          </div>
+
+          <p class="contact-seasonal">
+            <span class="contact-seasonal-label">Florida season</span>
+            Book exterior and humidity-sensitive work before peak summer heat — interior refreshes and cabinet painting stay year-round.
+          </p>
+
+          <p class="contact-response-note">
+            Most quotes answered within <strong>XXX hours</strong> when you include photos and your target start window.
+          </p>
+
+          <div class="contact-channels">
+            <a class="contact-channel" href="tel:${CONTACT_PHONE_TEL}" data-track="phone_contact">
+              <span class="contact-channel-label">Phone</span>
+              <span class="contact-channel-value">${CONTACT_PHONE_DISPLAY}</span>
+              <span class="contact-channel-hint">Talk to our team directly</span>
+            </a>
+            <a class="contact-channel" href="mailto:${CONTACT_EMAIL}">
+              <span class="contact-channel-label">Email</span>
+              <span class="contact-channel-value">${CONTACT_EMAIL}</span>
+              <span class="contact-channel-hint">Attach photos anytime</span>
+            </a>
+            <div class="contact-channel">
+              <span class="contact-channel-label">Service area</span>
+              <span class="contact-channel-value">${BUSINESS_LOCATION} &amp; Central Florida</span>
+              <span class="contact-channel-hint">On-site walkthroughs across the metro</span>
+            </div>
+          </div>
+
+          <div class="contact-social" aria-label="Follow Pixel Paint">
+            <a class="contact-social-pill" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">◆</span> Instagram · @pixelpaint.renovations
+            </a>
+            <a class="contact-social-pill" href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">◆</span> Facebook · Recent project photos
+            </a>
+          </div>
+
+          <div class="map-embed contact-map">
+            <iframe
+              title="Lake Nona, Florida map"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=Lake%20Nona%2C%20FL&output=embed"
+            ></iframe>
+          </div>
+
+          <p class="contact-warranty-note">${WARRANTY_QUOTE_NOTE} <a href="${route('')}#warranty">Review placeholder terms</a>.</p>
+        </div>
+
+        <div class="contact-form-column">
+          <div class="contact-form-hook">
+            <span class="eyebrow">Start here</span>
+            <p class="contact-form-hook-lead">Photos beat guesswork — snap your room, cabinets, or exterior and attach below.</p>
+          </div>
+          ${renderQuoteFormInner('Request a Free Quote', true, {
+            intro:
+              'Tell us what you are planning — room, timeline, and colors. We reply with next steps and a free on-site estimate.',
+            photoHint:
+              'A quick phone photo of the space helps us quote accurately on the first reply — kitchens, baths, and exteriors welcome.'
+          })}
+          <div class="contact-next-steps" aria-label="What happens after you submit">
+            <h3>What happens next</h3>
+            <ol class="contact-timeline">
+              <li class="contact-timeline-step">
+                <span class="contact-timeline-num" aria-hidden="true">1</span>
+                <div>
+                  <strong>We reply personally</strong>
+                  <p>Target within XXX hours — your questions answered or a free home visit scheduled, not an auto-reply.</p>
+                </div>
+              </li>
+              <li class="contact-timeline-step">
+                <span class="contact-timeline-num" aria-hidden="true">2</span>
+                <div>
+                  <strong>Free home visit</strong>
+                  <p>We see the space, discuss your goals, and leave you with a written quote — price, materials, and schedule spelled out.</p>
+                </div>
+              </li>
+              <li class="contact-timeline-step">
+                <span class="contact-timeline-num" aria-hidden="true">3</span>
+                <div>
+                  <strong>You approve with confidence</strong>
+                  <p>Everything is in writing before work starts — cost, prep plan, and warranty terms. No surprise bills or strangers on site.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
-      ${renderQuoteFormInner('Request a Free Quote')}
+    </section>
+  `
+}
+
+function renderTextLinkCta(block) {
+  return `
+    <section class="section-cta-link">
+      <div class="section-actions">
+        <a class="text-link" href="${route(block.href || 'contact/')}" data-track="text_link_cta">${block.label || 'Get a Free Quote'}</a>
+      </div>
+      ${block.note ? `<p class="cta-note">${block.note}</p>` : ''}
+    </section>
+  `
+}
+
+function renderPrivacyPolicy() {
+  return `
+    <section class="privacy-policy">
+      <div class="privacy-content">
+        <p><strong>Last updated:</strong> ${new Date().getFullYear()}</p>
+        <h2>Information we collect</h2>
+        <p>When you submit our quote form, we collect your name, email, phone number, optional address, service interest, optional project photo, and message. We use this information only to respond to your request and provide an estimate.</p>
+        <h2>How we use your information</h2>
+        <p>We contact you about your project, schedule walkthroughs, and follow up on quotes. We do not sell or rent your personal information to third parties.</p>
+        <h2>Form processing</h2>
+        <p>Form submissions are delivered securely to our team via a third-party form service. Optional photos you upload are used solely to understand your project scope.</p>
+        <h2>Contact</h2>
+        <p>Questions about this policy? Email <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> or call <a href="tel:${CONTACT_PHONE_TEL}">${CONTACT_PHONE_DISPLAY}</a>.</p>
+      </div>
     </section>
   `
 }
 
 function renderBlock(block) {
   if (block.type === 'quoteForm') return renderQuoteForm()
-  if (block.type === 'services') return renderServices(block.full)
+  if (block.type === 'services') return renderServices(block)
   if (block.type === 'projectShowcase') return renderProjectShowcase(block)
   if (block.type === 'socialGalleryIntro') return renderSocialGalleryIntro()
+  if (block.type === 'processSteps') return renderProcessSteps()
   if (block.type === 'benefits') return renderBenefits()
   if (block.type === 'serviceAreas') return renderServiceAreas()
   if (block.type === 'testimonials') return renderTestimonials(block)
   if (block.type === 'textSplit') return renderTextSplit(block)
   if (block.type === 'values') return renderValues(block)
-  if (block.type === 'cta') return renderCta(block)
-  if (block.type === 'contact') return renderContact()
+  if (block.type === 'textLinkCta') return renderTextLinkCta(block)
+  if (block.type === 'contact') return renderContact(block)
   if (block.type === 'instagramStrip') return renderInstagramStrip()
+  if (block.type === 'warrantyPanel') return renderWarrantyPanel()
+  if (block.type === 'warrantyStrip') return renderWarrantyStrip(block)
   if (block.type === 'meetTeam') return renderMeetTeam()
+  if (block.type === 'privacyPolicy') return renderPrivacyPolicy()
   return ''
 }
 
@@ -1022,15 +1030,16 @@ function renderFooter() {
       <div>
         <a href="${href('')}" class="footer-logo"><img src="${href('logo.png')}" alt="${COMPANY_LEGAL_NAME}" /></a>
         <p>${COMPANY_LEGAL_NAME} — professional painting and home renovations serving Lake Nona, Orlando, and Central Florida.</p>
+        <p class="footer-warranty">${WARRANTY_FOOTER_LINE} <a href="${route('')}#warranty">Review terms</a></p>
       </div>
       <nav aria-label="Footer navigation">
         ${nav.map((item) => `<a href="${href(item.path)}">${item.label}</a>`).join('')}
         <a href="${href('kitchen-renovations/')}">Kitchen Renovations</a>
         <a href="${href('bathroom-renovations/')}">Bathroom Refresh</a>
-        <a href="${href('projects/')}">Projects</a>
+        <a href="${href('privacy/')}">Privacy</a>
       </nav>
       <div class="footer-cta">
-        <a href="tel:${CONTACT_PHONE_TEL}">${CONTACT_PHONE_DISPLAY}</a>
+        <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_footer">${CONTACT_PHONE_DISPLAY}</a>
         <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
         <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">Facebook</a>
@@ -1041,15 +1050,76 @@ function renderFooter() {
 }
 
 function bindForm(form) {
-  form?.addEventListener('submit', (event) => {
+  const formId = import.meta.env.VITE_FORMSPREE_FORM_ID
+  const submitBtn = form?.querySelector('button[type="submit"]')
+  const defaultLabel = submitBtn?.textContent?.trim() || 'Submit Request'
+
+  form?.addEventListener('submit', async (event) => {
     event.preventDefault()
     if (!form.checkValidity()) {
       form.reportValidity()
       return
     }
+
     const confirmation = form.querySelector('.form-confirmation')
-    if (confirmation) confirmation.hidden = false
-    form.querySelector('button[type="submit"]')?.setAttribute('disabled', 'true')
+    const errorEl = form.querySelector('.form-error')
+
+    const showError = (message) => {
+      if (confirmation) confirmation.hidden = true
+      if (errorEl) {
+        errorEl.textContent = message
+        errorEl.hidden = false
+      }
+    }
+
+    const showSuccess = () => {
+      if (errorEl) errorEl.hidden = true
+      if (confirmation) confirmation.hidden = false
+      form.reset()
+      submitBtn?.setAttribute('disabled', 'true')
+      submitBtn.textContent = 'Request Sent'
+    }
+
+    if (!formId) {
+      showError(
+        `Online requests are not configured yet. Please call ${CONTACT_PHONE_DISPLAY} or email ${CONTACT_EMAIL}.`
+      )
+      trackEvent('quote_form_error', { reason: 'not_configured' })
+      return
+    }
+
+    if (errorEl) errorEl.hidden = true
+    if (confirmation) confirmation.hidden = true
+    submitBtn?.setAttribute('disabled', 'true')
+    submitBtn.textContent = 'Sending…'
+
+    const formData = new FormData(form)
+    formData.append('_subject', 'New quote request — Pixel Paint website')
+    const email = formData.get('email')
+    if (email) formData.append('_replyto', email)
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${formId}`, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' }
+      })
+
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok) {
+        throw new Error(data.error || 'Submission failed')
+      }
+
+      showSuccess()
+      trackEvent('quote_form_submit', { page: document.title })
+    } catch {
+      showError(
+        `Something went wrong. Please try again or call ${CONTACT_PHONE_DISPLAY} for immediate help.`
+      )
+      trackEvent('quote_form_error', { reason: 'network' })
+      submitBtn?.removeAttribute('disabled')
+      submitBtn.textContent = defaultLabel
+    }
   })
 }
 
@@ -1089,7 +1159,7 @@ function bindScrollMotion() {
         ticking = true
         requestAnimationFrame(() => {
           const offset = Math.min(window.scrollY * 0.12, 24)
-          bannerImg.style.transform = `translate3d(0, ${offset}px, 0) scale(1.02)`
+          bannerImg.style.transform = `translate3d(0, ${offset}px, 0)`
           ticking = false
         })
       }
@@ -1126,6 +1196,18 @@ function bindInteractions(app) {
   })
 
   app.querySelectorAll('.lead-form').forEach(bindForm)
+
+  app.querySelectorAll('[data-track]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const name = el.getAttribute('data-track')
+      if (name) trackEvent(name)
+    })
+  })
+
+  document.querySelector('.mobile-sticky-cta')?.addEventListener('click', () => {
+    trackEvent('sticky_cta_click')
+  })
+
   bindScrollMotion()
 }
 
@@ -1134,20 +1216,22 @@ export function mountPage(pageKey) {
   const page = pages[pageKey]
   if (!app || !page) return
 
+  initAnalytics()
   setMeta(page)
   injectLocalBusinessSchema()
 
   const html = `
     <div class="wrapper ${pageKey === 'home' ? 'home-wrapper' : ''}">
       ${renderHeader(pageKey)}
-      <main>
+      ${renderServiceSubnav(pageKey)}
+      <main id="main-content">
         ${renderHero(page, pageKey)}
         ${page.blocks
           .map((block, index) => `${index > 0 ? renderSectionDivider() : ''}${renderBlock(block)}`)
           .join('')}
       </main>
       ${renderFooter()}
-      ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${href('contact/')}">Get a Free Quote</a>` : ''}
+      ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${href('contact/')}" aria-label="Get a free quote — contact page">Get a Free Quote</a>` : ''}
     </div>
   `
 

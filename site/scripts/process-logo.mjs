@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const publicDir = resolve(__dirname, '../public')
 const sourcePath =
   process.argv[2] ||
-  '/Users/ricardodebiase/.cursor/projects/Users-ricardodebiase-Documents-pixel-renovations/assets/image-3e580283-f609-4cfd-ac0d-68518e30623d.png'
+  resolve(publicDir, 'logo-source.png')
 
 const SITE_BG = { r: 10, g: 10, b: 10 }
 const BG_THRESHOLD = 20

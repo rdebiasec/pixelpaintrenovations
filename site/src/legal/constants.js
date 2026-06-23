@@ -7,6 +7,8 @@ export const INSTAGRAM_URL = 'https://www.instagram.com/pixelpaint.renovations/'
 export const FACEBOOK_URL = 'https://www.facebook.com/pixelpaint.renovations/'
 export const SITE_URL = 'https://rdebiasec.github.io/pixelpaintrenovations'
 export const OG_IMAGE = 'og-image.jpg'
+// hero.jpg: AI-generated cartoon illustration of Lake Nona Town Center
+// (Disco chrome dog, Wave Hotel, palm trees, town center — processed via scripts/process-hero.mjs)
 export const HERO_IMAGE = 'hero.jpg'
 
 export function baseUrl() {

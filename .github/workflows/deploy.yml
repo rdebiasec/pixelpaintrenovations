@@ -50,10 +50,19 @@ jobs:
             echo "base_path=/pixelpaintrenovations/" >> $GITHUB_OUTPUT
           fi
 
+      - name: Ensure logo assets
+        run: |
+          if [ ! -f "public/logo.png" ] && [ -f "public/logo-source.png" ]; then
+            node scripts/process-logo.mjs
+          fi
+
       - name: Build
         env:
           NODE_ENV: production
           VITE_BASE_PATH: ${{ steps.check_domain.outputs.base_path }}
+          VITE_FORMSPREE_FORM_ID: ${{ secrets.VITE_FORMSPREE_FORM_ID }}
+          VITE_PLAUSIBLE_DOMAIN: ${{ secrets.VITE_PLAUSIBLE_DOMAIN }}
+          VITE_GA4_ID: ${{ secrets.VITE_GA4_ID }}
         run: npm run build
 
       - name: Setup Pages

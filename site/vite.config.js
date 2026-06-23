@@ -25,7 +25,8 @@ export default defineConfig(({ mode }) => {
           bathroom: resolve(__dirname, 'bathroom-renovations/index.html'),
           projects: resolve(__dirname, 'projects/index.html'),
           about: resolve(__dirname, 'about/index.html'),
-          contact: resolve(__dirname, 'contact/index.html')
+          contact: resolve(__dirname, 'contact/index.html'),
+          privacy: resolve(__dirname, 'privacy/index.html')
         }
       }
     },
