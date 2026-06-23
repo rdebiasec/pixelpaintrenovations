@@ -80,8 +80,23 @@ function buildSeoBlock(route) {
   const ogImage = `${SITE_URL}/${OG_IMAGE}`
   const schema = JSON.stringify(localBusinessSchema())
   const schemaScript = '    <script type="application/ld+json">' + schema + '</script>'
+  const csp = [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "img-src 'self' data: https:",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com data:",
+    "script-src 'self' https://plausible.io https://www.googletagmanager.com",
+    "connect-src 'self' https://formspree.io https://plausible.io https://www.google-analytics.com https://region1.google-analytics.com",
+    "frame-src 'self' https://www.google.com https://www.google.com/maps",
+    'upgrade-insecure-requests'
+  ].join('; ')
 
   return [
+    `    <meta http-equiv="Content-Security-Policy" content="${csp}" />`,
+    '    <meta name="referrer" content="strict-origin-when-cross-origin" />',
+    '    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />',
     `    <link rel="canonical" href="${canonical}" />`,
     `    <meta property="og:title" content="${route.title}" />`,
     `    <meta property="og:description" content="${route.description}" />`,

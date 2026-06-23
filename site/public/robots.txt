@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rdebiasec.github.io/pixelpaintrenovations/sitemap.xml
+Sitemap: https://pixelpaint-renovations.com/sitemap.xml
