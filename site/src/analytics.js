@@ -1,5 +1,14 @@
-const plausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN
-const ga4Id = import.meta.env.VITE_GA4_ID
+const rawPlausibleDomain = import.meta.env.VITE_PLAUSIBLE_DOMAIN
+const rawGa4Id = import.meta.env.VITE_GA4_ID
+
+const PLAUSIBLE_DOMAIN_PATTERN = /^[a-z0-9.-]+$/i
+const GA4_ID_PATTERN = /^G-[A-Z0-9]+$/
+
+const plausibleDomain =
+  typeof rawPlausibleDomain === 'string' && PLAUSIBLE_DOMAIN_PATTERN.test(rawPlausibleDomain)
+    ? rawPlausibleDomain
+    : ''
+const ga4Id = typeof rawGa4Id === 'string' && GA4_ID_PATTERN.test(rawGa4Id) ? rawGa4Id : ''
 
 let initialized = false
 

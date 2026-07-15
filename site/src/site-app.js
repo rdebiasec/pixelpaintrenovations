@@ -15,7 +15,6 @@ import {
 } from './legal/constants.js'
 import {
   nav,
-  serviceOptions,
   serviceSubnav,
   services,
   serviceGroups,
@@ -33,6 +32,8 @@ import {
   WARRANTY_TERMS_PLACEHOLDER
 } from './content/index.js'
 import { initAnalytics, trackEvent } from './analytics.js'
+import { escapeHtml } from './security/html.js'
+import { renderQuoteFormInner, bindForm } from './forms/quote-form.js'
 
 function upsertMeta(attr, key, content) {
   let el = document.querySelector(`meta[${attr}="${key}"]`)
@@ -139,7 +140,7 @@ function route(path) {
 function renderPrimaryAction(label = 'Get a Free Quote', path = 'contact/') {
   return `
     <div class="actions">
-      <a class="btn btn-primary" href="${route(path)}">${label}</a>
+      <a class="btn btn-primary" href="${escapeHtml(route(path))}">${escapeHtml(label)}</a>
     </div>
   `
 }
@@ -149,10 +150,10 @@ function renderActions(primaryLabel, primaryHref, secondaryLabel, secondaryHref)
   const secondary = secondaryHref ? route(secondaryHref) : ''
   return `
     <div class="actions">
-      <a class="btn btn-primary" href="${primary}"${attrsForExternal(primary)}>${primaryLabel}</a>
+      <a class="btn btn-primary" href="${escapeHtml(primary)}"${attrsForExternal(primary)}>${escapeHtml(primaryLabel)}</a>
       ${
         secondaryLabel
-          ? `<a class="btn btn-secondary" href="${secondary}"${attrsForExternal(secondary)}>${secondaryLabel}</a>`
+          ? `<a class="btn btn-secondary" href="${escapeHtml(secondary)}"${attrsForExternal(secondary)}>${escapeHtml(secondaryLabel)}</a>`
           : ''
       }
     </div>
@@ -172,7 +173,7 @@ function renderServiceSubnav(pageKey) {
   const links = serviceSubnav
     .map((item) => {
       const isCurrent = item.page === pageKey && (!item.anchor || hash === item.anchor)
-      return `<a href="${href(item.path)}"${isCurrent ? ' aria-current="page"' : ''}>${item.label}</a>`
+      return `<a href="${escapeHtml(href(item.path))}"${isCurrent ? ' aria-current="page"' : ''}>${escapeHtml(item.label)}</a>`
     })
     .join('')
   return `
@@ -192,20 +193,20 @@ function renderHeader(pageKey) {
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="site-header">
       <div class="header-brand">
-        <a href="${href('')}" class="logo" aria-label="${COMPANY_LEGAL_NAME} home">
-          <img src="${href('logo.png')}" alt="${COMPANY_LEGAL_NAME}" />
+        <a href="${escapeHtml(href(''))}" class="logo" aria-label="${escapeHtml(COMPANY_LEGAL_NAME)} home">
+          <img src="${escapeHtml(href('logo.png'))}" alt="${escapeHtml(COMPANY_LEGAL_NAME)}" />
         </a>
       </div>
       <nav id="primary-nav" aria-label="Primary navigation">
         ${nav
           .map(
             (item) =>
-              `<a href="${href(item.path)}" ${item.page === pageKey ? 'aria-current="page"' : ''}>${item.label}</a>`
+              `<a href="${escapeHtml(href(item.path))}" ${item.page === pageKey ? 'aria-current="page"' : ''}>${escapeHtml(item.label)}</a>`
           )
           .join('')}
       </nav>
       <div class="header-actions">
-        <a class="header-phone" href="tel:${CONTACT_PHONE_TEL}" data-track="phone_header">${CONTACT_PHONE_DISPLAY}</a>
+        <a class="header-phone" href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_header">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>
       </div>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
         <span class="sr-only">Toggle navigation</span>
@@ -220,9 +221,9 @@ function renderHeader(pageKey) {
 function sectionHeading(eyebrow, title, body) {
   return `
     <div class="section-heading">
-      ${eyebrow ? `<span class="eyebrow">${eyebrow}</span>` : ''}
-      <h2>${title}</h2>
-      ${body ? `<p>${body}</p>` : ''}
+      ${eyebrow ? `<span class="eyebrow">${escapeHtml(eyebrow)}</span>` : ''}
+      <h2>${escapeHtml(title)}</h2>
+      ${body ? `<p>${escapeHtml(body)}</p>` : ''}
     </div>
   `
 }
@@ -233,26 +234,26 @@ function renderHero(page, pageKey) {
       <section class="hero home-hero" id="top">
         <div class="hero-shell">
           <div class="hero-banner">
-            <img src="${href(HERO_IMAGE)}" alt="Lake Nona landmark panorama featuring the VA Medical Center architecture, Town Center with the Disco dog and Wave Hotel, and Boxi Park container buildings in one seamless scene" />
+            <img src="${escapeHtml(href(HERO_IMAGE))}" alt="Lake Nona landmark panorama featuring the VA Medical Center architecture, Town Center with the Disco dog and Wave Hotel, and Boxi Park container buildings in one seamless scene" />
           </div>
           <div class="hero-split">
             <div class="hero-copy-primary">
-              <span class="eyebrow">${page.hero.eyebrow}</span>
-              <h1>${page.hero.headline}</h1>
-              <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="#warranty">Written warranty</a> · Free estimates</p>
-              ${page.hero.lead ? `<p class="hero-lead">${page.hero.lead}</p>` : ''}
+              <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
+              <h1>${escapeHtml(page.hero.headline)}</h1>
+              <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="#warranty">Written warranty</a> · Free estimates</p>
+              ${page.hero.lead ? `<p class="hero-lead">${escapeHtml(page.hero.lead)}</p>` : ''}
             </div>
             <aside class="hero-form-panel hero-panel hero-panel-form" id="quote">
               ${renderQuoteFormInner('Request a Free Quote', true)}
             </aside>
             <div class="hero-copy-secondary">
-              ${page.hero.body ? `<p class="hero-body">${page.hero.body}</p>` : ''}
+              ${page.hero.body ? `<p class="hero-body">${escapeHtml(page.hero.body)}</p>` : ''}
               ${
                 page.hero.highlights?.length
-                  ? `<ul class="hero-highlights">${page.hero.highlights.map((item) => `<li>${item}</li>`).join('')}</ul>`
+                  ? `<ul class="hero-highlights">${page.hero.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
                   : ''
               }
-              <p class="hero-trust">${page.hero.microcopy} · <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_hero">Call ${CONTACT_PHONE_DISPLAY}</a></p>
+              <p class="hero-trust">${escapeHtml(page.hero.microcopy)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">Call ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>
             </div>
           </div>
         </div>
@@ -286,24 +287,24 @@ function renderHero(page, pageKey) {
     return `
       <section class="${marketingHeroClass}" id="top">
         <div class="hero-copy">
-          <span class="eyebrow">${page.hero.eyebrow}</span>
-          <h1>${page.hero.headline}</h1>
-          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="${route('')}#warranty">Written warranty</a> · ${proofSuffix}</p>
-          ${page.hero.lead ? `<p class="hero-lead">${page.hero.lead}</p>` : ''}
-          ${page.hero.body ? `<p class="hero-body">${page.hero.body}</p>` : ''}
+          <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
+          <h1>${escapeHtml(page.hero.headline)}</h1>
+          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="${escapeHtml(route(''))}#warranty">Written warranty</a> · ${escapeHtml(proofSuffix)}</p>
+          ${page.hero.lead ? `<p class="hero-lead">${escapeHtml(page.hero.lead)}</p>` : ''}
+          ${page.hero.body ? `<p class="hero-body">${escapeHtml(page.hero.body)}</p>` : ''}
           ${
             page.hero.stats?.length
-              ? `<ul class="hero-stats" aria-label="${statsLabel}">${page.hero.stats
+              ? `<ul class="hero-stats" aria-label="${escapeHtml(statsLabel)}">${page.hero.stats
                   .map(
                     (stat) =>
-                      `<li class="hero-stat"><strong>${stat.label}</strong><span>${stat.detail}</span></li>`
+                      `<li class="hero-stat"><strong>${escapeHtml(stat.label)}</strong><span>${escapeHtml(stat.detail)}</span></li>`
                   )
                   .join('')}</ul>`
               : ''
           }
           ${
             page.hero.trust
-              ? `<p class="hero-trust">${page.hero.trust} · <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_hero">Call ${CONTACT_PHONE_DISPLAY}</a></p>`
+              ? `<p class="hero-trust">${escapeHtml(page.hero.trust)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">Call ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>`
               : ''
           }
         </div>
@@ -315,24 +316,24 @@ function renderHero(page, pageKey) {
     return `
       <section class="hero page-hero page-hero-about" id="top">
         <div class="hero-copy">
-          <span class="eyebrow">${page.hero.eyebrow}</span>
-          <h1>${page.hero.headline}</h1>
-          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · Referral-driven · <a href="${route('')}#warranty">Written warranty</a></p>
-          ${page.hero.lead ? `<p class="hero-lead">${page.hero.lead}</p>` : ''}
-          ${page.hero.body ? `<p class="hero-body">${page.hero.body}</p>` : ''}
+          <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
+          <h1>${escapeHtml(page.hero.headline)}</h1>
+          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · Referral-driven · <a href="${escapeHtml(route(''))}#warranty">Written warranty</a></p>
+          ${page.hero.lead ? `<p class="hero-lead">${escapeHtml(page.hero.lead)}</p>` : ''}
+          ${page.hero.body ? `<p class="hero-body">${escapeHtml(page.hero.body)}</p>` : ''}
           ${
             page.hero.stats?.length
               ? `<ul class="hero-stats" aria-label="Why neighbors trust Pixel Paint">${page.hero.stats
                   .map(
                     (stat) =>
-                      `<li class="hero-stat"><strong>${stat.label}</strong><span>${stat.detail}</span></li>`
+                      `<li class="hero-stat"><strong>${escapeHtml(stat.label)}</strong><span>${escapeHtml(stat.detail)}</span></li>`
                   )
                   .join('')}</ul>`
               : ''
           }
           ${
             page.hero.trust
-              ? `<p class="hero-trust">${page.hero.trust} · <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_hero">Call ${CONTACT_PHONE_DISPLAY}</a></p>`
+              ? `<p class="hero-trust">${escapeHtml(page.hero.trust)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">Call ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>`
               : ''
           }
         </div>
@@ -343,9 +344,9 @@ function renderHero(page, pageKey) {
   return `
     <section class="hero page-hero" id="top">
       <div class="hero-copy">
-        <span class="eyebrow">${page.hero.eyebrow}</span>
-        <h1>${page.hero.headline}</h1>
-        <p>${page.hero.body}</p>
+        <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
+        <h1>${escapeHtml(page.hero.headline)}</h1>
+        <p>${escapeHtml(page.hero.body)}</p>
         ${
           page.hero.primary
             ? page.hero.secondary && page.hero.secondaryHref
@@ -360,54 +361,6 @@ function renderHero(page, pageKey) {
         }
       </div>
     </section>
-  `
-}
-
-function renderQuoteFormInner(title, compact = false, options = {}) {
-  const half = compact ? ' class="field-half"' : ''
-  const full = compact ? ' class="full-field field-full"' : ' class="full-field"'
-  const intro =
-    options.intro ||
-    'Share your project — we respond quickly with next steps and a free estimate.'
-  const photoHint = options.photoHint
-    ? `<p class="form-photo-hint">${options.photoHint}</p>`
-    : ''
-  return `
-    <form class="lead-form quote-form ${compact ? 'quote-form-compact' : ''}" novalidate>
-      <h2>${title}</h2>
-      <p class="form-intro">${intro}</p>
-      ${photoHint}
-      <label for="name"${half}>Your Name*
-        <input id="name" name="name" type="text" required autocomplete="name" />
-      </label>
-      <label for="email"${half}>Your Email*
-        <input id="email" name="email" type="email" required autocomplete="email" />
-      </label>
-      <label for="phone"${half}>Phone Number*
-        <input id="phone" name="phone" type="tel" required autocomplete="tel" />
-      </label>
-      <label for="address"${half}>Address
-        <input id="address" name="address" type="text" autocomplete="street-address" />
-      </label>
-      <label for="service"${compact ? ' class="field-full"' : ''}>I'm Interested In*
-        <select id="service" name="service" required>
-          <option value="">Please choose an option</option>
-          ${serviceOptions.map((option) => `<option value="${option}">${option}</option>`).join('')}
-        </select>
-      </label>
-      <label${full} for="photo">Upload a photo (optional)
-        <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp" />
-      </label>
-      <label${full} for="message">How may we help you?*
-        <textarea id="message" name="message" rows="${compact ? 3 : 4}" required placeholder="Room(s), timeline, colors, or anything we should know."></textarea>
-      </label>
-      <p class="form-privacy field-full">We use your information only to respond to your quote request.</p>
-      <button class="btn btn-primary field-full" type="submit">Submit Request</button>
-      <div class="form-status field-full" aria-live="polite" aria-atomic="true">
-        <p class="form-confirmation" hidden>Thank you! Your request has been sent. We will contact you shortly.</p>
-        <p class="form-error" hidden role="alert"></p>
-      </div>
-    </form>
   `
 }
 
@@ -431,17 +384,17 @@ const accentClasses = ['service-accent-blue', 'service-accent-magenta', 'service
 function renderServiceCard(index, featured = false) {
   const service = services[index]
   const accent = accentClasses[index % 3]
-  const idAttr = service.anchor ? ` id="${service.anchor}"` : ''
+  const idAttr = service.anchor ? ` id="${escapeHtml(service.anchor)}"` : ''
   const media = service.image
-    ? `<div class="service-card-media"><img src="${href(service.image)}" alt="${service.imageAlt || service.title}" loading="lazy" decoding="async" /></div>`
+    ? `<div class="service-card-media"><img src="${escapeHtml(href(service.image))}" alt="${escapeHtml(service.imageAlt || service.title)}" loading="lazy" decoding="async" /></div>`
     : ''
   return `
     <article class="service-card ${accent}${featured ? ' service-card-featured' : ''}"${idAttr}>
       ${media}
       <span class="service-icon service-icon-${(index % 4) + 1}" aria-hidden="true"></span>
-      <h3>${service.title}</h3>
-      <p>${service.body}</p>
-      ${service.learnHref ? `<a class="learn-link" href="${route(service.learnHref)}">Learn more</a>` : ''}
+      <h3>${escapeHtml(service.title)}</h3>
+      <p>${escapeHtml(service.body)}</p>
+      ${service.learnHref ? `<a class="learn-link" href="${escapeHtml(route(service.learnHref))}">Learn more</a>` : ''}
     </article>`
 }
 
@@ -464,14 +417,14 @@ function renderServices(block = {}) {
           .map(
             (group) => `
           <div class="services-group">
-            <h3 class="services-subheading">${group.title}</h3>
+            <h3 class="services-subheading">${escapeHtml(group.title)}</h3>
             <div class="services-grid services-grid-full">
               ${group.indices.map((index) => renderServiceCard(index)).join('')}
             </div>
           </div>`
           )
           .join('')}
-        <div class="section-actions"><a class="text-link" href="${href('contact/')}">Get a Free Quote</a></div>
+        <div class="section-actions"><a class="text-link" href="${escapeHtml(href('contact/'))}">Get a Free Quote</a></div>
       </section>
     `
   }
@@ -497,8 +450,8 @@ function renderSocialGalleryIntro() {
         'We post fresh before-and-after photos on Instagram and Facebook — kitchens, exteriors, bathrooms, and whole-home repaints across Central Florida.'
       )}
       <div class="social-gallery-actions">
-        <a class="text-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">View Instagram</a>
-        <a class="text-link" href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer" data-track="social_facebook">View Facebook</a>
+        <a class="text-link" href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">View Instagram</a>
+        <a class="text-link" href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_facebook">View Facebook</a>
       </div>
     </section>
   `
@@ -524,19 +477,19 @@ function renderProjectCard(item, options = {}) {
   const { featured = false, accentIndex = 0 } = options
   const alt = item.alt || item.title
   const location = item.location
-    ? `<span class="project-location">${item.location}</span>`
+    ? `<span class="project-location">${escapeHtml(item.location)}</span>`
     : ''
-  const caption = item.caption ? `<p class="project-caption">${item.caption}</p>` : ''
+  const caption = item.caption ? `<p class="project-caption">${escapeHtml(item.caption)}</p>` : ''
   return `
     <article class="project-card project-card-accent-${accentIndex % 3}${featured ? ' project-card-featured' : ''}">
       <div class="project-card-media">
-        <img src="${href(item.image)}" alt="${alt}" loading="lazy" decoding="async" />
+        <img src="${escapeHtml(href(item.image))}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />
         ${location}
       </div>
       <div class="project-card-body">
-        <h3>${item.title}</h3>
+        <h3>${escapeHtml(item.title)}</h3>
         ${caption}
-        <p>${item.body}</p>
+        <p>${escapeHtml(item.body)}</p>
       </div>
     </article>`
 }
@@ -574,7 +527,7 @@ function renderProjectShowcase(block) {
       ${
         block.full
           ? ''
-          : `<div class="section-actions"><a class="text-link" href="${href('projects/')}">View All Projects</a></div>`
+          : `<div class="section-actions"><a class="text-link" href="${escapeHtml(href('projects/'))}">View All Projects</a></div>`
       }
     </section>
   `
@@ -594,8 +547,8 @@ function renderProcessSteps() {
             (step, index) => `
           <li class="process-step">
             <span class="process-step-num" aria-hidden="true">${index + 1}</span>
-            <h3>${step.title}</h3>
-            <p>${step.body}</p>
+            <h3>${escapeHtml(step.title)}</h3>
+            <p>${escapeHtml(step.body)}</p>
           </li>`
           )
           .join('')}
@@ -617,8 +570,8 @@ function renderBenefits() {
           .map(
             ([title, body]) => `
               <article class="content-card">
-                <h3>${title}</h3>
-                <p>${body}</p>
+                <h3>${escapeHtml(title)}</h3>
+                <p>${escapeHtml(body)}</p>
               </article>`
           )
           .join('')}
@@ -640,8 +593,8 @@ function renderServiceAreas() {
           .map(
             (group) => `
               <article class="area-card">
-                <h3>${group.title}</h3>
-                <ul>${group.areas.map((area) => `<li>${area}</li>`).join('')}</ul>
+                <h3>${escapeHtml(group.title)}</h3>
+                <ul>${group.areas.map((area) => `<li>${escapeHtml(area)}</li>`).join('')}</ul>
               </article>`
           )
           .join('')}
@@ -661,17 +614,17 @@ function isExcludedReviewer(name) {
 function renderReviewCard(item, { source } = {}) {
   const reviewSource = item.source || source
   const sourceLabel = reviewSource
-    ? `<span class="review-source">${reviewSource} review</span>`
+    ? `<span class="review-source">${escapeHtml(reviewSource)} review</span>`
     : ''
 
   return `
     <article class="review-card">
       ${sourceLabel}
       <div class="review-stars" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></div>
-      <blockquote>${item.quote}</blockquote>
+      <blockquote>${escapeHtml(item.quote)}</blockquote>
       <footer>
-        <strong>${item.name}</strong>
-        <span>${item.service}</span>
+        <strong>${escapeHtml(item.name)}</strong>
+        <span>${escapeHtml(item.service)}</span>
       </footer>
     </article>`
 }
@@ -704,8 +657,8 @@ function renderTestimonials(block) {
         )}
         <article class="review-featured">
           <span class="eyebrow">Neighbor review</span>
-          <blockquote>${featured.quote}</blockquote>
-          <footer><span aria-hidden="true">★★★★★</span><span class="sr-only">5 out of 5 stars</span> · Lake Nona homeowner · ${featured.service}</footer>
+          <blockquote>${escapeHtml(featured.quote)}</blockquote>
+          <footer><span aria-hidden="true">★★★★★</span><span class="sr-only">5 out of 5 stars</span> · Lake Nona homeowner · ${escapeHtml(featured.service)}</footer>
         </article>
         <div class="${gridClasses.join(' ')}" role="region" aria-label="More customer reviews">
           ${items.map((item) => renderReviewCard(item, { source: block.source })).join('')}
@@ -745,7 +698,7 @@ function renderTextSplit(block) {
   const accentClass = block.accent === 'blue' ? ' text-split-accent-blue' : ''
   return `
     <section class="text-split${accentClass}">
-      ${block.sections.map((item) => `<article><h2>${item.title}</h2><p>${item.body}</p></article>`).join('')}
+      ${block.sections.map((item) => `<article><h2>${escapeHtml(item.title)}</h2><p>${escapeHtml(item.body)}</p></article>`).join('')}
     </section>
   `
 }
@@ -759,8 +712,8 @@ function renderValues(block) {
           .map(
             ([title, body]) => `
               <article class="content-card">
-                <h3>${title}</h3>
-                <p>${body}</p>
+                <h3>${escapeHtml(title)}</h3>
+                <p>${escapeHtml(body)}</p>
               </article>`
           )
           .join('')}
@@ -775,7 +728,7 @@ function renderInstagramStrip() {
       <span class="eyebrow">Fresh project photos</span>
       <p>
         See before-and-after kitchens, exteriors, and whole-home repaints on
-        <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">@pixelpaint.renovations</a>
+        <a href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">@pixelpaint.renovations</a>
         — updated weekly across Central Florida.
       </p>
     </section>
@@ -787,13 +740,13 @@ function renderWarrantyPanel() {
     <section id="warranty" class="warranty-panel">
       ${sectionHeading('Our Warranty', WARRANTY_HEADLINE, `${WARRANTY_SUMMARY} ${WARRANTY_QUOTE_NOTE}`)}
       <div class="warranty-terms-panel">
-        <p class="warranty-terms-intro">${WARRANTY_QUOTE_NOTE}</p>
+        <p class="warranty-terms-intro">${escapeHtml(WARRANTY_QUOTE_NOTE)}</p>
         <dl class="warranty-terms-list">
           ${WARRANTY_TERMS_PLACEHOLDER.map(
             ({ term, detail }) => `
               <div class="warranty-term">
-                <dt>${term}</dt>
-                <dd>${detail}</dd>
+                <dt>${escapeHtml(term)}</dt>
+                <dd>${escapeHtml(detail)}</dd>
               </div>`
           ).join('')}
         </dl>
@@ -813,8 +766,8 @@ function renderWarrantyStrip(block) {
     <section class="warranty-strip" aria-label="Warranty">
       <span class="eyebrow">Warranty-backed</span>
       <p>
-        ${stripText}
-        <a href="${warrantyHref}">Review full warranty terms</a>
+        ${escapeHtml(stripText)}
+        <a href="${escapeHtml(warrantyHref)}">Review full warranty terms</a>
       </p>
     </section>
   `
@@ -826,13 +779,13 @@ function renderMeetTeam() {
       ${sectionHeading(
         'Local crew',
         'Meet the team behind Pixel Paint and Renovations',
-        `${COMPANY_LEGAL_NAME} serves Lake Nona, Orlando, and Central Florida.`
+        `${escapeHtml(COMPANY_LEGAL_NAME)} serves Lake Nona, Orlando, and Central Florida.`
       )}
       <article class="meet-team-card">
         <div class="meet-team-visual">
           <img
             class="meet-team-badge"
-            src="${href('logo-icon.png')}"
+            src="${escapeHtml(href('logo-icon.png'))}"
             alt="Pixel Paint and Renovations logo badge"
             width="120"
             height="120"
@@ -895,28 +848,28 @@ function renderContact(block = {}) {
           </p>
 
           <div class="contact-channels">
-            <a class="contact-channel" href="tel:${CONTACT_PHONE_TEL}" data-track="phone_contact">
+            <a class="contact-channel" href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_contact">
               <span class="contact-channel-label">Phone</span>
-              <span class="contact-channel-value">${CONTACT_PHONE_DISPLAY}</span>
+              <span class="contact-channel-value">${escapeHtml(CONTACT_PHONE_DISPLAY)}</span>
               <span class="contact-channel-hint">Talk to our team directly</span>
             </a>
-            <a class="contact-channel" href="mailto:${CONTACT_EMAIL}">
+            <a class="contact-channel" href="mailto:${escapeHtml(CONTACT_EMAIL)}">
               <span class="contact-channel-label">Email</span>
-              <span class="contact-channel-value">${CONTACT_EMAIL}</span>
+              <span class="contact-channel-value">${escapeHtml(CONTACT_EMAIL)}</span>
               <span class="contact-channel-hint">Attach photos anytime</span>
             </a>
             <div class="contact-channel">
               <span class="contact-channel-label">Service area</span>
-              <span class="contact-channel-value">${BUSINESS_LOCATION} &amp; Central Florida</span>
+              <span class="contact-channel-value">${escapeHtml(BUSINESS_LOCATION)} &amp; Central Florida</span>
               <span class="contact-channel-hint">On-site walkthroughs across the metro</span>
             </div>
           </div>
 
           <div class="contact-social" aria-label="Follow Pixel Paint">
-            <a class="contact-social-pill" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">
+            <a class="contact-social-pill" href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer">
               <span aria-hidden="true">◆</span> Instagram · @pixelpaint.renovations
             </a>
-            <a class="contact-social-pill" href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">
+            <a class="contact-social-pill" href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">
               <span aria-hidden="true">◆</span> Facebook · Recent project photos
             </a>
           </div>
@@ -930,7 +883,7 @@ function renderContact(block = {}) {
             ></iframe>
           </div>
 
-          <p class="contact-warranty-note">${WARRANTY_QUOTE_NOTE} <a href="${route('')}#warranty">Review placeholder terms</a>.</p>
+          <p class="contact-warranty-note">${escapeHtml(WARRANTY_QUOTE_NOTE)} <a href="${escapeHtml(route(''))}#warranty">Review placeholder terms</a>.</p>
         </div>
 
         <div class="contact-form-column">
@@ -980,9 +933,9 @@ function renderTextLinkCta(block) {
   return `
     <section class="section-cta-link">
       <div class="section-actions">
-        <a class="text-link" href="${route(block.href || 'contact/')}" data-track="text_link_cta">${block.label || 'Get a Free Quote'}</a>
+        <a class="text-link" href="${escapeHtml(route(block.href || 'contact/'))}" data-track="text_link_cta">${escapeHtml(block.label || 'Get a Free Quote')}</a>
       </div>
-      ${block.note ? `<p class="cta-note">${block.note}</p>` : ''}
+      ${block.note ? `<p class="cta-note">${escapeHtml(block.note)}</p>` : ''}
     </section>
   `
 }
@@ -999,7 +952,7 @@ function renderPrivacyPolicy() {
         <h2>Form processing</h2>
         <p>Form submissions are delivered securely to our team via a third-party form service. Optional photos you upload are used solely to understand your project scope.</p>
         <h2>Contact</h2>
-        <p>Questions about this policy? Email <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> or call <a href="tel:${CONTACT_PHONE_TEL}">${CONTACT_PHONE_DISPLAY}</a>.</p>
+        <p>Questions about this policy? Email <a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${escapeHtml(CONTACT_EMAIL)}</a> or call <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>.</p>
       </div>
     </section>
   `
@@ -1030,99 +983,25 @@ function renderFooter() {
   return `
     <footer>
       <div>
-        <a href="${href('')}" class="footer-logo"><img src="${href('logo.png')}" alt="${COMPANY_LEGAL_NAME}" /></a>
-        <p>${COMPANY_LEGAL_NAME} — professional painting and home renovations serving Lake Nona, Orlando, and Central Florida.</p>
-        <p class="footer-warranty">${WARRANTY_FOOTER_LINE} <a href="${route('')}#warranty">Review terms</a></p>
+        <a href="${escapeHtml(href(''))}" class="footer-logo"><img src="${escapeHtml(href('logo.png'))}" alt="${escapeHtml(COMPANY_LEGAL_NAME)}" /></a>
+        <p>${escapeHtml(COMPANY_LEGAL_NAME)} — professional painting and home renovations serving Lake Nona, Orlando, and Central Florida.</p>
+        <p class="footer-warranty">${escapeHtml(WARRANTY_FOOTER_LINE)} <a href="${escapeHtml(route(''))}#warranty">Review terms</a></p>
       </div>
       <nav aria-label="Footer navigation">
-        ${nav.map((item) => `<a href="${href(item.path)}">${item.label}</a>`).join('')}
-        <a href="${href('kitchen-renovations/')}">Kitchen Renovations</a>
-        <a href="${href('bathroom-renovations/')}">Bathroom Refresh</a>
-        <a href="${href('privacy/')}">Privacy</a>
+        ${nav.map((item) => `<a href="${escapeHtml(href(item.path))}">${escapeHtml(item.label)}</a>`).join('')}
+        <a href="${escapeHtml(href('kitchen-renovations/'))}">Kitchen Renovations</a>
+        <a href="${escapeHtml(href('bathroom-renovations/'))}">Bathroom Refresh</a>
+        <a href="${escapeHtml(href('privacy/'))}">Privacy</a>
       </nav>
       <div class="footer-cta">
-        <a href="tel:${CONTACT_PHONE_TEL}" data-track="phone_footer">${CONTACT_PHONE_DISPLAY}</a>
-        <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
-        <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <span>Serving ${BUSINESS_LOCATION} and Central Florida.</span>
+        <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_footer">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>
+        <a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${escapeHtml(CONTACT_EMAIL)}</a>
+        <a href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <span>Serving ${escapeHtml(BUSINESS_LOCATION)} and Central Florida.</span>
       </div>
     </footer>
   `
-}
-
-function bindForm(form) {
-  const formId = import.meta.env.VITE_FORMSPREE_FORM_ID
-  const submitBtn = form?.querySelector('button[type="submit"]')
-  const defaultLabel = submitBtn?.textContent?.trim() || 'Submit Request'
-
-  form?.addEventListener('submit', async (event) => {
-    event.preventDefault()
-    if (!form.checkValidity()) {
-      form.reportValidity()
-      return
-    }
-
-    const confirmation = form.querySelector('.form-confirmation')
-    const errorEl = form.querySelector('.form-error')
-
-    const showError = (message) => {
-      if (confirmation) confirmation.hidden = true
-      if (errorEl) {
-        errorEl.textContent = message
-        errorEl.hidden = false
-      }
-    }
-
-    const showSuccess = () => {
-      if (errorEl) errorEl.hidden = true
-      if (confirmation) confirmation.hidden = false
-      form.reset()
-      submitBtn?.setAttribute('disabled', 'true')
-      submitBtn.textContent = 'Request Sent'
-    }
-
-    if (!formId) {
-      showError(
-        `Online requests are not configured yet. Please call ${CONTACT_PHONE_DISPLAY} or email ${CONTACT_EMAIL}.`
-      )
-      trackEvent('quote_form_error', { reason: 'not_configured' })
-      return
-    }
-
-    if (errorEl) errorEl.hidden = true
-    if (confirmation) confirmation.hidden = true
-    submitBtn?.setAttribute('disabled', 'true')
-    submitBtn.textContent = 'Sending…'
-
-    const formData = new FormData(form)
-    formData.append('_subject', 'New quote request — Pixel Paint website')
-    const email = formData.get('email')
-    if (email) formData.append('_replyto', email)
-
-    try {
-      const response = await fetch(`https://formspree.io/f/${formId}`, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' }
-      })
-
-      const data = await response.json().catch(() => ({}))
-      if (!response.ok) {
-        throw new Error(data.error || 'Submission failed')
-      }
-
-      showSuccess()
-      trackEvent('quote_form_submit', { page: document.title })
-    } catch {
-      showError(
-        `Something went wrong. Please try again or call ${CONTACT_PHONE_DISPLAY} for immediate help.`
-      )
-      trackEvent('quote_form_error', { reason: 'network' })
-      submitBtn?.removeAttribute('disabled')
-      submitBtn.textContent = defaultLabel
-    }
-  })
 }
 
 function bindScrollMotion() {
@@ -1219,7 +1098,7 @@ export function mountPage(pageKey) {
           .join('')}
       </main>
       ${renderFooter()}
-      ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${href('contact/')}" aria-label="Get a free quote — contact page">Get a Free Quote</a>` : ''}
+      ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${escapeHtml(href('contact/'))}" aria-label="Get a free quote — contact page">Get a Free Quote</a>` : ''}
     </div>
   `
 
