@@ -89,6 +89,7 @@ function buildSeoBlock(route) {
     "font-src 'self' https://fonts.gstatic.com data:",
     "script-src 'self' https://plausible.io https://www.googletagmanager.com",
     "connect-src 'self' https://formspree.io https://plausible.io https://www.google-analytics.com https://region1.google-analytics.com",
+    "form-action 'self' https://formspree.io",
     "frame-src 'self' https://www.google.com https://www.google.com/maps",
     'upgrade-insecure-requests'
   ].join('; ')

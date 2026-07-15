@@ -47,6 +47,16 @@ async function main() {
     process.exit(1)
   }
 
+  if (!home.includes('Content-Security-Policy')) {
+    console.error('check-dist: index.html missing Content-Security-Policy meta')
+    process.exit(1)
+  }
+
+  if (!home.includes('form-action')) {
+    console.error('check-dist: CSP missing form-action directive')
+    process.exit(1)
+  }
+
   console.log(`check-dist: OK (${requiredFiles.length} required files present)`)
 }
 

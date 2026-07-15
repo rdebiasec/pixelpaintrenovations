@@ -16,6 +16,12 @@ Open **http://localhost:5180/** (port 5180, root base path `/`).
 
 Lead capture uses [Formspree](https://formspree.io) — no backend code required; supports optional photo uploads.
 
+**Security notes (client-side site):**
+
+- `VITE_FORMSPREE_FORM_ID` is embedded in the production JS bundle. Treat it as a **public endpoint ID**, not a secret. Real protection is Formspree dashboard settings (spam filters, reCAPTCHA if enabled) plus the site honeypot (`_gotcha`), MIME/size checks, and CSP `form-action` / `connect-src`.
+- Optional photo uploads: JPEG/PNG/WebP only, **max 5 MB** (validated in the browser before POST).
+- GitHub Pages serves CSP via `<meta http-equiv>` (see `scripts/generate-seo.mjs`). Directives like `frame-ancestors` / `X-Frame-Options` require **HTTP response headers** and are not enforceable via meta tags — add them later if you put a CDN or custom host in front of Pages.
+
 1. Create a free Formspree account and a new form.
 2. Set the notification email to the business address in `src/legal/constants.js` (`CONTACT_EMAIL`).
 3. Copy the form ID from the endpoint URL (`https://formspree.io/f/`**`abc123xyz`**).

@@ -1210,12 +1210,23 @@ section {
 
 .lead-form,
 .quote-form {
+  position: relative;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 1.35rem;
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(8px);
+}
+
+/* Formspree honeypot — off-screen, not display:none (bots often skip that). */
+.hp-field {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .lead-form h2 {
