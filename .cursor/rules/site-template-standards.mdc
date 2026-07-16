@@ -1,0 +1,45 @@
+---
+description: Site template kit — brand config, secrets, clone workflow
+globs:
+  - site/src/brand/**
+  - site/src/legal/**
+  - README.md
+  - TEMPLATE.md
+  - site/DEPLOY.md
+alwaysApply: true
+---
+
+# Site template standards
+
+## Brand identity
+
+- Put company name, phones, email, socials, `SITE_URL`, and asset filenames in [`site/src/brand/config.js`](site/src/brand/config.js).
+- Do not scatter a second copy of those strings in SEO scripts — import from `brand/config.js`.
+- [`site/src/legal/constants.js`](site/src/legal/constants.js) may re-export brand values and keep URL helpers (`href`, `absoluteUrl`).
+- Marketing copy stays in `site/src/content/`; replace it when cloning a brand (do not invent a CMS in-pass).
+
+## Secrets
+
+- Never put private API keys, HubSpot private tokens, or PATs in `VITE_*` (they ship to the browser).
+- Formspree form IDs are public endpoint IDs, not secrets — still do not commit `.env`.
+- Mirror backup uses Actions secret `BACKUP_GITHUB_TOKEN` (durable fine-grained PAT). See `site/DEPLOY.md`.
+
+## Lead capture
+
+- Formspree / HubSpot stay **deferred** until the owner explicitly requests wiring.
+- Quote form must fail clearly with phone/email when not configured — never fake success.
+
+## Local vs production
+
+- User “deploy” usually means `cd site && npm run dev` → http://localhost:5180/.
+- Do not push to GitHub / production without explicit approval.
+
+## Clone workflow
+
+- Follow [`TEMPLATE.md`](TEMPLATE.md): brand config → public assets/CNAME → content/privacy → Pages → Cloudflare headers → smoke.
+- Hold Dependabot **major** Actions bumps until SHA re-pin + Pages smoke; npm patch/minor OK when `build` is green.
+
+## Frontend design (marketing pages)
+
+- Preserve Pixel CTA budget and visual language unless the task is a redesign.
+- Prefer existing CSS variables; do not introduce purple-on-white / cream-serif-terracotta defaults when creating new brands without a brief.

@@ -1,0 +1,15 @@
+---
+description: Pixel Paint renovations site — local deploy meaning, stack, and guardrails
+globs:
+  - site/**
+alwaysApply: true
+---
+
+# Pixel Paint / renovations site
+
+- Stack: Vite multi-page app under `site/`; prod is GitHub Pages + custom domain.
+- “Deploy” in chat usually means local: `cd site && npm run dev` → http://localhost:5180/. Never push/prod without explicit approval.
+- Brand identity: [`site/src/brand/config.js`](site/src/brand/config.js). See also `TEMPLATE.md` for forks.
+- Security: escape HTML interpolations; keep CSP/`form-action` checks; no secrets in `VITE_*`.
+- Lead form (Formspree/HubSpot) is deferred until explicitly requested.
+- Do not commit palette scratch (`DBX_*`, `PALETA_*`) or `site/DEPLOY 2.md`.

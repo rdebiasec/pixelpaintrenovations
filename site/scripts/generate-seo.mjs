@@ -9,7 +9,7 @@ import {
   CONTACT_EMAIL,
   INSTAGRAM_URL,
   FACEBOOK_URL
-} from '../src/legal/constants.js'
+} from '../src/brand/config.js'
 import { getSeoRoutes } from '../src/content/pages.js'
 import { services } from '../src/content/services.js'
 import { testimonials } from '../src/content/testimonials.js'
