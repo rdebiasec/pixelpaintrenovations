@@ -31,9 +31,13 @@ npm run dev
 
 Open **http://localhost:5180/** (port 5180, root base path `/`).
 
-### Quote form (Formspree — interim)
+### Quote form (Formspree — interim; **deferred**)
 
-Lead capture uses [Formspree](https://formspree.io) until HubSpot Forms is wired (planned last). No backend in this repo; optional photo uploads.
+Lead capture via Formspree/HubSpot is **intentionally deferred** (configure later). The site and hosting DR do **not** depend on it.
+
+Until configured, submit shows a clear error with phone and email — never fake success. Call/email in the UI remain the business backup path.
+
+When ready: create Formspree (or HubSpot last), set `VITE_FORMSPREE_FORM_ID` in `site/.env` and as an Actions secret, then smoke the form. Details below remain the setup checklist for that later step.
 
 **Security notes (client-side site):**
 
@@ -107,10 +111,11 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 - **Workflow permissions:** `contents: read`, `pages: write`, `id-token: write` (OIDC for Pages). Do not broaden.
 - **CI gate:** `npm audit --audit-level=high` and `scripts/check-dist.mjs` (requires CSP + `form-action` in `dist`).
 - **Public prod repo:** required for GitHub Pages on Free; do not privatize prod unless you have Pro (or another host). Backup stays private.
-- **Ship via PR:** prefer pull requests into `main` instead of pushing site changes straight to `main`.
-- **Recommended GitHub settings** (manual, in the GitHub UI — not automated by this repo):
-  1. **Branches → `main` → Branch protection:** require a pull request before merging; require status checks when the deploy workflow is available as a check. (Available while the repo is public.)
-  2. **Environments → `github-pages`:** optional **Required reviewers** so a human must approve before Pages publish.
+- **Ship via PR:** prefer pull requests into `main`. **Branch protection is enabled on `main`:** pull requests required; force-push and branch deletion disabled. (Admins may still bypass unless you turn on “Include administrators” in GitHub settings.)
+- **Recommended GitHub settings** (optional extra hardening in the UI):
+  1. Status checks: require the **Deploy to GitHub Pages** / build job when it appears as a required check.
+  2. **Environments → `github-pages`:** **Required reviewers** if you want a human gate before Pages publish.
+  3. Replace `BACKUP_GITHUB_TOKEN` with a long-lived fine-grained PAT (repo read on prod, write on backup) so mirror sync does not depend on a CLI session token.
 - **Keep `site/.env` gitignored.** Rotate any leaked PAT immediately.
 - **HTTP security headers beyond meta CSP** (e.g. `frame-ancestors`): need a CDN or custom host; out of scope until Cloudflare (or similar) is added.
 
@@ -123,7 +128,7 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 | Source of truth | GitHub `main` + local clones |
 | Hosting | GitHub Pages + custom domain + GitHub-managed TLS |
 | DNS / registrar | `pixelpaint-renovations.com` — **DNS registrar: _(fill in provider name)_** (outside this repo) |
-| Lead path | Formspree (interim) → HubSpot Forms (planned) |
+| Lead path | Form / HubSpot — **deferred**; phone/email always on site |
 | Human backup | Phone/email in `src/legal/constants.js` (always on the site) |
 
 **Targets:** RPO = last good commit on `main` (no form DB in our hosting). RTO site ≈ under 30 minutes with revert + green Actions. RTO leads = immediate via phone/email if forms are down.
@@ -215,9 +220,9 @@ Set one of these in `.env` locally or as GitHub Actions secrets for production b
 
 Events tracked: `quote_form_submit`, `quote_form_error`, `phone_header`, `phone_footer`, `phone_hero`, `sticky_cta_click`, and social link clicks.
 
-## HubSpot (planned — last)
+## HubSpot (planned — last; **deferred**)
 
-Replace Formspree with HubSpot Forms API while keeping the Pixel Paint quote UI. Requires portal ID + form GUID, CSP `connect-src` for `https://api.hsforms.com`, and Actions secrets. **Do not implement until explicitly requested.**
+Replace Formspree with HubSpot Forms API while keeping the Pixel Paint quote UI. Requires portal ID + form GUID, CSP `connect-src` for `https://api.hsforms.com`, and Actions secrets. **Do not implement until explicitly requested** (form + HubSpot are out of scope for the current hosting/DR pass).
 
 ## Alternate / future hostname
 
