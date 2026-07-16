@@ -70,10 +70,12 @@ For **production builds**, add secrets under **Settings → Secrets and variable
 ## Production (GitHub Pages)
 
 **Live domain:** https://pixelpaint-renovations.com/  
-**Repo:** https://github.com/rdebiasec/pixelpaintrenovations (**private**)  
+**Repo:** https://github.com/rdebiasec/pixelpaintrenovations (**public** — required on GitHub Free for GitHub Pages)  
 **Backup repo:** https://github.com/rdebiasec/pixelpaintrenovations-backup (**private** mirror)  
 **CNAME:** [`site/public/CNAME`](public/CNAME) and root [`CNAME`](../CNAME) → `pixelpaint-renovations.com`  
 **HTTPS:** enforced on GitHub Pages (certificate managed by GitHub)
+
+> **Pages + visibility:** On GitHub Free, a **private** production repo cannot serve GitHub Pages. Keep prod **public** for the live site; keep the **backup private** for code DR. GitHub Pro would allow private Pages if you upgrade later.
 
 Because a CNAME is present, the workflow sets `VITE_BASE_PATH=/`. The legacy github.io subpath mode (`/pixelpaintrenovations/`) only applies if those CNAME files are removed.
 
@@ -104,11 +106,12 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 
 - **Workflow permissions:** `contents: read`, `pages: write`, `id-token: write` (OIDC for Pages). Do not broaden.
 - **CI gate:** `npm audit --audit-level=high` and `scripts/check-dist.mjs` (requires CSP + `form-action` in `dist`).
+- **Public prod repo:** required for GitHub Pages on Free; do not privatize prod unless you have Pro (or another host). Backup stays private.
 - **Ship via PR:** prefer pull requests into `main` instead of pushing site changes straight to `main`.
 - **Recommended GitHub settings** (manual, in the GitHub UI — not automated by this repo):
-  1. **Branches → `main` → Branch protection:** require a pull request before merging; require status checks when the deploy workflow is available as a check.
+  1. **Branches → `main` → Branch protection:** require a pull request before merging; require status checks when the deploy workflow is available as a check. (Available while the repo is public.)
   2. **Environments → `github-pages`:** optional **Required reviewers** so a human must approve before Pages publish.
-- **Public repo:** fine for a marketing site. Keep `site/.env` gitignored. Rotate any leaked PAT immediately.
+- **Keep `site/.env` gitignored.** Rotate any leaked PAT immediately.
 - **HTTP security headers beyond meta CSP** (e.g. `frame-ancestors`): need a CDN or custom host; out of scope until Cloudflare (or similar) is added.
 
 ## Disaster recovery
@@ -162,7 +165,7 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 
 | Item | Value |
 |------|--------|
-| Production repo | `rdebiasec/pixelpaintrenovations` (**private**) |
+| Production repo | `rdebiasec/pixelpaintrenovations` (**public** — Pages on Free) |
 | Backup repo | `rdebiasec/pixelpaintrenovations-backup` (**private**) |
 | Sync | Workflow [`.github/workflows/mirror-backup.yml`](../.github/workflows/mirror-backup.yml) on every push to `main` (+ manual **workflow_dispatch**) |
 | Secret | `BACKUP_GITHUB_TOKEN` — PAT/token that can read prod and write the backup |
