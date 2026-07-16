@@ -3,4 +3,14 @@ dist
 .DS_Store
 *.local
 .env
-.cursor/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# Local brand/palette scratch — do not ship in the template kit
+DBX_LOGO_*
+PALETA_*.md
+site/DEPLOY 2.md
+**/DEPLOY 2.md
+*.bak
+*.bak-*
