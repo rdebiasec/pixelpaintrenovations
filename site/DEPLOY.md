@@ -70,7 +70,8 @@ For **production builds**, add secrets under **Settings → Secrets and variable
 ## Production (GitHub Pages)
 
 **Live domain:** https://pixelpaint-renovations.com/  
-**Repo:** https://github.com/rdebiasec/pixelpaintrenovations (public)  
+**Repo:** https://github.com/rdebiasec/pixelpaintrenovations (**private**)  
+**Backup repo:** https://github.com/rdebiasec/pixelpaintrenovations-backup (**private** mirror)  
 **CNAME:** [`site/public/CNAME`](public/CNAME) and root [`CNAME`](../CNAME) → `pixelpaint-renovations.com`  
 **HTTPS:** enforced on GitHub Pages (certificate managed by GitHub)
 
@@ -156,6 +157,31 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 - Git history on GitHub is the primary backup; keep local clones current.
 - No application database to dump.
 - Images and public assets live under `site/public/` and are versioned in git.
+
+### GitHub mirror backup (private)
+
+| Item | Value |
+|------|--------|
+| Production repo | `rdebiasec/pixelpaintrenovations` (**private**) |
+| Backup repo | `rdebiasec/pixelpaintrenovations-backup` (**private**) |
+| Sync | Workflow [`.github/workflows/mirror-backup.yml`](../.github/workflows/mirror-backup.yml) on every push to `main` (+ manual **workflow_dispatch**) |
+| Secret | `BACKUP_GITHUB_TOKEN` — PAT/token that can read prod and write the backup |
+
+**Do not enable GitHub Pages on the backup repo** — it is a code mirror, not a second website.
+
+**Restore (owner only):**
+
+1. From a clean machine: clone the backup, or push its `main` back to prod.
+2. Example (overwrite prod `main` from backup — only when recovering):
+
+```bash
+git clone --mirror https://github.com/rdebiasec/pixelpaintrenovations-backup.git restore.git
+cd restore.git
+git remote set-url --push origin https://github.com/rdebiasec/pixelpaintrenovations.git
+git push origin --force --prune '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+```
+
+3. Confirm Actions deploy on prod if `main` changed; smoke https://pixelpaint-renovations.com/
 
 ## Static assets checklist
 

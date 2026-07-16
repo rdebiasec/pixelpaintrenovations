@@ -1,0 +1,41 @@
+# Keeps a private mirror of this repository on GitHub (DR backup).
+# Only runs for pushes to main (and manual dispatch). Does not deploy the website.
+name: Mirror to backup
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mirror-backup
+  cancel-in-progress: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror repository to pixelpaintrenovations-backup
+        env:
+          BACKUP_TOKEN: ${{ secrets.BACKUP_GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BACKUP_TOKEN}" ]; then
+            echo "Missing secret BACKUP_GITHUB_TOKEN"
+            exit 1
+          fi
+
+          SRC="https://x-access-token:${BACKUP_TOKEN}@github.com/rdebiasec/pixelpaintrenovations.git"
+          DST="https://x-access-token:${BACKUP_TOKEN}@github.com/rdebiasec/pixelpaintrenovations-backup.git"
+
+          git clone --mirror "${SRC}" mirror.git
+          cd mirror.git
+          git remote set-url --push origin "${DST}"
+
+          # Push heads and tags only (skip GitHub pull-request refs).
+          git push origin --force --prune '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+          echo "Mirror push complete"
