@@ -1,8 +1,15 @@
 # Publishes the Vite site to GitHub Pages. Only the `main` branch deploys.
+# Build also runs on pull requests into main so branch protection can require the check.
 name: Deploy to GitHub Pages
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy.yml'
+  pull_request:
     branches:
       - main
     paths:
@@ -28,10 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        # actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
           cache: 'npm'
@@ -89,14 +98,19 @@ jobs:
           echo "CSP checks OK"
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        if: github.event_name != 'pull_request'
+        # actions/configure-pages@v4
+        uses: actions/configure-pages@1f0c5cde4bc74cd7e1254d0cb4de8d49e9068c7d
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        # actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
         with:
           path: site/dist
 
   deploy:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -105,4 +119,5 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        # actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e

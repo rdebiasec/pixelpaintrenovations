@@ -42,8 +42,9 @@ When ready: create Formspree (or HubSpot last), set `VITE_FORMSPREE_FORM_ID` in 
 **Security notes (client-side site):**
 
 - `VITE_FORMSPREE_FORM_ID` is embedded in the production JS bundle. Treat it as a **public endpoint ID**, not a secret. Real protection is Formspree dashboard settings (spam filters, reCAPTCHA if enabled) plus the site honeypot (`_gotcha`), MIME/size checks, and CSP `form-action` / `connect-src`.
-- Optional photo uploads: JPEG/PNG/WebP only, **max 5 MB** (validated in the browser before POST).
-- GitHub Pages serves CSP via `<meta http-equiv>` (see `scripts/generate-seo.mjs`). Directives like `frame-ancestors` / `X-Frame-Options` require **HTTP response headers** and are not enforceable via meta tags — add them later if you put a CDN (e.g. Cloudflare) in front of Pages.
+- Optional photo uploads: JPEG/PNG/WebP only, **max 5 MB** (validated in the browser before POST). Browser `file.type` is spoofable — when Formspree/HubSpot is enabled, rely on their server-side checks too (follow-up F08).
+- GitHub Pages serves CSP via `<meta http-equiv>` (see `scripts/generate-seo.mjs`). Directives like `frame-ancestors` / `X-Frame-Options` require **HTTP response headers** — apply them in Cloudflare (DNS already points there; see [Cloudflare security headers](#cloudflare-security-headers) below).
+- CSP follow-up (F07, not applied): `style-src` still allows `'unsafe-inline'` and `img-src` allows `https:` for fonts/marketing images. Tightening later risks breaking the live look; do it in a dedicated pass with visual QA.
 
 1. Create a free Formspree account and a new form.
 2. Set the notification email to the business address in `src/legal/constants.js` (`CONTACT_EMAIL`).
@@ -89,9 +90,10 @@ Deploys automatically when `main` changes under `site/**` (or `.github/workflows
 
 - https://pixelpaint-renovations.com/
 - https://pixelpaint-renovations.com/services/
-- https://pixelpaint-renovations.com/contact/
+- https://pixelpaint-renovations.com/contact/ (map iframe should load under CSP `frame-src` for `www.google.com`)
 - https://pixelpaint-renovations.com/projects/
 - View Source on home: meta `Content-Security-Policy` includes `form-action`
+- Actions: **Deploy to GitHub Pages** and **Mirror to backup** green on the merge commit
 
 Hard-refresh if static JPGs look stale (browsers cache `/projects/*.jpg` URLs).
 
@@ -109,15 +111,34 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 ## Deployment security
 
 - **Workflow permissions:** `contents: read`, `pages: write`, `id-token: write` (OIDC for Pages). Do not broaden.
-- **CI gate:** `npm audit --audit-level=high` and `scripts/check-dist.mjs` (requires CSP + `form-action` in `dist`).
+- **CI gate:** `npm audit --audit-level=high` and `scripts/check-dist.mjs` (requires CSP + `form-action` in `dist`). The deploy workflow also runs the **build** job on pull requests into `main` (no Pages publish on PRs).
 - **Public prod repo:** required for GitHub Pages on Free; do not privatize prod unless you have Pro (or another host). Backup stays private.
-- **Ship via PR:** prefer pull requests into `main`. **Branch protection is enabled on `main`:** pull requests required; force-push and branch deletion disabled. (Admins may still bypass unless you turn on “Include administrators” in GitHub settings.)
-- **Recommended GitHub settings** (optional extra hardening in the UI):
-  1. Status checks: require the **Deploy to GitHub Pages** / build job when it appears as a required check.
-  2. **Environments → `github-pages`:** **Required reviewers** if you want a human gate before Pages publish.
-  3. Replace `BACKUP_GITHUB_TOKEN` with a long-lived fine-grained PAT (repo read on prod, write on backup) so mirror sync does not depend on a CLI session token.
+- **Ship via PR:** pull requests into `main`. **Branch protection on `main`:**
+  - Pull requests required
+  - Required status check: **`build`** (job from **Deploy to GitHub Pages**)
+  - Force-push and branch deletion disabled
+  - Approving review count = 0 (solo owner; avoids self-block)
+  - `enforce_admins` = false (avoids owner lockout)
+- **Supply chain:** Dependabot weekly for `/site` npm and root GitHub Actions (`.github/dependabot.yml`). Workflow Actions are pinned to full commit SHAs (tag noted in comments). Optional org/repo setting: enable **Require actions to be pinned to a full-length commit SHA** when available.
 - **Keep `site/.env` gitignored.** Rotate any leaked PAT immediately.
-- **HTTP security headers beyond meta CSP** (e.g. `frame-ancestors`): need a CDN or custom host; out of scope until Cloudflare (or similar) is added.
+- **Optional extra:** Environments → `github-pages` → Required reviewers if you want a human gate before Pages publish.
+
+## Cloudflare security headers
+
+DNS for `pixelpaint-renovations.com` is already on **Cloudflare** (NS observed: `roman.ns.cloudflare.com`, `kristin.ns.cloudflare.com`). GitHub Pages remains the origin; Cloudflare can add **HTTP** headers that meta CSP cannot enforce.
+
+**Owner checklist (Cloudflare dashboard — not automated in this repo):**
+
+1. Open the zone → **Rules** → **Transform Rules** → **Modify Response Header** → Create rule.
+2. Match: hostname equals `pixelpaint-renovations.com` (and `www` if used).
+3. Set response headers:
+   - `X-Content-Type-Options` = `nosniff`
+   - `X-Frame-Options` = `DENY` (meta CSP cannot set `frame-ancestors`; use this HTTP header)
+   - `Referrer-Policy` = `strict-origin-when-cross-origin` (reinforces the existing meta tag)
+4. Optional (Free plan): enable **Bot Fight Mode** and review **WAF** managed rules — recommended, not required for this pass.
+5. Smoke: `curl -sI https://pixelpaint-renovations.com/` should show the new headers after the rule is live.
+
+Do not change nameservers or delete GitHub Pages A/CNAME records without the domain owner.
 
 ## Disaster recovery
 
@@ -127,7 +148,7 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 |-------|----------|
 | Source of truth | GitHub `main` + local clones |
 | Hosting | GitHub Pages + custom domain + GitHub-managed TLS |
-| DNS / registrar | `pixelpaint-renovations.com` — **DNS registrar: _(fill in provider name)_** (outside this repo) |
+| DNS / edge | Cloudflare (NS for `pixelpaint-renovations.com`). Manage A/CNAME for Pages in the Cloudflare DNS UI. Registrar account may be separate — keep login details offline. |
 | Lead path | Form / HubSpot — **deferred**; phone/email always on site |
 | Human backup | Phone/email in `src/legal/constants.js` (always on the site) |
 
@@ -139,7 +160,7 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 |----------|-------------|------|
 | Bad deploy / blank site | Fix on a branch; do not push to `main` until green | `git revert <bad_sha>` on `main` → push → wait for Actions |
 | Actions outage | Keep working locally | Last good Pages build keeps serving |
-| DNS / cert failure | N/A | Check Pages custom domain + DNS at registrar; announce phone/email on social if needed |
+| DNS / cert failure | N/A | Check Pages custom domain + Cloudflare DNS (A/CNAME → GitHub Pages); announce phone/email on social if needed |
 | Form / secret missing | Graceful “not configured” + phone/email | Same on prod |
 | PAT / account compromise | Rotate token | Rotate PAT; review Actions; sign out other sessions |
 | Repo deleted | Restore from local clone / GitHub recovery | Same; keep a second remote/mirror if desired |
@@ -151,7 +172,7 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 2. Prefer `git revert <bad_sha>` (safe history). Hard reset only if you explicitly request it.
 3. Push to `main` → confirm **Deploy to GitHub Pages** succeeds.
 4. Verify home, `/contact/`, CSP in View Source, form behavior.
-5. If DNS is down: do not change registrar records without the domain owner; use phone `(407) 883-7891` / business email for leads.
+5. If DNS is down: do not change Cloudflare NS or Pages records without the domain owner; use phone `(407) 883-7891` / business email for leads.
 
 ### Dev runbook
 
@@ -173,7 +194,19 @@ Use fine-grained tokens scoped to this repo (**Contents** + **Pages**), or class
 | Production repo | `rdebiasec/pixelpaintrenovations` (**public** — Pages on Free) |
 | Backup repo | `rdebiasec/pixelpaintrenovations-backup` (**private**) |
 | Sync | Workflow [`.github/workflows/mirror-backup.yml`](../.github/workflows/mirror-backup.yml) on every push to `main` (+ manual **workflow_dispatch**) |
-| Secret | `BACKUP_GITHUB_TOKEN` — PAT/token that can read prod and write the backup |
+| Secret | `BACKUP_GITHUB_TOKEN` — **durable fine-grained PAT** (see below). Do not rely on a short-lived `gh auth` session token. |
+
+### Create / rotate `BACKUP_GITHUB_TOKEN` (owner)
+
+1. GitHub → **Settings → Developer settings → Personal access tokens → Fine-grained tokens** → Generate.
+2. Expiration: **1 year** (set a calendar reminder to rotate).
+3. Repository access:
+   - `rdebiasec/pixelpaintrenovations` — **Contents: Read-only**
+   - `rdebiasec/pixelpaintrenovations-backup` — **Contents: Read and write**
+4. Generate the token once; copy it.
+5. Prod repo → **Settings → Secrets and variables → Actions** → update secret `BACKUP_GITHUB_TOKEN`.
+6. Verify: **Actions → Mirror to backup → Run workflow** (`workflow_dispatch`) → confirm green.
+7. If the mirror job fails with auth errors, rotate the PAT and update the secret again.
 
 **Do not enable GitHub Pages on the backup repo** — it is a code mirror, not a second website.
 
