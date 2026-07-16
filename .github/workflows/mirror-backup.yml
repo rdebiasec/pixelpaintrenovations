@@ -35,6 +35,8 @@ jobs:
           git clone --mirror "${SRC}" mirror.git
           cd mirror.git
           git remote set-url --push origin "${DST}"
+          # Mirror clones enable remote.*.mirror; clear it so we can push explicit refspecs.
+          git config --unset-all remote.origin.mirror || true
 
           # Push heads and tags only (skip GitHub pull-request refs).
           git push origin --force --prune '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
