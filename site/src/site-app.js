@@ -879,7 +879,7 @@ function renderContact(block = {}) {
               title="Lake Nona, Florida map"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              src="https://maps.google.com/maps?q=Lake%20Nona%2C%20FL&output=embed"
+              src="https://www.google.com/maps?q=Lake%20Nona%2C%20FL&output=embed"
             ></iframe>
           </div>
 
