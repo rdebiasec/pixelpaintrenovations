@@ -426,8 +426,8 @@
   "pages": {
     "home": {
       "path": "",
-      "title": "Pixel Paint Renovations | Pintura de casas e reformas em Orlando",
-      "description": "Equipe de pintura e reforma em Lake Nona — pintura interna e externa, atualizações de cozinha e banheiro, mão de obra com garantia e orçamentos grátis na Flórida Central.",
+      "title": "Pixel Paint | Pintores residenciais em Lake Nona e Orlando",
+      "description": "Pintura e reformas em Lake Nona e Orlando — interna, externa, cozinhas e banheiros. Equipe Pixel Paint com garantia. Orçamentos grátis.",
       "hero": {
         "eyebrow": "Pintura de casas e reformas · Lake Nona e Orlando",
         "headline": "A equipe de pintura e reforma de confiança em Lake Nona.",
@@ -488,8 +488,8 @@
     },
     "servicesPage": {
       "path": "services/",
-      "title": "Serviços | Pixel Paint Renovations",
-      "description": "Agende pintura e reforma em Lake Nona — interiores, cozinhas, banheiros, preparação de stucco — sem o caos de empreiteiros: orçamentos escritos, a mesma equipe e gerente de projeto do walkthrough ao fim, e mão de obra com garantia em Orlando e na Flórida Central.",
+      "title": "Serviços de pintura e reforma em Lake Nona e Orlando | Pixel Paint",
+      "description": "Pintura interna e externa, cozinhas, banheiros e preparação de stucco em Lake Nona e Orlando. Orçamentos por escrito, uma equipe do início ao fim — orçamentos grátis da Pixel Paint.",
       "hero": {
         "eyebrow": "Lake Nona e Orlando · Pintura e reforma respaldada por indicações",
         "headline": "A equipe que orça sua casa é a mesma que pinta.",
@@ -553,7 +553,7 @@
     },
     "kitchenPage": {
       "path": "kitchen-renovations/",
-      "title": "Reformas de cozinha | Pixel Paint Renovations",
+      "title": "Reformas de cozinha em Lake Nona e Orlando | Pixel Paint",
       "description": "Pintura de armários de cozinha, bancadas, backsplash, iluminação e atualização de puxadores em Lake Nona e Orlando — sem meses de demolição.",
       "hero": {
         "eyebrow": "Reformas de cozinha",
@@ -598,7 +598,7 @@
     },
     "bathroomPage": {
       "path": "bathroom-renovations/",
-      "title": "Atualização de banheiro | Pixel Paint Renovations",
+      "title": "Atualização e reforma de banheiro em Lake Nona e Orlando | Pixel Paint",
       "description": "Renovações de banheiro acessíveis com revitalização de azulejos, remoção de papel de parede e pintura profissional em Lake Nona e na Flórida Central.",
       "hero": {
         "eyebrow": "Atualização de banheiro",
@@ -643,7 +643,7 @@
     },
     "aboutPage": {
       "path": "about/",
-      "title": "Sobre | Pixel Paint Renovations",
+      "title": "Sobre | Pixel Paint Renovations — Lake Nona e Orlando",
       "description": "Equipe de pintura e reforma em Lake Nona da Pixel Paint and Renovations — impulsionada por indicações, respaldada por garantia e construída sobre comunicação clara na Flórida Central.",
       "hero": {
         "eyebrow": "Sobre · Lake Nona e Orlando",
@@ -719,7 +719,7 @@
     },
     "contactPage": {
       "path": "contact/",
-      "title": "Contato | Pixel Paint Renovations",
+      "title": "Orçamento grátis de pintura em Lake Nona e Orlando | Pixel Paint",
       "description": "Peça um orçamento grátis de pintura ou reforma da Pixel Paint and Renovations em Lake Nona e Orlando, FL.",
       "hero": {
         "eyebrow": "Orçamento grátis · Lake Nona e Orlando",
@@ -773,8 +773,8 @@
     },
     "projectsPage": {
       "path": "projects/",
-      "title": "Projetos | Pixel Paint Renovations",
-      "description": "Como a Pixel Paint conduz projetos de pintura e reforma em Lake Nona e Orlando — visita grátis em casa, orçamento escrito, preparação protegida e acabamentos com garantia.",
+      "title": "Projetos de pintura e reforma em Lake Nona e Orlando | Pixel Paint",
+      "description": "Veja exteriores, interiores, cozinhas e banheiros da Pixel Paint em Lake Nona e Orlando — fotos reais da nossa equipe local.",
       "ogImage": "og-image.jpg",
       "hero": {
         "eyebrow": "Como conduzimos os trabalhos · Lake Nona e Orlando",
