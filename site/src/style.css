@@ -237,6 +237,42 @@ main {
   align-items: center;
 }
 
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.lang-switcher a {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.2rem 0.15rem;
+  border-radius: 2px;
+}
+
+.lang-switcher a:hover {
+  color: var(--text);
+}
+
+.lang-switcher a[aria-current='true'] {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.lang-switcher-sep {
+  color: var(--text-muted);
+  opacity: 0.45;
+  user-select: none;
+  font-weight: 400;
+}
+
 .header-phone {
   white-space: nowrap;
 }
@@ -2789,6 +2825,20 @@ footer nav {
     top: calc(100% + 12rem);
     left: 1.25rem;
     right: 1.25rem;
+  }
+
+  body.nav-open .lang-switcher {
+    justify-content: flex-start;
+    gap: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+  }
+
+  body.nav-open .lang-switcher a {
+    padding: 0.45rem 0.35rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .reviews-grid.reviews-carousel {

@@ -1002,7 +1002,11 @@
     "footerPrivacy": "Privacidad",
     "footerServing": "Servimos Lake Nona y Central Florida.",
     "langSwitcherAria": "Idioma",
-    "schemaOfferCatalog": "Servicios de pintura y renovación"
+    "schemaOfferCatalog": "Servicios de pintura y renovación",
+    "viewInstagram": "Ver Instagram",
+    "viewFacebook": "Ver Facebook",
+    "viewAllProjects": "Ver todos los proyectos",
+    "logoHomeAriaSuffix": "inicio"
   },
   "form": {
     "title": "Solicitar un presupuesto gratis",
