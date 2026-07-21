@@ -51,18 +51,19 @@
     {
       "page": "bathroomPage",
       "path": "bathroom-renovations/",
-      "label": "Renovação de banheiro"
+      "label": "Atualização de banheiro"
     }
   ],
   "serviceOptions": [
     "Pintura interna",
     "Pintura externa",
     "Reformas de cozinha",
-    "Renovação de banheiro",
-    "Pintura e revitalização de armários",
-    "Lavagem sob pressão e impermeabilização de pavers",
-    "Tingimento de cercas e decks",
-    "Reparo de stucco e retoques para venda",
+    "Atualização de banheiro",
+    "Pintura e acabamento de armários",
+    "Lavagem a pressão",
+    "Impermeabilização de pavers",
+    "Aplicação de stain em cercas e decks",
+    "Reparo de stucco e retoques pré-venda",
     "Outro"
   ],
   "services": [
@@ -90,7 +91,7 @@
       "imageAlt": "Transformação de cor dos armários de cozinha com iluminação sob o armário em Orlando"
     },
     {
-      "title": "Renovação de banheiro",
+      "title": "Atualização de banheiro",
       "body": "Revitalização de azulejos, remoção de papel de parede e pintura moderna quando você quer um visual novo sem uma reforma completa.",
       "learnHref": "bathroom-renovations/",
       "image": "projects/project-bathroom-tile-refinishing.jpg",
@@ -102,8 +103,8 @@
       "learnHref": "services/"
     },
     {
-      "title": "Lavagem sob pressão",
-      "body": "Entradas, pavers, revestimento e superfícies externas limpas e impermeabilizadas para sua casa ficar impecável antes de pintar.",
+      "title": "Lavagem a pressão",
+      "body": "Driveways, pavers, revestimentos e superfícies externas limpos para que a preparação e a pintura (ou a impermeabilização) comecem em uma base sólida.",
       "learnHref": "services/"
     },
     {
@@ -138,7 +139,7 @@
     },
     {
       "title": "Impermeabilização de pavers",
-      "body": "Limpeza, areia e impermeabilização dos pavers da entrada para resistirem ao sol e à chuva — uma entrada caprichada que dura temporada após temporada.",
+      "body": "Limpe, recoloque a areia das juntas e impermeabilize os pavers da entrada para o sol preservar a cor e a chuva não lavar a areia das juntas.",
       "learnHref": "services/"
     },
     {
@@ -168,7 +169,7 @@
       ]
     },
     {
-      "title": "Reformar",
+      "title": "Reformas",
       "indices": [
         2,
         3,
@@ -186,7 +187,7 @@
       ]
     },
     {
-      "title": "Restaurar",
+      "title": "Restauração",
       "indices": [
         7,
         13,
@@ -203,12 +204,12 @@
     },
     {
       "name": "Irene Montanaro",
-      "service": "Bathroom · Renovação de banheiro",
+      "service": "Bathroom · Atualização de banheiro",
       "quote": "He was able to paint and refinish our tile making it appear much more modern. He also stripped two layers of old wallpaper, textured the wall and painted it. The entire process was very professional and the work area was kept clean."
     },
     {
       "name": "Jennifer Fitzgerald",
-      "service": "Kitchen · Reforma de cozinha",
+      "service": "Kitchen · Reformas de cozinha",
       "quote": "Mauricio and his team at Pixel Paint completely transformed what was a very brown dull kitchen into something I am so excited to host friends and family in! Process was smooth and quick from start to finish."
     },
     {
@@ -218,7 +219,7 @@
     },
     {
       "name": "Eric Whitten",
-      "service": "Kitchen · Reforma de cozinha",
+      "service": "Kitchen · Reformas de cozinha",
       "quote": "We used Mauricio and his team to renovate our kitchen, including painting cabinets, new countertops, new backsplash, and new lighting. Responsive, easy to work with, and a great overall value."
     },
     {
@@ -255,7 +256,7 @@
   "projectShowcase": [
     {
       "title": "Pintura externa e impermeabilização de pavers",
-      "body": "Repinturas externas completas, lavagem sob pressão, lixamento e impermeabilização de pavers feitos para o clima da Flórida.",
+      "body": "Repinturas externas completas, lavagem a pressão, lixamento e impermeabilização de pavers feitos para o clima da Flórida.",
       "image": "projects/project-exterior-painting-paver-sealing.jpg",
       "alt": "Pintura externa fresca e pavers impermeabilizados em uma casa de Lake Nona",
       "location": "Lake Nona",
@@ -276,8 +277,8 @@
       ]
     },
     {
-      "title": "Renovação de banheiro e revitalização de azulejos",
-      "body": "Modernize banheiros antiquados com revitalização de azulejos, remoção de papel de parede e pintura nova.",
+      "title": "Atualização de banheiro e revitalização de azulejos",
+      "body": "Atualize banheiros antiquados com revitalização de azulejos, remoção de papel de parede e pintura nova.",
       "image": "projects/project-bathroom-tile-refinishing.jpg",
       "alt": "Banheiro atualizado com azulejos revitalizados e pintura fresca nas paredes em Lake Nona",
       "location": "Lake Nona",
@@ -287,12 +288,12 @@
       ]
     },
     {
-      "title": "Lavagem sob pressão externa",
+      "title": "Lavagem a pressão externa",
       "body": "Entradas, revestimento, pavers e superfícies externas limpas e restauradas como novas.",
       "image": "projects/project-exterior-pressure-washing.jpg",
-      "alt": "Lavagem sob pressão de entrada e revestimento antes da pintura externa em Orlando",
+      "alt": "Lavagem a pressão de entrada e revestimento antes da pintura externa em Orlando",
       "location": "Orlando",
-      "caption": "Preparação de superfícies e lavagem sob pressão antes de pintar ou impermeabilizar.",
+      "caption": "Preparação de superfícies e lavagem a pressão antes de pintar ou impermeabilizar.",
       "tags": [
         "exterior"
       ]
@@ -401,7 +402,7 @@
       ]
     },
     {
-      "title": "Greater Central Florida",
+      "title": "Grande Flórida Central",
       "areas": [
         "Comunidades próximas sob consulta",
         "Projetos de HOA e multiunidade bem-vindos"
@@ -430,12 +431,12 @@
       "hero": {
         "eyebrow": "Pintura de casas e reformas · Lake Nona e Orlando",
         "headline": "A equipe de pintura e reforma de confiança em Lake Nona.",
-        "lead": "Pintura interna e externa, revitalização de armários de cozinha, renovação de azulejos de banheiro, lavagem sob pressão, impermeabilização de pavers e retoques para venda — uma equipe local, um gerente de projeto e uma garantia de que os vizinhos falam.",
+        "lead": "Pintura interna e externa, revitalização de armários de cozinha, renovação de azulejos de banheiro, lavagem a pressão, impermeabilização de pavers e retoques para venda — uma equipe local, um gerente de projeto e uma garantia de que os vizinhos falam.",
         "body": "Pixel Paint and Renovations acompanha cada projeto do walkthrough ao pagamento final — escopo por escrito, obras protegidas e materiais premium escolhidos para a umidade, o sol e o stucco da Flórida.",
         "highlights": [
           "Walkthroughs no local e orçamentos escritos grátis — sem pressão",
           "Equipes com verificação de antecedentes que respeitam sua casa e limpam diariamente",
-          "Renovações de cozinha e banheiro sem meses de poeira de demolição",
+          "reformas de cozinha e banheiro sem meses de poeira de demolição",
           "Repinturas externas, vedação de rachaduras em stucco e lavagem-e-impermeabilização de pavers",
           "Suporte de garantia após o pagamento final — termos escritos completos com cada orçamento (detalhes pendentes de revisão final)"
         ],
@@ -493,14 +494,14 @@
         "eyebrow": "Lake Nona e Orlando · Pintura e reforma respaldada por indicações",
         "headline": "A equipe que orça sua casa é a mesma que pinta.",
         "lead": "Conte o que você quer renovar — pintura interna e externa, armários e acabamentos, uma atualização de cozinha ou banheiro, reparo de stucco ou preparação para anúncio. Percorremos a casa, enviamos um orçamento escrito com data de início clara e agendamos a mesma equipe com verificação de antecedentes — um gerente de projeto da primeira visita ao walkthrough final.",
-        "body": "Pixel Paint and Renovations cresceu por indicações de vizinhos em Lake Nona porque evitamos as dores de cabeça típicas do empreiteiro: sem subempreiteiros surpresa, sem verbas vagas, obras protegidas todos os dias e um gerente de projeto que você ainda consegue contactar após o pagamento final. Para casas em Orlando, isso significa preparação inteligente à umidade em stucco e madeira, pisos cobertos e cômodos utilizáveis entre demãos, e um cronograma publicado com o qual você pode planejar — não uma corrente de desconhecidos. Garantia incluída em cada orçamento.",
+        "body": "Pixel Paint and Renovations cresceu por indicações de vizinhos em Lake Nona porque evitamos as dores de cabeça típicas do empreiteiro: sem subempreiteiros surpresa, sem valores indefinidos no orçamento, obras protegidas todos os dias e um gerente de projeto que você ainda consegue contatar após o pagamento final. Para casas em Orlando, isso significa preparação consciente da umidade em stucco e madeira, pisos cobertos e cômodos utilizáveis entre demãos, e um cronograma publicado com o qual você pode planejar — não uma corrente de desconhecidos. Garantia incluída em cada orçamento.",
         "stats": [
           {
             "label": "PINTURA",
             "detail": "Internas, externas e armários — uma equipe, um cronograma"
           },
           {
-            "label": "REFORMAR",
+            "label": "REFORMAS",
             "detail": "Cozinhas e banheiros sem meses de poeira"
           },
           {
@@ -508,7 +509,7 @@
             "detail": "Reparo de stucco, lavagem, impermeabilização e visual de fachada"
           },
           {
-            "label": "RESTAURAR",
+            "label": "RESTAURAÇÃO",
             "detail": "Retoques antes de ir ao mercado"
           }
         ],
@@ -597,10 +598,10 @@
     },
     "bathroomPage": {
       "path": "bathroom-renovations/",
-      "title": "Renovação de banheiro | Pixel Paint Renovations",
+      "title": "Atualização de banheiro | Pixel Paint Renovations",
       "description": "Renovações de banheiro acessíveis com revitalização de azulejos, remoção de papel de parede e pintura profissional em Lake Nona e na Flórida Central.",
       "hero": {
-        "eyebrow": "Renovação de banheiro",
+        "eyebrow": "Atualização de banheiro",
         "headline": "Um banheiro mais claro — sem semanas de demolição",
         "body": "Revitalizamos azulejos existentes, removemos papel de parede antiquado, retexturizamos paredes e aplicamos tinta resistente à umidade. Ideal para a umidade de Orlando, prazos amigáveis com HOA e proprietários que querem um visual moderno com orçamento prático."
       },
@@ -750,7 +751,7 @@
           "type": "contact",
           "heading": {
             "eyebrow": "Fale com a Pixel Paint",
-            "title": "Uma mensagem inicia seu orçamento — sem jogo de telefone",
+            "title": "Uma mensagem inicia seu orçamento — sem ficar ligando pra lá e pra cá",
             "body": "Ligue direto, envie fotos do projeto por e-mail ou use o formulário. Todos os caminhos chegam ao mesmo gerente de projeto que conduz seu walkthrough e o acompanhamento da garantia."
           }
         },
@@ -836,7 +837,7 @@
     }
   },
   "warranty": {
-    "headline": "Garantia líder do setor — detalhes abaixo para sua revisão",
+    "headline": "Garantia de mão de obra por escrito — termos no seu orçamento",
     "summary": "Os vizinhos mencionam nossa garantia o tempo todo — um dos principais motivos pelos quais proprietários escolhem Pixel Paint em Lake Nona e Orlando.",
     "quoteNote": "Garantia escrita completa com cada orçamento — termos abaixo pendentes de revisão final.",
     "footerLine": "Com garantia em cada projeto — termos escritos completos com seu orçamento (detalhes pendentes de revisão final).",
@@ -856,7 +857,7 @@
       },
       {
         "term": "Processo de reclamação",
-        "detail": "XXX — contacte Pixel Paint and Renovations pelo telefone ou e-mail do seu contrato em até XXX dias após notar um problema; inclua fotos e a referência do seu contrato."
+        "detail": "XXX — contate a Pixel Paint and Renovations pelo telefone ou e-mail do seu contrato em até XXX dias após notar um problema; inclua fotos e a referência do seu contrato."
       },
       {
         "term": "Tempo de resposta",
@@ -879,15 +880,15 @@
     "specialtyServices": "Serviços especializados",
     "popularServices": "Serviços populares",
     "footerNav": "Navegação do rodapé",
-    "getFreeQuote": "Pedir um orçamento grátis",
-    "requestFreeQuote": "Solicitar um orçamento grátis",
+    "getFreeQuote": "Pedir orçamento grátis",
+    "requestFreeQuote": "Pedir orçamento grátis",
     "learnMore": "Saiba mais",
     "callPrefix": "Ligar",
     "writtenWarranty": "Garantia escrita",
     "freeEstimates": "Orçamentos grátis",
     "neighborReviews": "Avaliações de vizinhos 5.0",
     "referralDriven": "Impulsionados por indicações",
-    "stickyCtaAria": "Pedir um orçamento grátis — página de contato",
+    "stickyCtaAria": "Pedir orçamento grátis — página de contato",
     "heroAlt": "Panorama emblemático de Lake Nona com a arquitetura do VA Medical Center, Town Center com o Disco dog e Wave Hotel, e os prédios-contêiner do Boxi Park em uma cena contínua",
     "proofServices": "O mesmo gerente de projeto do orçamento ao fim",
     "proofProjects": "O mesmo gerente de projeto do início ao fim",
@@ -897,11 +898,11 @@
     "statsContact": "Por que entrar em contato agora",
     "statsAbout": "Por que os vizinhos confiam na Pixel Paint",
     "quoteSectionEyebrow": "Orçamento grátis",
-    "quoteSectionTitle": "Peça um orçamento grátis",
+    "quoteSectionTitle": "Pedir um orçamento grátis",
     "quoteSectionBody": "Compartilhe os detalhes do seu projeto e fotos opcionais para podermos dar um orçamento preciso.",
     "servicesDefaultEyebrow": "O que fazemos",
     "servicesDefaultTitle": "Serviços de pintura e reforma para cada parte da sua casa",
-    "servicesDefaultBody": "Seja uma repintura externa completa, uma renovação de cozinha ou retoques para venda, a Pixel Paint entrega equipes organizadas e resultados com garantia.",
+    "servicesDefaultBody": "Seja uma repintura externa completa, uma reforma de cozinha ou retoques para venda, a Pixel Paint entrega equipes organizadas e resultados com garantia.",
     "socialEyebrow": "Mais fotos",
     "socialTitle": "Siga-nos para ver as últimas atualizações de projetos",
     "socialBody": "Publicamos fotos frescas de antes e depois no Instagram e Facebook — cozinhas, exteriores, banheiros e repinturas da casa inteira na Flórida Central.",
@@ -926,7 +927,7 @@
     "reviewsBodyGoogle": "Avaliações reais do Google de clientes de pintura e reforma na Flórida Central.",
     "reviewsAria": "Avaliações de clientes",
     "reviewsMoreAria": "Mais avaliações de clientes",
-    "reviewsCardsAria": "Cards de avaliações de clientes",
+    "reviewsCardsAria": "Cartões de avaliações de clientes",
     "valuesEyebrow": "Nossos valores",
     "valuesTitle": "Como nos apresentamos em cada trabalho",
     "instagramEyebrow": "Fotos frescas de projetos",
@@ -976,7 +977,7 @@
     "contactMapTitle": "Mapa de Lake Nona, Flórida",
     "contactWarrantyReview": "Revisar termos provisórios",
     "contactFormHookEyebrow": "Comece aqui",
-    "contactFormHookLead": "Fotos vencem o chute — tire uma foto do seu cômodo, armários ou exterior e anexe abaixo.",
+    "contactFormHookLead": "Fotos evitam o achismo — tire uma foto do cômodo, armários ou fachada e anexe abaixo.",
     "contactFormIntro": "Conte o que você está planejando — cômodo, prazo e cores. Respondemos com os próximos passos e um orçamento no local grátis.",
     "contactFormPhotoHint": "Uma foto rápida do espaço pelo celular nos ajuda a orçar com precisão na primeira resposta — cozinhas, banheiros e exteriores são bem-vindos.",
     "contactNextAria": "O que acontece depois de enviar",
@@ -998,7 +999,7 @@
     "footerBlurb": "Pixel Paint and Renovations Inc — pintura profissional e reformas residenciais atendendo Lake Nona, Orlando e a Flórida Central.",
     "footerReviewTerms": "Revisar termos",
     "footerKitchen": "Reformas de cozinha",
-    "footerBathroom": "Renovação de banheiro",
+    "footerBathroom": "Atualização de banheiro",
     "footerPrivacy": "Privacidade",
     "footerServing": "Atendemos Lake Nona e a Flórida Central.",
     "langSwitcherAria": "Idioma",
@@ -1009,7 +1010,7 @@
     "logoHomeAriaSuffix": "início"
   },
   "form": {
-    "title": "Pedir um orçamento grátis",
+    "title": "Pedir orçamento grátis",
     "intro": "Compartilhe seu projeto — respondemos rápido com os próximos passos e um orçamento grátis.",
     "honeypot": "Deixe em branco",
     "name": "Seu nome*",
@@ -1019,13 +1020,13 @@
     "service": "Tenho interesse em*",
     "servicePlaceholder": "Escolha uma opção",
     "photo": "Enviar uma foto (opcional)",
-    "message": "Como podemos ajudar?*",
+    "message": "Descreva seu projeto*",
     "messagePlaceholder": "Cômodo(s), prazo, cores ou qualquer coisa que precisamos saber.",
     "privacy": "Usamos suas informações apenas para responder ao seu pedido de orçamento.",
-    "submit": "Enviar pedido",
+    "submit": "Pedir orçamento grátis",
     "sending": "Enviando…",
     "sent": "Pedido enviado",
-    "confirmation": "Obrigado! Seu pedido foi enviado. Entraremos em contato em breve.",
+    "confirmation": "Obrigado! Recebemos seu pedido. Responderemos pessoalmente com os próximos passos ou para agendar sua visita gratuita.",
     "photoTypeError": "Envie uma imagem JPEG, PNG ou WebP.",
     "photoSizeError": "As fotos devem ter 5 MB ou menos. Escolha uma imagem menor.",
     "notConfigured": "Os pedidos online ainda não estão configurados. Ligue para {phone} ou envie e-mail para {email}.",
