@@ -1,5 +1,6 @@
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url'
+import { readdirSync, statSync } from 'fs'
 import { defineConfig, loadEnv } from 'vite'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -10,24 +11,34 @@ const normalizeBase = (value) => {
   return withLeading.endsWith('/') ? withLeading : `${withLeading}/`
 }
 
+function collectHtmlInputs(dir, base = dir, acc = {}) {
+  for (const entry of readdirSync(dir)) {
+    if (entry === 'node_modules' || entry === 'dist' || entry === 'public') continue
+    const full = resolve(dir, entry)
+    const st = statSync(full)
+    if (st.isDirectory()) {
+      collectHtmlInputs(full, base, acc)
+      continue
+    }
+    if (entry === 'index.html') {
+      const rel = full.slice(base.length + 1).replace(/\\/g, '/')
+      const key = rel === 'index.html' ? 'main' : rel.replace(/\/index\.html$/, '').replace(/\//g, '-')
+      acc[key] = full
+    }
+  }
+  return acc
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const base = normalizeBase(env.VITE_BASE_PATH)
+  const input = collectHtmlInputs(__dirname)
 
   return {
     base,
     build: {
       rollupOptions: {
-        input: {
-          main: resolve(__dirname, 'index.html'),
-          services: resolve(__dirname, 'services/index.html'),
-          kitchen: resolve(__dirname, 'kitchen-renovations/index.html'),
-          bathroom: resolve(__dirname, 'bathroom-renovations/index.html'),
-          projects: resolve(__dirname, 'projects/index.html'),
-          about: resolve(__dirname, 'about/index.html'),
-          contact: resolve(__dirname, 'contact/index.html'),
-          privacy: resolve(__dirname, 'privacy/index.html')
-        }
+        input
       }
     },
     server: {

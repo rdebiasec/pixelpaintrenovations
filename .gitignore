@@ -7,6 +7,10 @@ dist
 !.cursor/rules/
 !.cursor/rules/**
 
+# Generated locale HTML shells (created by site/scripts/i18n-build.mjs)
+site/es/
+site/pt-br/
+
 # Local brand/palette scratch — do not ship in the template kit
 DBX_LOGO_*
 PALETA_*.md
