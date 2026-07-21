@@ -2829,16 +2829,18 @@ footer nav {
 
   body.nav-open .lang-switcher {
     justify-content: flex-start;
-    gap: 0.35rem 0.5rem;
-    font-size: 0.85rem;
+    gap: 0.5rem;
     padding: 0.15rem 0;
   }
 
-  body.nav-open .lang-switcher a {
-    padding: 0.45rem 0.35rem;
+  body.nav-open .lang-switcher-flag {
+    width: 2.5rem;
+    height: 2.5rem;
     min-height: 44px;
-    display: inline-flex;
-    align-items: center;
+  }
+
+  body.nav-open .lang-switcher-emoji {
+    font-size: 1.5rem;
   }
 
   .reviews-grid.reviews-carousel {
