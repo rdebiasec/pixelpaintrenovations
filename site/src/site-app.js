@@ -176,8 +176,8 @@ function renderLangSwitcher() {
   const links = LOCALES.map((locale) => {
     const hrefLang = localizedPathFor(locale.id, pathname, hash, base)
     const currentAttr = locale.id === current ? ' aria-current="true"' : ''
-    return `<a href="${escapeHtml(hrefLang)}" hreflang="${escapeHtml(locale.hreflang)}" lang="${escapeHtml(locale.htmlLang)}"${currentAttr}>${escapeHtml(locale.label)}</a>`
-  }).join('<span class="lang-switcher-sep" aria-hidden="true">|</span>')
+    return `<a class="lang-switcher-flag" href="${escapeHtml(hrefLang)}" hreflang="${escapeHtml(locale.hreflang)}" lang="${escapeHtml(locale.htmlLang)}" title="${escapeHtml(locale.name)}" aria-label="${escapeHtml(locale.name)}"${currentAttr}><span class="lang-switcher-emoji" aria-hidden="true">${locale.flag}</span></a>`
+  }).join('')
   return `
     <nav class="lang-switcher" aria-label="${escapeHtml(ui().langSwitcherAria)}">
       ${links}

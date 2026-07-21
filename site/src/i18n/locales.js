@@ -2,7 +2,7 @@
 
 export const DEFAULT_LOCALE = 'en'
 
-/** @typedef {{ id: string, hreflang: string, ogLocale: string, pathPrefix: string, htmlLang: string, label: string }} LocaleDef */
+/** @typedef {{ id: string, hreflang: string, ogLocale: string, pathPrefix: string, htmlLang: string, label: string, flag: string, name: string }} LocaleDef */
 
 /** @type {LocaleDef[]} */
 export const LOCALES = [
@@ -12,7 +12,9 @@ export const LOCALES = [
     ogLocale: 'en_US',
     pathPrefix: '',
     htmlLang: 'en',
-    label: 'EN'
+    label: 'EN',
+    flag: '🇺🇸',
+    name: 'English'
   },
   {
     id: 'es',
@@ -20,7 +22,9 @@ export const LOCALES = [
     ogLocale: 'es_US',
     pathPrefix: 'es',
     htmlLang: 'es',
-    label: 'ES'
+    label: 'ES',
+    flag: '🇨🇴',
+    name: 'Español'
   },
   {
     id: 'pt-BR',
@@ -28,7 +32,9 @@ export const LOCALES = [
     ogLocale: 'pt_BR',
     pathPrefix: 'pt-br',
     htmlLang: 'pt-BR',
-    label: 'PT-BR'
+    label: 'PT-BR',
+    flag: '🇧🇷',
+    name: 'Português'
   }
 ]
 
