@@ -1,51 +1,244 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://pixelpaint-renovations.com/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/services/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/services/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/services/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/services/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/services/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/services/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/services/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/services/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/services/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/services/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/services/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/services/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/services/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/kitchen-renovations/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/kitchen-renovations/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/kitchen-renovations/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/kitchen-renovations/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/kitchen-renovations/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/kitchen-renovations/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/kitchen-renovations/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/bathroom-renovations/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/bathroom-renovations/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/bathroom-renovations/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/bathroom-renovations/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/bathroom-renovations/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/bathroom-renovations/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/bathroom-renovations/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/projects/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/projects/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/projects/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/projects/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/projects/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/projects/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/projects/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/projects/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/projects/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/projects/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/projects/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/projects/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/projects/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/projects/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/projects/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/about/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/about/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/about/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/about/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/about/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/about/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/about/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/about/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/about/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/about/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/about/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/about/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/contact/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/contact/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/contact/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/contact/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/contact/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/contact/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/contact/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/contact/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/contact/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/contact/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/contact/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/contact/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/contact/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/contact/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/contact/" />
   </url>
   <url>
     <loc>https://pixelpaint-renovations.com/privacy/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/privacy/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/privacy/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/privacy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/privacy/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/es/privacy/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/privacy/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/privacy/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/privacy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/privacy/" />
+  </url>
+  <url>
+    <loc>https://pixelpaint-renovations.com/pt-br/privacy/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pixelpaint-renovations.com/privacy/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://pixelpaint-renovations.com/es/privacy/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://pixelpaint-renovations.com/pt-br/privacy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pixelpaint-renovations.com/privacy/" />
   </url>
 </urlset>

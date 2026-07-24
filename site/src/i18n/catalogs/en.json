@@ -1,0 +1,1047 @@
+{
+  "meta": {
+    "siteName": "Pixel Paint and Renovations Inc",
+    "locale": "en"
+  },
+  "nav": [
+    {
+      "page": "home",
+      "path": "",
+      "label": "Home"
+    },
+    {
+      "page": "servicesPage",
+      "path": "services/",
+      "label": "Services"
+    },
+    {
+      "page": "projectsPage",
+      "path": "projects/",
+      "label": "Projects"
+    },
+    {
+      "page": "aboutPage",
+      "path": "about/",
+      "label": "About"
+    },
+    {
+      "page": "contactPage",
+      "path": "contact/",
+      "label": "Contact"
+    }
+  ],
+  "serviceSubnav": [
+    {
+      "page": "servicesPage",
+      "path": "services/#exterior-painting",
+      "label": "Exterior Painting",
+      "anchor": "exterior-painting"
+    },
+    {
+      "page": "servicesPage",
+      "path": "services/#interior-painting",
+      "label": "Interior Painting",
+      "anchor": "interior-painting"
+    },
+    {
+      "page": "kitchenPage",
+      "path": "kitchen-renovations/",
+      "label": "Kitchen Renovations"
+    },
+    {
+      "page": "bathroomPage",
+      "path": "bathroom-renovations/",
+      "label": "Bathroom Refresh"
+    }
+  ],
+  "serviceOptions": [
+    "Interior painting",
+    "Exterior painting",
+    "Kitchen renovations",
+    "Bathroom refresh",
+    "Cabinet painting & refinishing",
+    "Pressure washing",
+    "Paver sealing",
+    "Fence & deck staining",
+    "Stucco repair & prep-for-sale touch-ups",
+    "Other"
+  ],
+  "services": [
+    {
+      "title": "Interior Painting",
+      "anchor": "interior-painting",
+      "body": "Whole-home or room-by-room repaints with premium grades, furniture and floor protection, and spotless cleanup every night — so you can live comfortably between coats in Lake Nona and Orlando homes.",
+      "learnHref": "services/#interior-painting",
+      "image": "projects/project-interior-whole-home-painting.jpg",
+      "imageAlt": "Bright living room during a professional whole-home interior paint project in Central Florida"
+    },
+    {
+      "title": "Exterior Painting",
+      "anchor": "exterior-painting",
+      "body": "Full exterior repaints with stucco crack sealing, trim detail, and sun-ready coatings — built for Florida humidity, HOA timelines, and curb appeal that holds up through storm season.",
+      "learnHref": "services/#exterior-painting",
+      "image": "projects/project-lake-nona-exterior-painting.jpg",
+      "imageAlt": "Fresh exterior paint on a Lake Nona home with clean trim and stucco finish"
+    },
+    {
+      "title": "Kitchen Renovations",
+      "body": "Cabinet refinishing, counters, backsplash, and lighting — a brighter kitchen without months of construction dust.",
+      "learnHref": "kitchen-renovations/",
+      "image": "projects/project-kitchen-cabinet-transformations.jpg",
+      "imageAlt": "Kitchen cabinet color transformation with under-cabinet lighting in Orlando"
+    },
+    {
+      "title": "Bathroom Refresh",
+      "body": "Tile refinishing, wallpaper removal, and modern paint when you want a new look without a full gut renovation.",
+      "learnHref": "bathroom-renovations/",
+      "image": "projects/project-bathroom-tile-refinishing.jpg",
+      "imageAlt": "Updated bathroom with refinished tile and fresh wall paint in Lake Nona"
+    },
+    {
+      "title": "Cabinet Painting",
+      "body": "Factory-smooth finishes, color guidance, and hardware updates that make dated cabinets feel brand new.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Pressure Washing",
+      "body": "Driveways, pavers, siding, and outdoor surfaces cleaned so prep and paint (or sealing) start on a sound surface.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Fence & Deck Staining",
+      "body": "Even coverage over imperfect boards with neighbor-friendly prep and a polished final finish.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Stucco & Touch-Ups",
+      "body": "Crack repair and listing-ready touch-ups so your home shows beautifully inside and out before market day.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Free Color Consultation",
+      "body": "Not sure which shade works with your Florida light? We bring samples, walk your rooms, and help you pick confidently — complimentary with every quote.",
+      "learnHref": "contact/"
+    },
+    {
+      "title": "Whole-Room Refresh",
+      "body": "One coordinated update — paint, patch, and polish — so a tired bedroom or office feels new again without months of contractor chaos.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Drywall & Texture Repair",
+      "body": "Smooth patches, matched orange-peel texture, and nail-pop fixes so your walls are camera-ready before the first coat of paint.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Roof & Soft Wash",
+      "body": "Gentle algae and mildew removal for roofs, siding, and lanai screens — restore Central Florida curb appeal without harsh pressure damage.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Paver Sealing",
+      "body": "Clean, re-sand joints, and seal driveway pavers so color holds in the sun and joint sand resists rain washout.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Pre-Listing Makeover",
+      "body": "Listing-ready touch-ups inside and out — scuff fixes, fresh trim, and curb appeal boosts so buyers fall in love at the front door.",
+      "learnHref": "contact/"
+    },
+    {
+      "title": "Water Damage Repair",
+      "body": "Patch, prime, and repaint after leaks or storm infiltration — organized crews that get your home back to normal fast with minimal disruption.",
+      "learnHref": "services/"
+    },
+    {
+      "title": "Popcorn Ceiling Removal",
+      "body": "Modern smooth ceilings that brighten rooms, reduce dust traps, and add resale appeal — especially popular before a fresh interior repaint.",
+      "learnHref": "services/"
+    }
+  ],
+  "serviceGroups": [
+    {
+      "title": "Paint",
+      "indices": [
+        0,
+        1,
+        4,
+        8
+      ]
+    },
+    {
+      "title": "Renovate",
+      "indices": [
+        2,
+        3,
+        9,
+        10
+      ]
+    },
+    {
+      "title": "Exterior care",
+      "indices": [
+        5,
+        6,
+        11,
+        12
+      ]
+    },
+    {
+      "title": "Restore",
+      "indices": [
+        7,
+        13,
+        14,
+        15
+      ]
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Larry Truong",
+      "service": "Exterior painting",
+      "quote": "Mauricio and the Pixel Paint team did a fantastic job with a full cleaning and exterior painting of my home as well as pressure washing, sanding and sealing pavers. He provided regular updates, and I appreciated him taking care of smaller items during the process."
+    },
+    {
+      "name": "Irene Montanaro",
+      "service": "Bathroom refresh",
+      "quote": "He was able to paint and refinish our tile making it appear much more modern. He also stripped two layers of old wallpaper, textured the wall and painted it. The entire process was very professional and the work area was kept clean."
+    },
+    {
+      "name": "Jennifer Fitzgerald",
+      "service": "Kitchen renovation",
+      "quote": "Mauricio and his team at Pixel Paint completely transformed what was a very brown dull kitchen into something I am so excited to host friends and family in! Process was smooth and quick from start to finish."
+    },
+    {
+      "name": "Justin Q",
+      "service": "Exterior painting",
+      "quote": "Pixel Paint is one of the few companies that doesn't forget you even after the job is done. When we had an issue years later, Mauricio replied within minutes that he'd take care of us. They live up to their word."
+    },
+    {
+      "name": "Eric Whitten",
+      "service": "Kitchen renovation",
+      "quote": "We used Mauricio and his team to renovate our kitchen, including painting cabinets, new countertops, new backsplash, and new lighting. Responsive, easy to work with, and a great overall value."
+    },
+    {
+      "name": "Kristina Herndon",
+      "service": "Interior painting",
+      "quote": "We had them do a full interior paint job of our house — it looks great! The crew was friendly, professional, and quiet as a mouse while they worked. We highly recommend their services."
+    },
+    {
+      "name": "Josie Kassem",
+      "service": "Exterior painting",
+      "quote": "Pixel Paint Renovations did an outstanding job providing us with information about different types of paint and painting our house professionally. Their warranty is second to none."
+    },
+    {
+      "name": "Pamela Bolingbroke",
+      "service": "Interior painting",
+      "quote": "I managed a paint manufacturing company for 15 years and typically painted my homes myself. I feel qualified to give Pixel Paint Renovations a five star rating for workmanship and materials."
+    },
+    {
+      "name": "Michelle Ospina",
+      "service": "Commercial painting",
+      "quote": "Highly recommend. They are very responsive and solution-oriented. All workers are background checked and the project manager is regularly on site overseeing all work."
+    },
+    {
+      "name": "Luis D",
+      "service": "Exterior painting",
+      "quote": "From the very beginning Mauricio was great in explaining everything and going over color options. Jonathan and John did a phenomenal job painting and were great at keeping the site as clean as possible."
+    },
+    {
+      "name": "Kristi House",
+      "service": "Interior & exterior",
+      "quote": "We had a great experience with Mauricio and his team. They are professional, detailed and easy to work with. Highly recommend!"
+    }
+  ],
+  "projectShowcase": [
+    {
+      "title": "Exterior painting & paver sealing",
+      "body": "Full exterior repaints, pressure washing, sanding, and paver sealing built for Florida weather.",
+      "image": "projects/project-exterior-painting-paver-sealing.jpg",
+      "alt": "Fresh exterior paint and sealed pavers on a Lake Nona home",
+      "location": "Lake Nona",
+      "caption": "Exterior repaint with paver wash, sand, and seal — built for sun and rain.",
+      "tags": [
+        "exterior"
+      ]
+    },
+    {
+      "title": "Interior whole-home painting",
+      "body": "Premium interior finishes with protected floors, furniture, and spotless daily cleanup.",
+      "image": "projects/project-interior-whole-home-painting.jpg",
+      "alt": "Bright living room during a professional whole-home interior paint project",
+      "location": "Central Florida",
+      "caption": "Whole-home interior with drop cloths, premium grades, and daily cleanup.",
+      "tags": [
+        "interior"
+      ]
+    },
+    {
+      "title": "Bathroom refresh & tile refinishing",
+      "body": "Modernize dated bathrooms with tile refinishing, wallpaper removal, and new paint.",
+      "image": "projects/project-bathroom-tile-refinishing.jpg",
+      "alt": "Updated bathroom with refinished tile and fresh wall paint in Lake Nona",
+      "location": "Lake Nona",
+      "caption": "Tile refinishing and paint — modern look without a full gut renovation.",
+      "tags": [
+        "bathroom"
+      ]
+    },
+    {
+      "title": "Exterior pressure washing",
+      "body": "Driveways, siding, pavers, and outdoor surfaces cleaned and restored to like-new condition.",
+      "image": "projects/project-exterior-pressure-washing.jpg",
+      "alt": "Driveway and siding pressure washing before exterior painting in Orlando",
+      "location": "Orlando",
+      "caption": "Surface prep and pressure washing before coating or sealing.",
+      "tags": [
+        "exterior"
+      ]
+    },
+    {
+      "title": "Cabinet painting & refinishing",
+      "body": "Factory-smooth cabinet finishes with durable coatings and updated hardware.",
+      "image": "projects/project-cabinet-painting-refinishing.jpg",
+      "alt": "Factory-smooth painted kitchen cabinets with new hardware in Lake Nona",
+      "location": "Lake Nona",
+      "caption": "Durable cabinet coatings and hardware selected for daily use.",
+      "tags": [
+        "kitchen"
+      ]
+    },
+    {
+      "title": "Kitchen cabinet transformations",
+      "body": "Modern color updates, hardware swaps, and lighting that refresh the heart of your home.",
+      "image": "projects/project-kitchen-cabinet-transformations.jpg",
+      "alt": "Kitchen cabinet color transformation with under-cabinet lighting in Orlando",
+      "location": "Orlando",
+      "caption": "Color, hardware, and lighting update — ready for guests again.",
+      "tags": [
+        "kitchen"
+      ]
+    },
+    {
+      "title": "Business projects",
+      "body": "Organized crews for offices, retail, HOA, and multi-unit properties with clear communication.",
+      "image": "projects/project-business-projects.jpg",
+      "alt": "Commercial interior painting project with organized crew in Central Florida",
+      "location": "Central Florida",
+      "caption": "HOA, retail, and multi-unit work with clear schedules and communication.",
+      "tags": [
+        "commercial"
+      ]
+    },
+    {
+      "title": "Prep-for-sale touch-ups",
+      "body": "Listing-ready painting, stucco repair, and fast turnarounds before market.",
+      "image": "projects/project-prep-for-sale-touch-ups.jpg",
+      "alt": "Listing-ready exterior touch-ups and stucco repair before sale in Orlando",
+      "location": "Orlando metro",
+      "caption": "Fast turnarounds so your home shows beautifully on day one.",
+      "tags": [
+        "interior",
+        "exterior"
+      ]
+    }
+  ],
+  "whyChooseUs": [
+    [
+      "You talk to one team",
+      "Clear updates from walkthrough to final payment — not a call center or disappearing contractor."
+    ],
+    [
+      "Background-checked crew",
+      "Professional painters who protect your home, keep pathways clear, and finish on schedule."
+    ],
+    [
+      "Built for Florida homes",
+      "Premium paint grades, humidity-aware prep, and finishes chosen for sun, rain, and stucco."
+    ],
+    [
+      "Warranty that means something",
+      "Neighbors mention our warranty again and again — a major reason homeowners choose Pixel Paint across Lake Nona and Orlando. Full written warranty provided with every quote — terms below pending final review."
+    ],
+    [
+      "Flexible when plans shift",
+      "Last-minute color changes, small add-ons, and touch-ups handled without losing momentum."
+    ],
+    [
+      "Fair quotes, no surprises",
+      "Written scope before work starts — neighbors recommend us because the price matches the result."
+    ]
+  ],
+  "serviceAreas": [
+    {
+      "title": "Lake Nona & Southeast Orlando",
+      "areas": [
+        "Lake Nona",
+        "Laureate Park",
+        "Narcoossee",
+        "St. Cloud",
+        "Medical City"
+      ]
+    },
+    {
+      "title": "Central Orlando",
+      "areas": [
+        "Orlando",
+        "Winter Park",
+        "Baldwin Park",
+        "College Park",
+        "Downtown Orlando"
+      ]
+    },
+    {
+      "title": "Southwest Metro",
+      "areas": [
+        "Kissimmee",
+        "Hunter's Creek",
+        "Meadow Woods",
+        "Southchase",
+        "Celebration"
+      ]
+    },
+    {
+      "title": "Greater Central Florida",
+      "areas": [
+        "Surrounding communities by request",
+        "HOA and multi-unit projects welcome"
+      ]
+    }
+  ],
+  "processSteps": [
+    {
+      "title": "Free visit & written quote",
+      "body": "We walk your home, listen to what you want changed, and leave you with a clear price — no pressure to decide on the spot."
+    },
+    {
+      "title": "Protected work, daily cleanup",
+      "body": "Floors, furniture, and walkways stay covered. You keep living in your home while crews clean up every day."
+    },
+    {
+      "title": "Walkthrough & warranty",
+      "body": "We review the finished rooms together, handle touch-ups, and leave you with a full written warranty — terms reviewed with your quote."
+    }
+  ],
+  "pages": {
+    "home": {
+      "path": "",
+      "title": "Pixel Paint | House Painters in Lake Nona & Orlando",
+      "description": "Lake Nona & Orlando house painting and renovations — interior, exterior, kitchens & baths. Warranty-backed Pixel Paint crew. Free estimates.",
+      "hero": {
+        "eyebrow": "House Painting & Renovations · Lake Nona & Orlando",
+        "headline": "Lake Nona house painters & home renovations you can trust.",
+        "lead": "One local crew for paint and smart renovations — clear quotes, daily cleanup, and a project manager who stays reachable after the job.",
+        "body": "Pixel Paint and Renovations oversees every project from walkthrough to final payment — written scope, protected job sites, and premium materials chosen for Florida humidity, sun, and stucco.",
+        "highlights": [
+          "Free on-site walkthroughs and written estimates — no pressure",
+          "Background-checked crews who respect your home and clean up daily",
+          "Kitchen & bathroom refreshes without months of demolition dust",
+          "Exterior repaints, stucco crack sealing, and paver wash-and-seal",
+          "Warranty support after final payment — full written terms delivered with every quote"
+        ],
+        "microcopy": "Fully insured · Background-checked crew · Free estimates · Written warranty with every quote · Lake Nona, Orlando & Central Florida"
+      },
+      "blocks": [
+        {
+          "type": "services"
+        },
+        {
+          "type": "processSteps"
+        },
+        {
+          "type": "projectShowcase",
+          "limit": 3,
+          "layout": "featured"
+        },
+        {
+          "type": "textSplit",
+          "sections": [
+            {
+              "title": "Local team. Real accountability.",
+              "body": "Pixel Paint and Renovations Inc grew through referrals across Lake Nona, Laureate Park, and the greater Orlando area — not ads. Our team stays on your project from the first walkthrough to the final walkthrough, with crews who treat your home like their own."
+            },
+            {
+              "title": "Built for Florida homes",
+              "body": "Humidity, stucco cracks, harsh sun, and HOA timelines are part of the job here. We choose paint grades, sealers, and prep steps that hold up in Central Florida — whether you are refreshing one room or coordinating a kitchen update before listing."
+            }
+          ]
+        },
+        {
+          "type": "benefits"
+        },
+        {
+          "type": "serviceAreas"
+        },
+        {
+          "type": "instagramStrip"
+        },
+        {
+          "type": "warrantyPanel"
+        },
+        {
+          "type": "testimonials",
+          "limit": 6,
+          "featured": true
+        }
+      ]
+    },
+    "servicesPage": {
+      "path": "services/",
+      "title": "Painting & Renovation Services in Lake Nona & Orlando | Pixel Paint",
+      "description": "Interior & exterior painting, kitchens, baths & stucco prep in Lake Nona and Orlando. Written quotes, one crew from walkthrough to finish — free estimates from Pixel Paint.",
+      "hero": {
+        "eyebrow": "Lake Nona & Orlando · Referral-backed paint & renovation",
+        "headline": "The crew who quotes your home is the crew who paints it.",
+        "lead": "Tell us what you want refreshed — interior and exterior paint, cabinets and trim, a kitchen or bath update, stucco repair, or listing prep. We walk the home, send a written quote with a clear start date, and schedule the same background-checked team — one project manager from first visit to final walkthrough.",
+        "body": "No surprise subs or vague allowances — humidity-smart prep, protected rooms you can still use, and a PM you can reach after final payment. Warranty included with every quote.",
+        "stats": [
+          {
+            "label": "PAINT",
+            "detail": "Interiors, exteriors & cabinets — one crew, one schedule"
+          },
+          {
+            "label": "RENOVATE",
+            "detail": "Kitchens & baths without months of dust"
+          },
+          {
+            "label": "EXTERIOR CARE",
+            "detail": "Stucco repair, wash, seal & curb appeal"
+          },
+          {
+            "label": "RESTORE",
+            "detail": "Touch-ups before you go to market"
+          }
+        ],
+        "trust": "Referral-driven · Fully insured · Background-checked crew · Written warranty with every quote · Free on-site walkthroughs · Lake Nona, Orlando & Central Florida"
+      },
+      "blocks": [
+        {
+          "type": "textSplit",
+          "accent": "blue",
+          "sections": [
+            {
+              "title": "Exterior painting built for Central Florida",
+              "body": "Stucco crack repair, thorough wash-and-scrape prep, trim and fascia detail, and premium exterior grades chosen for harsh sun and rain. We coordinate HOA-friendly schedules across Lake Nona, Laureate Park, and the greater Orlando area — one crew from walkthrough to final touch-ups."
+            },
+            {
+              "title": "Interior painting without the mess",
+              "body": "Whole-home repaints, accent walls, ceiling refreshes, and cabinet-adjacent trim with floors covered, furniture protected, and rooms left usable at the end of each day. Premium interior grades, clean edges, and a project manager who stays reachable until final walkthrough."
+            }
+          ]
+        },
+        {
+          "type": "services",
+          "full": true,
+          "heading": {
+            "eyebrow": "What We Do",
+            "title": "Pick your project — we handle the crew, prep, and cleanup",
+            "body": "Four categories cover everything Pixel Paint delivers in Central Florida: premium paint work, smart renovations, exterior care, and restore-and-list prep. Same organized teams, same project manager, zero juggling vendors."
+          }
+        },
+        {
+          "type": "warrantyStrip",
+          "homeWarranty": true
+        },
+        {
+          "type": "testimonials",
+          "all": true,
+          "columns": 3,
+          "source": "Google"
+        }
+      ]
+    },
+    "kitchenPage": {
+      "path": "kitchen-renovations/",
+      "title": "Kitchen Renovations in Lake Nona & Orlando | Pixel Paint",
+      "description": "Kitchen cabinet painting, countertops, backsplash, lighting, and hardware updates in Lake Nona and Orlando — without months of demolition.",
+      "hero": {
+        "eyebrow": "Kitchen Renovations · Lake Nona & Orlando",
+        "headline": "A kitchen you are proud to host in — without starting from scratch",
+        "body": "Durable cabinet finishes for Florida humidity, updated counters and backsplash, under-cabinet lighting, and modern hardware — coordinated by Pixel Paint and Renovations so your kitchen feels new in days, not months."
+      },
+      "blocks": [
+        {
+          "type": "textSplit",
+          "sections": [
+            {
+              "title": "Cabinet painting that lasts",
+              "body": "Factory-smooth finishes in colors you will love, with expert pairing for uppers and lowers, flat black or brushed hardware, and coatings chosen to stand up to steam, grease, and daily use."
+            },
+            {
+              "title": "Counters, backsplash & lighting",
+              "body": "One schedule for countertop replacement, backsplash install, and lighting updates — so the finished kitchen feels intentional, brighter, and ready for guests."
+            },
+            {
+              "title": "Your timeline, step by step",
+              "body": "Walkthrough → written quote → color selection → protected prep → install coordination → final walkthrough. Most kitchen refreshes run on a focused calendar with minimal disruption to your routine."
+            }
+          ]
+        },
+        {
+          "type": "projectShowcase",
+          "filter": "kitchen",
+          "limit": 3
+        },
+        {
+          "type": "testimonials",
+          "filter": "Kitchen",
+          "limit": 3
+        },
+        {
+          "type": "textLinkCta",
+          "label": "Get a Free Quote",
+          "href": "contact/",
+          "note": "Tell us about your kitchen — photos help us quote faster."
+        }
+      ]
+    },
+    "bathroomPage": {
+      "path": "bathroom-renovations/",
+      "title": "Bathroom Remodel & Refresh in Lake Nona & Orlando | Pixel Paint",
+      "description": "Cost-effective bathroom refreshes with tile refinishing, wallpaper removal, and professional painting in Lake Nona and Central Florida.",
+      "hero": {
+        "eyebrow": "Bathroom Refresh",
+        "headline": "A brighter bathroom — without weeks of demolition",
+        "body": "Refinish existing tile, strip dated wallpaper, retexture walls, and apply moisture-aware paint. Ideal for Orlando humidity, HOA-friendly timelines, and homeowners who want a modern look on a practical budget."
+      },
+      "blocks": [
+        {
+          "type": "textSplit",
+          "sections": [
+            {
+              "title": "Tile refinishing & paint",
+              "body": "When a full remodel is not the plan, refinishing tile and updating wall color can make a 1990s bathroom feel current — with finishes selected for moisture and everyday cleaning."
+            },
+            {
+              "title": "Respectful work while you live at home",
+              "body": "Pathways stay open, surrounding rooms stay protected, and you know each day's schedule before crews arrive. Wallpaper removal, texture repair, and paint are sequenced to limit dust and downtime."
+            },
+            {
+              "title": "What to expect",
+              "body": "Most bathroom refreshes finish in a few focused days depending on tile condition and wall repairs. You will know when fixtures are back in use before work starts."
+            }
+          ]
+        },
+        {
+          "type": "projectShowcase",
+          "filter": "bathroom",
+          "limit": 2
+        },
+        {
+          "type": "testimonials",
+          "filter": "Bathroom",
+          "limit": 2
+        },
+        {
+          "type": "textLinkCta",
+          "label": "Get a Free Quote",
+          "href": "contact/",
+          "note": "Send a few photos of your bathroom — we respond quickly."
+        }
+      ]
+    },
+    "aboutPage": {
+      "path": "about/",
+      "title": "About | Pixel Paint Renovations",
+      "description": "Lake Nona painting and renovation team from Pixel Paint and Renovations — referral-driven, warranty-backed, and built on clear communication across Central Florida.",
+      "hero": {
+        "eyebrow": "About · Lake Nona & Orlando",
+        "headline": "A local paint and renovation crew neighbors actually recommend",
+        "lead": "Pixel Paint and Renovations Inc grew through repeat clients and word of mouth across Lake Nona, Laureate Park, and Orlando — not flashy ads or subcontractor handoffs.",
+        "body": "Pixel Paint and Renovations leads every project with written scope, protected job sites, and premium materials chosen for Florida humidity and sun. One accountable project manager from walkthrough to warranty follow-up.",
+        "stats": [
+          {
+            "label": "Rooted here",
+            "detail": "Lake Nona & Central Florida focus"
+          },
+          {
+            "label": "Referrals",
+            "detail": "Repeat clients & neighbor recommendations"
+          },
+          {
+            "label": "Warranty",
+            "detail": "Written terms with every quote — pending final review"
+          },
+          {
+            "label": "Vetted crew",
+            "detail": "Background-checked painters on site"
+          }
+        ],
+        "trust": "Fully insured · Written warranty with every project · Free on-site estimates · Lake Nona, Orlando & Central Florida"
+      },
+      "blocks": [
+        {
+          "type": "textSplit",
+          "sections": [
+            {
+              "title": "Booked because neighbors vouch — not coupons",
+              "body": "Most new clients find Pixel Paint through a friend, HOA group, or a second project at the same address. That keeps us focused on communication, schedule discipline, and finishes that hold up — the reasons people come back."
+            },
+            {
+              "title": "What happens from first call to final walkthrough",
+              "body": "On-site walkthrough and written scope. Color and material selection locked before prep. Floors, furniture, and pathways protected daily. Progress updates when it matters. Punch-list and warranty details spelled out before you pay."
+            }
+          ]
+        },
+        {
+          "type": "meetTeam"
+        },
+        {
+          "type": "benefits"
+        },
+        {
+          "type": "values",
+          "items": [
+            [
+              "Quality first",
+              "Premium paint grades, proper prep, and finishes chosen for Florida conditions."
+            ],
+            [
+              "Clear communication",
+              "Timely updates and a project manager on site when it matters most."
+            ],
+            [
+              "Respect for your home",
+              "Clean job sites, protected floors and furniture, and considerate neighbors."
+            ],
+            [
+              "Warranty & follow-through",
+              "Neighbors mention our warranty again and again — a major reason homeowners choose Pixel Paint across Lake Nona and Orlando. Full written warranty provided with every quote — terms below pending final review."
+            ]
+          ]
+        },
+        {
+          "type": "warrantyStrip",
+          "homeWarranty": true
+        }
+      ]
+    },
+    "contactPage": {
+      "path": "contact/",
+      "title": "Free Painting Quote in Lake Nona & Orlando | Pixel Paint",
+      "description": "Request a free painting or renovation quote from Pixel Paint and Renovations in Lake Nona and Orlando, FL.",
+      "hero": {
+        "eyebrow": "Free Quote · Lake Nona & Orlando",
+        "headline": "Your project deserves a reply you can actually plan around",
+        "lead": "Most quote requests get a personal response within XXX hours — often faster when you include photos and your ideal start date.",
+        "body": "Summer humidity, hurricane prep, and pre-listing touch-ups keep Central Florida crews busy. Tell us what you are planning now and we will scope it on a free walkthrough — with written warranty terms before work starts.",
+        "stats": [
+          {
+            "label": "Response",
+            "detail": "XXX hours — personal reply target"
+          },
+          {
+            "label": "Estimates",
+            "detail": "Free on-site walkthroughs"
+          },
+          {
+            "label": "Service area",
+            "detail": "Lake Nona, Orlando & metro"
+          },
+          {
+            "label": "Warranty",
+            "detail": "Written terms with every quote"
+          }
+        ],
+        "trust": "Fully insured · Background-checked crew · Photo uploads welcome · Florida-ready materials"
+      },
+      "blocks": [
+        {
+          "type": "contact",
+          "heading": {
+            "eyebrow": "Reach Pixel Paint",
+            "title": "One message starts your quote — no phone tag required",
+            "body": "Call us directly, email project photos, or use the form. Every path lands with the same project manager who runs your walkthrough and warranty follow-up."
+          }
+        },
+        {
+          "type": "warrantyStrip",
+          "homeWarranty": true
+        },
+        {
+          "type": "testimonials",
+          "limit": 6,
+          "columns": 3,
+          "heading": {
+            "eyebrow": "Neighbor proof",
+            "title": "Homeowners who started with one message",
+            "body": "Real feedback from Lake Nona and Orlando clients who reached out the same way you are about to — before crews ever arrived."
+          }
+        }
+      ]
+    },
+    "projectsPage": {
+      "path": "projects/",
+      "title": "Painting & Renovation Projects in Lake Nona & Orlando | Pixel Paint",
+      "description": "See Pixel Paint exteriors, interiors, kitchens & baths across Lake Nona and Orlando — real project photos from our local crew.",
+      "ogImage": "og-image.jpg",
+      "hero": {
+        "eyebrow": "How We Run Jobs · Lake Nona & Orlando",
+        "headline": "Clear price. Clean job site. Finish you will love.",
+        "lead": "Every project starts with a free home visit and written quote, runs with one project manager and protected prep, and ends with a walkthrough plus warranty in writing.",
+        "body": "Homeowners tell us they want three things: know the cost upfront, keep the house livable during work, and trust the crew will stand behind the finish. That is how we run every paint and renovation job in Lake Nona and Orlando.",
+        "stats": [
+          {
+            "label": "Clear quote",
+            "detail": "Free visit, written price before prep starts"
+          },
+          {
+            "label": "Prep done right",
+            "detail": "Stucco repair, primer, coatings chosen for Florida"
+          },
+          {
+            "label": "Clean job site",
+            "detail": "Protected floors, daily cleanup, one crew"
+          },
+          {
+            "label": "Backed finish",
+            "detail": "Final walkthrough plus written warranty"
+          }
+        ],
+        "trust": "Fully insured · Background-checked crew · Free on-site estimates"
+      },
+      "blocks": [
+        {
+          "type": "projectShowcase",
+          "full": true,
+          "heading": {
+            "eyebrow": "Finished Work",
+            "title": "Real outcomes from the same simple process",
+            "body": "Every project below started with a free visit and written quote, ran with protected prep and daily cleanup, and finished with a walkthrough — kitchens, exteriors, and whole-home repaints across Lake Nona and Orlando."
+          }
+        },
+        {
+          "type": "warrantyStrip",
+          "homeWarranty": true
+        },
+        {
+          "type": "socialGalleryIntro"
+        }
+      ]
+    },
+    "privacyPage": {
+      "path": "privacy/",
+      "title": "Privacy Policy | Pixel Paint Renovations",
+      "description": "How Pixel Paint and Renovations Inc collects and uses information submitted through our website quote form.",
+      "hero": {
+        "eyebrow": "Privacy Policy",
+        "headline": "Your information stays with us",
+        "body": "We use contact details only to respond to quote requests and project questions. We do not sell personal information."
+      },
+      "blocks": [
+        {
+          "type": "privacyPolicy"
+        }
+      ]
+    }
+  },
+  "warranty": {
+    "headline": "Written workmanship warranty — terms provided with your quote",
+    "summary": "Neighbors mention our warranty again and again — a major reason homeowners choose Pixel Paint across Lake Nona and Orlando.",
+    "quoteNote": "Full written warranty provided with every quote — terms below pending final review.",
+    "footerLine": "Warranty-backed on every project — full written terms with your quote (details pending final review).",
+    "stripText": "Every Pixel Paint project ships with a written warranty neighbors talk about. Specific terms are pending final review.",
+    "terms": [
+      {
+        "term": "Duration",
+        "detail": "XXX years from date of final payment and project sign-off."
+      },
+      {
+        "term": "Coverage",
+        "detail": "XXX — workmanship, materials, and surfaces included in your written scope (interior paint, exterior paint, cabinet finishes, tile refresh, etc.)."
+      },
+      {
+        "term": "Exclusions",
+        "detail": "XXX — normal wear and tear, owner modifications, unrelated trades, pre-existing conditions, and acts of nature."
+      },
+      {
+        "term": "Claim process",
+        "detail": "XXX — contact Pixel Paint and Renovations at the phone or email on your contract within XXX days of noticing an issue; include photos and your contract reference."
+      },
+      {
+        "term": "Response time",
+        "detail": "XXX business days to acknowledge your claim; XXX to schedule inspection or repair."
+      },
+      {
+        "term": "Transferability",
+        "detail": "XXX — whether the warranty transfers to a new homeowner if the property is sold."
+      },
+      {
+        "term": "Maintenance requirements",
+        "detail": "XXX — any owner upkeep needed to keep coverage valid (ventilation, cleaning products, touch-up timing, etc.)."
+      }
+    ]
+  },
+  "ui": {
+    "skipToContent": "Skip to main content",
+    "primaryNav": "Primary navigation",
+    "toggleNav": "Toggle navigation",
+    "specialtyServices": "Specialty services",
+    "popularServices": "Popular services",
+    "footerNav": "Footer navigation",
+    "getFreeQuote": "Get a Free Quote",
+    "requestFreeQuote": "Request a Free Quote",
+    "learnMore": "Learn more",
+    "callPrefix": "Call",
+    "writtenWarranty": "Written warranty",
+    "freeEstimates": "Free estimates",
+    "neighborReviews": "5.0 · Neighbor reviews",
+    "referralDriven": "Referral-driven",
+    "stickyCtaAria": "Get a free quote — contact page",
+    "heroAlt": "Lake Nona landmark panorama featuring the VA Medical Center architecture, Town Center with the Disco dog and Wave Hotel, and Boxi Park container buildings in one seamless scene",
+    "proofServices": "Same PM from quote to finish",
+    "proofProjects": "Same PM start to finish",
+    "proofContact": "Free on-site estimates",
+    "statsServices": "Service categories",
+    "statsProjects": "What you get on every project",
+    "statsContact": "Why reach out now",
+    "statsAbout": "Why neighbors trust Pixel Paint",
+    "quoteSectionEyebrow": "Free Estimate",
+    "quoteSectionTitle": "Request a free quote",
+    "quoteSectionBody": "Share your project details and optional photos so we can provide an accurate estimate.",
+    "servicesDefaultEyebrow": "What We Do",
+    "servicesDefaultTitle": "Painting and renovation services for every part of your home",
+    "servicesDefaultBody": "Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.",
+    "socialEyebrow": "More Photos",
+    "socialTitle": "Follow us for the latest project updates",
+    "socialBody": "We post fresh before-and-after photos on Instagram and Facebook — kitchens, exteriors, bathrooms, and whole-home repaints across Central Florida.",
+    "projectsEyebrow": "Project Showcase",
+    "projectsTitle": "Work you can picture in your home",
+    "projectsBodyHome": "Recent project types we handle every week across Lake Nona, Orlando, and the surrounding metro.",
+    "projectsBodyFull": "Every image is from a real Pixel Paint job — protected prep, premium materials, and finishes built for Central Florida.",
+    "processEyebrow": "How It Works",
+    "processTitle": "Three steps, no guesswork",
+    "processBody": "Know the price before work starts, stay comfortable while we paint, and get a finish backed in writing.",
+    "benefitsEyebrow": "Why Choose Pixel Paint",
+    "benefitsTitle": "Why Lake Nona neighbors call us back",
+    "benefitsBody": "Homeowners across Central Florida choose Pixel Paint for communication, craftsmanship, and follow-through that lasts beyond the final walkthrough.",
+    "areasEyebrow": "Areas We Serve",
+    "areasTitle": "Serving Lake Nona, Orlando, and Central Florida",
+    "areasBody": "Pixel Paint and Renovations works across the Orlando metro and surrounding communities.",
+    "reviewsEyebrow": "Customer Reviews",
+    "reviewsEyebrowGoogle": "Google Reviews",
+    "reviewsTitle": "What homeowners say about Pixel Paint",
+    "reviewsTitleGoogle": "What neighbors say on Google",
+    "reviewsBody": "Real feedback from painting and renovation clients across Central Florida.",
+    "reviewsBodyGoogle": "Real Google reviews from painting and renovation clients across Central Florida.",
+    "reviewsAria": "Customer reviews",
+    "reviewsMoreAria": "More customer reviews",
+    "reviewsCardsAria": "Customer review cards",
+    "valuesEyebrow": "Our Values",
+    "valuesTitle": "How we show up on every job",
+    "instagramEyebrow": "Fresh project photos",
+    "instagramBodyBefore": "See before-and-after kitchens, exteriors, and whole-home repaints on",
+    "instagramBodyAfter": "— updated weekly across Central Florida.",
+    "warrantyEyebrow": "Our Warranty",
+    "warrantyStripEyebrow": "Warranty-backed",
+    "warrantyStripAria": "Warranty",
+    "warrantyReviewLink": "Review full warranty terms",
+    "warrantyPendingEyebrow": "Pending review",
+    "warrantyPendingNote": "Replace all XXX placeholders with final legal language before launch.",
+    "teamEyebrow": "Local crew",
+    "teamTitle": "Meet the team behind Pixel Paint and Renovations",
+    "teamIntro": "Pixel Paint and Renovations Inc serves Lake Nona, Orlando, and Central Florida.",
+    "teamName": "Pixel Paint and Renovations",
+    "teamRole": "Lake Nona painting & renovation",
+    "teamBody": "We built Pixel Paint around jobs we would trust in our own homes — organized crews, honest timelines, and coatings that survive Florida heat and humidity. One project manager coordinates painters and renovation subs directly, so your questions go to one team that knows your scope.",
+    "teamHighlights": [
+      "On-site for walkthroughs, mid-project check-ins, and punch lists",
+      "Direct line for schedule changes and warranty questions",
+      "Lake Nona–based — serving Orlando and the wider metro daily"
+    ],
+    "teamBadgeAlt": "Pixel Paint and Renovations logo badge",
+    "contactDefaultEyebrow": "Get in touch",
+    "contactDefaultTitle": "We are ready to help with your next project",
+    "contactDefaultBody": "Reach out by phone, email, or the form. Follow us on Instagram and Facebook for recent project photos.",
+    "contactTrustAria": "Why homeowners reach out",
+    "contactBadgeInsured": "Fully insured",
+    "contactBadgeWarranty": "Written warranty",
+    "contactBadgeEstimates": "Free estimates",
+    "contactBadgeLocal": "Local crew",
+    "contactSeasonalLabel": "Florida season",
+    "contactSeasonalBody": "Book exterior and humidity-sensitive work before peak summer heat — interior refreshes and cabinet painting stay year-round.",
+    "contactResponseNoteBefore": "Most quotes answered within",
+    "contactResponseNoteHours": "XXX hours",
+    "contactResponseNoteAfter": "when you include photos and your target start window.",
+    "contactPhoneLabel": "Phone",
+    "contactPhoneHint": "Talk to our team directly",
+    "contactEmailLabel": "Email",
+    "contactEmailHint": "Attach photos anytime",
+    "contactAreaLabel": "Service area",
+    "contactAreaValue": "Lake Nona & Central Florida",
+    "contactAreaHint": "On-site walkthroughs across the metro",
+    "contactSocialAria": "Follow Pixel Paint",
+    "contactSocialInstagram": "Instagram · @pixelpaint.renovations",
+    "contactSocialFacebook": "Facebook · Recent project photos",
+    "contactMapTitle": "Lake Nona, Florida map",
+    "contactWarrantyReview": "Review placeholder terms",
+    "contactFormHookEyebrow": "Start here",
+    "contactFormHookLead": "Photos beat guesswork — snap your room, cabinets, or exterior and attach below.",
+    "contactFormIntro": "Tell us what you are planning — room, timeline, and colors. We reply with next steps and a free on-site estimate.",
+    "contactFormPhotoHint": "A quick phone photo of the space helps us quote accurately on the first reply — kitchens, baths, and exteriors welcome.",
+    "contactNextAria": "What happens after you submit",
+    "contactNextTitle": "What happens next",
+    "contactNextSteps": [
+      {
+        "title": "We reply personally",
+        "body": "Target within XXX hours — your questions answered or a free home visit scheduled, not an auto-reply."
+      },
+      {
+        "title": "Free home visit",
+        "body": "We see the space, discuss your goals, and leave you with a written quote — price, materials, and schedule spelled out."
+      },
+      {
+        "title": "You approve with confidence",
+        "body": "Everything is in writing before work starts — cost, prep plan, and warranty terms. No surprise bills or strangers on site."
+      }
+    ],
+    "footerBlurb": "Pixel Paint and Renovations Inc — professional painting and home renovations serving Lake Nona, Orlando, and Central Florida.",
+    "footerReviewTerms": "Review terms",
+    "footerKitchen": "Kitchen Renovations",
+    "footerBathroom": "Bathroom Refresh",
+    "footerPrivacy": "Privacy",
+    "footerServing": "Serving Lake Nona and Central Florida.",
+    "langSwitcherAria": "Language",
+    "schemaOfferCatalog": "Painting and renovation services",
+    "viewInstagram": "View Instagram",
+    "viewFacebook": "View Facebook",
+    "viewAllProjects": "View All Projects",
+    "logoHomeAriaSuffix": "home"
+  },
+  "form": {
+    "title": "Request a Free Quote",
+    "intro": "Share your project — we respond quickly with next steps and a free estimate.",
+    "honeypot": "Leave blank",
+    "name": "Your Name*",
+    "email": "Your Email*",
+    "phone": "Phone Number*",
+    "address": "Address",
+    "service": "I'm Interested In*",
+    "servicePlaceholder": "Please choose an option",
+    "photo": "Upload a photo (optional)",
+    "message": "How may we help you?*",
+    "messagePlaceholder": "Room(s), timeline, colors, or anything we should know.",
+    "privacy": "We use your information only to respond to your quote request.",
+    "submit": "Get My Free Quote",
+    "sending": "Sending…",
+    "sent": "Request Sent",
+    "confirmation": "Thank you — we received your request. We’ll reply personally with next steps or to schedule your free walkthrough.",
+    "photoTypeError": "Please upload a JPEG, PNG, or WebP image.",
+    "photoSizeError": "Photos must be 5 MB or smaller. Please choose a smaller image.",
+    "notConfigured": "Online requests are not configured yet. Please call {phone} or email {email}.",
+    "networkError": "Something went wrong. Please try again or call {phone} for immediate help.",
+    "submissionFailed": "Submission failed"
+  },
+  "privacy": {
+    "lastUpdated": "Last updated:",
+    "collectTitle": "Information we collect",
+    "collectBody": "When you submit our quote form, we collect your name, email, phone number, optional address, service interest, optional project photo, and message. We use this information only to respond to your request and provide an estimate.",
+    "useTitle": "How we use your information",
+    "useBody": "We contact you about your project, schedule walkthroughs, and follow up on quotes. We do not sell or rent your personal information to third parties.",
+    "formTitle": "Form processing",
+    "formBody": "Form submissions are delivered securely to our team via a third-party form service. Optional photos you upload are used solely to understand your project scope.",
+    "contactTitle": "Contact",
+    "contactBody": "Questions about this policy? Email {email} or call {phone}."
+  }
+}

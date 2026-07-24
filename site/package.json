@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/i18n-build.mjs && node scripts/generate-seo.mjs && vite",
     "build": "npm run build:static",
-    "build:static": "node scripts/generate-seo.mjs && node scripts/i18n-build.mjs && vite build && node scripts/check-dist.mjs",
+    "build:static": "node scripts/i18n-build.mjs && node scripts/generate-seo.mjs && vite build && node scripts/check-dist.mjs",
     "build:gh-pages": "npm run build:static",
     "preview": "vite preview"
   },

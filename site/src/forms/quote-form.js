@@ -1,5 +1,7 @@
 import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY } from '../legal/constants.js'
-import { serviceOptions } from '../content/index.js'
+import { getServiceOptions } from '../content/index.js'
+import { getCatalog } from '../i18n/catalog.js'
+import { getActiveLocale } from '../i18n/state.js'
 import { trackEvent } from '../analytics.js'
 import { escapeHtml } from '../security/html.js'
 
@@ -9,29 +11,37 @@ const FORMSPREE_ID_PATTERN = /^[A-Za-z0-9]+$/
 
 let formInstanceSeq = 0
 
+function formCopy() {
+  return getCatalog(getActiveLocale()).form
+}
+
+function fillPlaceholders(template, vars) {
+  return template.replace(/\{(\w+)\}/g, (_, key) => (vars[key] != null ? String(vars[key]) : ''))
+}
+
 function isValidFormspreeId(formId) {
   return typeof formId === 'string' && FORMSPREE_ID_PATTERN.test(formId)
 }
 
 function validatePhoto(file) {
+  const copy = formCopy()
   if (!file || !file.size) return null
   if (!ALLOWED_PHOTO_TYPES.has(file.type)) {
-    return 'Please upload a JPEG, PNG, or WebP image.'
+    return copy.photoTypeError
   }
   if (file.size > MAX_PHOTO_BYTES) {
-    return 'Photos must be 5 MB or smaller. Please choose a smaller image.'
+    return copy.photoSizeError
   }
   return null
 }
 
 export function renderQuoteFormInner(title, compact = false, options = {}) {
+  const copy = formCopy()
   formInstanceSeq += 1
   const prefix = `quote-${formInstanceSeq}`
   const half = compact ? ' class="field-half"' : ''
   const full = compact ? ' class="full-field field-full"' : ' class="full-field"'
-  const intro =
-    options.intro ||
-    'Share your project — we respond quickly with next steps and a free estimate.'
+  const intro = options.intro || copy.intro
   const photoHint = options.photoHint
     ? `<p class="form-photo-hint">${escapeHtml(options.photoHint)}</p>`
     : ''
@@ -45,7 +55,7 @@ export function renderQuoteFormInner(title, compact = false, options = {}) {
   const idMessage = `${prefix}-message`
   const idGotcha = `${prefix}-gotcha`
 
-  const optionsHtml = serviceOptions
+  const optionsHtml = getServiceOptions()
     .map((option) => {
       const safe = escapeHtml(option)
       return `<option value="${safe}">${safe}</option>`
@@ -58,37 +68,37 @@ export function renderQuoteFormInner(title, compact = false, options = {}) {
       <p class="form-intro">${escapeHtml(intro)}</p>
       ${photoHint}
       <div class="hp-field" aria-hidden="true">
-        <label for="${idGotcha}">Leave blank</label>
+        <label for="${idGotcha}">${escapeHtml(copy.honeypot)}</label>
         <input id="${idGotcha}" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
       </div>
-      <label for="${idName}"${half}>Your Name*
+      <label for="${idName}"${half}>${escapeHtml(copy.name)}
         <input id="${idName}" name="name" type="text" required autocomplete="name" />
       </label>
-      <label for="${idEmail}"${half}>Your Email*
+      <label for="${idEmail}"${half}>${escapeHtml(copy.email)}
         <input id="${idEmail}" name="email" type="email" required autocomplete="email" />
       </label>
-      <label for="${idPhone}"${half}>Phone Number*
+      <label for="${idPhone}"${half}>${escapeHtml(copy.phone)}
         <input id="${idPhone}" name="phone" type="tel" required autocomplete="tel" />
       </label>
-      <label for="${idAddress}"${half}>Address
+      <label for="${idAddress}"${half}>${escapeHtml(copy.address)}
         <input id="${idAddress}" name="address" type="text" autocomplete="street-address" />
       </label>
-      <label for="${idService}"${compact ? ' class="field-full"' : ''}>I'm Interested In*
+      <label for="${idService}"${compact ? ' class="field-full"' : ''}>${escapeHtml(copy.service)}
         <select id="${idService}" name="service" required>
-          <option value="">Please choose an option</option>
+          <option value="">${escapeHtml(copy.servicePlaceholder)}</option>
           ${optionsHtml}
         </select>
       </label>
-      <label${full} for="${idPhoto}">Upload a photo (optional)
+      <label${full} for="${idPhoto}">${escapeHtml(copy.photo)}
         <input id="${idPhoto}" name="photo" type="file" accept="image/jpeg,image/png,image/webp" />
       </label>
-      <label${full} for="${idMessage}">How may we help you?*
-        <textarea id="${idMessage}" name="message" rows="${compact ? 3 : 4}" required placeholder="Room(s), timeline, colors, or anything we should know."></textarea>
+      <label${full} for="${idMessage}">${escapeHtml(copy.message)}
+        <textarea id="${idMessage}" name="message" rows="${compact ? 3 : 4}" required placeholder="${escapeHtml(copy.messagePlaceholder)}"></textarea>
       </label>
-      <p class="form-privacy field-full">We use your information only to respond to your quote request.</p>
-      <button class="btn btn-primary field-full" type="submit">Submit Request</button>
+      <p class="form-privacy field-full">${escapeHtml(copy.privacy)}</p>
+      <button class="btn btn-primary field-full" type="submit">${escapeHtml(copy.submit)}</button>
       <div class="form-status field-full" aria-live="polite" aria-atomic="true">
-        <p class="form-confirmation" hidden>Thank you! Your request has been sent. We will contact you shortly.</p>
+        <p class="form-confirmation" hidden>${escapeHtml(copy.confirmation)}</p>
         <p class="form-error" hidden role="alert"></p>
       </div>
     </form>
@@ -98,8 +108,9 @@ export function renderQuoteFormInner(title, compact = false, options = {}) {
 export function bindForm(form) {
   const rawFormId = import.meta.env.VITE_FORMSPREE_FORM_ID
   const formId = isValidFormspreeId(rawFormId) ? rawFormId : ''
+  const copy = formCopy()
   const submitBtn = form?.querySelector('button[type="submit"]')
-  const defaultLabel = submitBtn?.textContent?.trim() || 'Submit Request'
+  const defaultLabel = submitBtn?.textContent?.trim() || copy.submit
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault()
@@ -108,6 +119,7 @@ export function bindForm(form) {
       return
     }
 
+    const liveCopy = formCopy()
     const confirmation = form.querySelector('.form-confirmation')
     const errorEl = form.querySelector('.form-error')
 
@@ -124,7 +136,7 @@ export function bindForm(form) {
       if (confirmation) confirmation.hidden = false
       form.reset()
       submitBtn?.setAttribute('disabled', 'true')
-      submitBtn.textContent = 'Request Sent'
+      submitBtn.textContent = liveCopy.sent
     }
 
     const photoInput = form.querySelector('input[name="photo"]')
@@ -138,7 +150,10 @@ export function bindForm(form) {
 
     if (!formId) {
       showError(
-        `Online requests are not configured yet. Please call ${CONTACT_PHONE_DISPLAY} or email ${CONTACT_EMAIL}.`
+        fillPlaceholders(liveCopy.notConfigured, {
+          phone: CONTACT_PHONE_DISPLAY,
+          email: CONTACT_EMAIL
+        })
       )
       trackEvent('quote_form_error', { reason: 'not_configured' })
       return
@@ -147,7 +162,7 @@ export function bindForm(form) {
     if (errorEl) errorEl.hidden = true
     if (confirmation) confirmation.hidden = true
     submitBtn?.setAttribute('disabled', 'true')
-    submitBtn.textContent = 'Sending…'
+    submitBtn.textContent = liveCopy.sending
 
     const formData = new FormData(form)
     formData.append('_subject', 'New quote request — Pixel Paint website')
@@ -163,14 +178,17 @@ export function bindForm(form) {
 
       const data = await response.json().catch(() => ({}))
       if (!response.ok) {
-        throw new Error(data.error || 'Submission failed')
+        throw new Error(data.error || liveCopy.submissionFailed)
       }
 
       showSuccess()
       trackEvent('quote_form_submit', { page: document.title })
     } catch {
       showError(
-        `Something went wrong. Please try again or call ${CONTACT_PHONE_DISPLAY} for immediate help.`
+        fillPlaceholders(liveCopy.networkError, {
+          phone: CONTACT_PHONE_DISPLAY,
+          email: CONTACT_EMAIL
+        })
       )
       trackEvent('quote_form_error', { reason: 'network' })
       submitBtn?.removeAttribute('disabled')

@@ -2,11 +2,11 @@ import './style.css'
 import {
   href,
   absoluteUrl,
+  absoluteLocaleUrl,
   COMPANY_LEGAL_NAME,
   CONTACT_EMAIL,
   CONTACT_PHONE_DISPLAY,
   CONTACT_PHONE_TEL,
-  BUSINESS_LOCATION,
   INSTAGRAM_URL,
   FACEBOOK_URL,
   SITE_URL,
@@ -14,26 +14,41 @@ import {
   HERO_IMAGE
 } from './legal/constants.js'
 import {
-  nav,
-  serviceSubnav,
-  services,
-  serviceGroups,
-  testimonials,
-  projectShowcase,
-  whyChooseUs,
-  serviceAreas,
-  processSteps,
-  pages,
-  WARRANTY_HEADLINE,
-  WARRANTY_SUMMARY,
-  WARRANTY_QUOTE_NOTE,
-  WARRANTY_FOOTER_LINE,
-  WARRANTY_STRIP_TEXT,
-  WARRANTY_TERMS_PLACEHOLDER
+  getNav,
+  getServiceSubnav,
+  getServices,
+  getServiceGroups,
+  getTestimonials,
+  getProjectShowcase,
+  getWhyChooseUs,
+  getServiceAreas,
+  getProcessSteps,
+  getPages,
+  getWarranty
 } from './content/index.js'
+import { getCatalog } from './i18n/catalog.js'
+import { detectLocale, localizedPathFor } from './i18n/detect.js'
+import { LOCALES, getLocaleDef } from './i18n/locales.js'
+import { getActiveLocale, setActiveLocale } from './i18n/state.js'
 import { initAnalytics, trackEvent } from './analytics.js'
 import { escapeHtml } from './security/html.js'
 import { renderQuoteFormInner, bindForm } from './forms/quote-form.js'
+
+function ui() {
+  return getCatalog().ui
+}
+
+function formCopy() {
+  return getCatalog().form
+}
+
+function privacyCopy() {
+  return getCatalog().privacy
+}
+
+function warranty() {
+  return getWarranty()
+}
 
 function upsertMeta(attr, key, content) {
   let el = document.querySelector(`meta[${attr}="${key}"]`)
@@ -56,12 +71,17 @@ function upsertLink(rel, href) {
 }
 
 function setMeta(page) {
+  const locale = getActiveLocale()
+  const localeDef = getLocaleDef(locale)
   document.title = page.title
+  document.documentElement.lang = localeDef.htmlLang
+  document.documentElement.setAttribute('data-locale', locale)
+
   const description = page.description
   upsertMeta('name', 'description', description)
 
-  const ogImage = absoluteUrl(page.ogImage || OG_IMAGE)
-  const ogUrl = absoluteUrl(page.path || '')
+  const ogImage = absoluteUrl(page.ogImage || OG_IMAGE, { asset: true })
+  const ogUrl = absoluteLocaleUrl(page.path || '', locale)
   upsertLink('canonical', ogUrl)
   upsertMeta('property', 'og:title', page.title)
   upsertMeta('property', 'og:description', description)
@@ -69,6 +89,7 @@ function setMeta(page) {
   upsertMeta('property', 'og:url', ogUrl)
   upsertMeta('property', 'og:type', 'website')
   upsertMeta('property', 'og:site_name', COMPANY_LEGAL_NAME)
+  upsertMeta('property', 'og:locale', localeDef.ogLocale)
   upsertMeta('name', 'twitter:card', 'summary_large_image')
   upsertMeta('name', 'twitter:title', page.title)
   upsertMeta('name', 'twitter:description', description)
@@ -77,6 +98,8 @@ function setMeta(page) {
 
 function injectLocalBusinessSchema() {
   if (document.getElementById('local-business-schema')) return
+  const services = getServices()
+  const testimonials = getTestimonials()
   const script = document.createElement('script')
   script.id = 'local-business-schema'
   script.type = 'application/ld+json'
@@ -87,7 +110,7 @@ function injectLocalBusinessSchema() {
     url: SITE_URL,
     telephone: CONTACT_PHONE_TEL,
     email: CONTACT_EMAIL,
-    image: absoluteUrl('logo.png'),
+    image: absoluteUrl('logo.png', { asset: true }),
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Lake Nona',
@@ -109,7 +132,7 @@ function injectLocalBusinessSchema() {
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Painting and renovation services',
+      name: ui().schemaOfferCatalog,
       itemListElement: services.map((service) => ({
         '@type': 'Offer',
         itemOffered: {
@@ -137,11 +160,28 @@ function route(path) {
   return href(path)
 }
 
-function renderPrimaryAction(label = 'Get a Free Quote', path = 'contact/') {
+function renderPrimaryAction(label, path = 'contact/') {
   return `
     <div class="actions">
-      <a class="btn btn-primary" href="${escapeHtml(route(path))}">${escapeHtml(label)}</a>
+      <a class="btn btn-primary" href="${escapeHtml(route(path))}">${escapeHtml(label || ui().getFreeQuote)}</a>
     </div>
+  `
+}
+
+function renderLangSwitcher() {
+  const current = getActiveLocale()
+  const hash = typeof location !== 'undefined' ? location.hash : ''
+  const pathname = typeof location !== 'undefined' ? location.pathname : '/'
+  const base = typeof import.meta !== 'undefined' ? import.meta.env.BASE_URL || '/' : '/'
+  const links = LOCALES.map((locale) => {
+    const hrefLang = localizedPathFor(locale.id, pathname, hash, base)
+    const currentAttr = locale.id === current ? ' aria-current="true"' : ''
+    return `<a class="lang-switcher-flag" href="${escapeHtml(hrefLang)}" hreflang="${escapeHtml(locale.hreflang)}" lang="${escapeHtml(locale.htmlLang)}" title="${escapeHtml(locale.name)}" aria-label="${escapeHtml(locale.name)}"${currentAttr}><span class="lang-switcher-emoji" aria-hidden="true">${locale.flag}</span></a>`
+  }).join('')
+  return `
+    <nav class="lang-switcher" aria-label="${escapeHtml(ui().langSwitcherAria)}">
+      ${links}
+    </nav>
   `
 }
 
@@ -170,16 +210,16 @@ function attrsForExternal(url) {
 
 function renderServiceSubnav(pageKey) {
   const hash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : ''
-  const links = serviceSubnav
+  const links = getServiceSubnav()
     .map((item) => {
       const isCurrent = item.page === pageKey && (!item.anchor || hash === item.anchor)
       return `<a href="${escapeHtml(href(item.path))}"${isCurrent ? ' aria-current="page"' : ''}>${escapeHtml(item.label)}</a>`
     })
     .join('')
   return `
-    <div class="service-subnav" aria-label="Specialty services">
+    <div class="service-subnav" aria-label="${escapeHtml(ui().specialtyServices)}">
       <div class="service-subnav-inner">
-        <span class="service-subnav-label">Popular services</span>
+        <span class="service-subnav-label">${escapeHtml(ui().popularServices)}</span>
         <div class="service-subnav-links">
           ${links}
         </div>
@@ -189,16 +229,17 @@ function renderServiceSubnav(pageKey) {
 }
 
 function renderHeader(pageKey) {
+  const copy = ui()
   return `
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <a class="skip-link" href="#main-content">${escapeHtml(copy.skipToContent)}</a>
     <header class="site-header">
       <div class="header-brand">
-        <a href="${escapeHtml(href(''))}" class="logo" aria-label="${escapeHtml(COMPANY_LEGAL_NAME)} home">
+        <a href="${escapeHtml(href(''))}" class="logo" aria-label="${escapeHtml(COMPANY_LEGAL_NAME)} ${escapeHtml(copy.logoHomeAriaSuffix)}">
           <img src="${escapeHtml(href('logo.png'))}" alt="${escapeHtml(COMPANY_LEGAL_NAME)}" />
         </a>
       </div>
-      <nav id="primary-nav" aria-label="Primary navigation">
-        ${nav
+      <nav id="primary-nav" aria-label="${escapeHtml(copy.primaryNav)}">
+        ${getNav()
           .map(
             (item) =>
               `<a href="${escapeHtml(href(item.path))}" ${item.page === pageKey ? 'aria-current="page"' : ''}>${escapeHtml(item.label)}</a>`
@@ -206,10 +247,11 @@ function renderHeader(pageKey) {
           .join('')}
       </nav>
       <div class="header-actions">
+        ${renderLangSwitcher()}
         <a class="header-phone" href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_header">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>
       </div>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">${escapeHtml(copy.toggleNav)}</span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
@@ -229,22 +271,23 @@ function sectionHeading(eyebrow, title, body) {
 }
 
 function renderHero(page, pageKey) {
+  const copy = ui()
   if (pageKey === 'home') {
     return `
       <section class="hero home-hero" id="top">
         <div class="hero-shell">
           <div class="hero-banner">
-            <img src="${escapeHtml(href(HERO_IMAGE))}" alt="Lake Nona landmark panorama featuring the VA Medical Center architecture, Town Center with the Disco dog and Wave Hotel, and Boxi Park container buildings in one seamless scene" />
+            <img src="${escapeHtml(href(HERO_IMAGE))}" alt="${escapeHtml(copy.heroAlt)}" />
           </div>
           <div class="hero-split">
             <div class="hero-copy-primary">
               <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
               <h1>${escapeHtml(page.hero.headline)}</h1>
-              <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="#warranty">Written warranty</a> · Free estimates</p>
+              <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.neighborReviews)}</a> · <a href="#warranty">${escapeHtml(copy.writtenWarranty)}</a> · ${escapeHtml(copy.freeEstimates)}</p>
               ${page.hero.lead ? `<p class="hero-lead">${escapeHtml(page.hero.lead)}</p>` : ''}
             </div>
             <aside class="hero-form-panel hero-panel hero-panel-form" id="quote">
-              ${renderQuoteFormInner('Request a Free Quote', true)}
+              ${renderQuoteFormInner(formCopy().title, true)}
             </aside>
             <div class="hero-copy-secondary">
               ${page.hero.body ? `<p class="hero-body">${escapeHtml(page.hero.body)}</p>` : ''}
@@ -253,7 +296,7 @@ function renderHero(page, pageKey) {
                   ? `<ul class="hero-highlights">${page.hero.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
                   : ''
               }
-              <p class="hero-trust">${escapeHtml(page.hero.microcopy)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">Call ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>
+              <p class="hero-trust">${escapeHtml(page.hero.microcopy)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">${escapeHtml(copy.callPrefix)} ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>
             </div>
           </div>
         </div>
@@ -264,16 +307,16 @@ function renderHero(page, pageKey) {
   if (pageKey === 'servicesPage' || pageKey === 'projectsPage' || pageKey === 'contactPage') {
     const proofSuffix =
       pageKey === 'servicesPage'
-        ? 'Same PM from quote to finish'
+        ? copy.proofServices
         : pageKey === 'projectsPage'
-          ? 'Same PM start to finish'
-          : 'Free on-site estimates'
+          ? copy.proofProjects
+          : copy.proofContact
     const statsLabel =
       pageKey === 'servicesPage'
-        ? 'Service categories'
+        ? copy.statsServices
         : pageKey === 'projectsPage'
-          ? 'What you get on every project'
-          : 'Why reach out now'
+          ? copy.statsProjects
+          : copy.statsContact
 
     const marketingHeroClass =
       pageKey === 'projectsPage'
@@ -289,7 +332,7 @@ function renderHero(page, pageKey) {
         <div class="hero-copy">
           <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
           <h1>${escapeHtml(page.hero.headline)}</h1>
-          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · <a href="${escapeHtml(route(''))}#warranty">Written warranty</a> · ${escapeHtml(proofSuffix)}</p>
+          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.neighborReviews)}</a> · <a href="${escapeHtml(route(''))}#warranty">${escapeHtml(copy.writtenWarranty)}</a> · ${escapeHtml(proofSuffix)}</p>
           ${page.hero.lead ? `<p class="hero-lead">${escapeHtml(page.hero.lead)}</p>` : ''}
           ${page.hero.body ? `<p class="hero-body">${escapeHtml(page.hero.body)}</p>` : ''}
           ${
@@ -304,7 +347,7 @@ function renderHero(page, pageKey) {
           }
           ${
             page.hero.trust
-              ? `<p class="hero-trust">${escapeHtml(page.hero.trust)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">Call ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>`
+              ? `<p class="hero-trust">${escapeHtml(page.hero.trust)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">${escapeHtml(copy.callPrefix)} ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>`
               : ''
           }
         </div>
@@ -318,12 +361,12 @@ function renderHero(page, pageKey) {
         <div class="hero-copy">
           <span class="eyebrow">${escapeHtml(page.hero.eyebrow)}</span>
           <h1>${escapeHtml(page.hero.headline)}</h1>
-          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">5.0 neighbor reviews</a> · Referral-driven · <a href="${escapeHtml(route(''))}#warranty">Written warranty</a></p>
+          <p class="hero-proof"><span aria-hidden="true">★</span> <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.neighborReviews)}</a> · ${escapeHtml(copy.referralDriven)} · <a href="${escapeHtml(route(''))}#warranty">${escapeHtml(copy.writtenWarranty)}</a></p>
           ${page.hero.lead ? `<p class="hero-lead">${escapeHtml(page.hero.lead)}</p>` : ''}
           ${page.hero.body ? `<p class="hero-body">${escapeHtml(page.hero.body)}</p>` : ''}
           ${
             page.hero.stats?.length
-              ? `<ul class="hero-stats" aria-label="Why neighbors trust Pixel Paint">${page.hero.stats
+              ? `<ul class="hero-stats" aria-label="${escapeHtml(copy.statsAbout)}">${page.hero.stats
                   .map(
                     (stat) =>
                       `<li class="hero-stat"><strong>${escapeHtml(stat.label)}</strong><span>${escapeHtml(stat.detail)}</span></li>`
@@ -333,7 +376,7 @@ function renderHero(page, pageKey) {
           }
           ${
             page.hero.trust
-              ? `<p class="hero-trust">${escapeHtml(page.hero.trust)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">Call ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>`
+              ? `<p class="hero-trust">${escapeHtml(page.hero.trust)} · <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_hero">${escapeHtml(copy.callPrefix)} ${escapeHtml(CONTACT_PHONE_DISPLAY)}</a></p>`
               : ''
           }
         </div>
@@ -365,15 +408,12 @@ function renderHero(page, pageKey) {
 }
 
 function renderQuoteForm() {
+  const copy = ui()
   return `
     <section id="quote" class="quote-section">
       <div class="quote-layout">
-        ${sectionHeading(
-          'Free Estimate',
-          'Request a free quote',
-          'Share your project details and optional photos so we can provide an accurate estimate.'
-        )}
-        ${renderQuoteFormInner('Request a Free Quote')}
+        ${sectionHeading(copy.quoteSectionEyebrow, copy.quoteSectionTitle, copy.quoteSectionBody)}
+        ${renderQuoteFormInner(formCopy().title)}
       </div>
     </section>
   `
@@ -382,7 +422,7 @@ function renderQuoteForm() {
 const accentClasses = ['service-accent-blue', 'service-accent-magenta', 'service-accent-yellow']
 
 function renderServiceCard(index, featured = false) {
-  const service = services[index]
+  const service = getServices()[index]
   const accent = accentClasses[index % 3]
   const idAttr = service.anchor ? ` id="${escapeHtml(service.anchor)}"` : ''
   const media = service.image
@@ -394,20 +434,24 @@ function renderServiceCard(index, featured = false) {
       <span class="service-icon service-icon-${(index % 4) + 1}" aria-hidden="true"></span>
       <h3>${escapeHtml(service.title)}</h3>
       <p>${escapeHtml(service.body)}</p>
-      ${service.learnHref ? `<a class="learn-link" href="${escapeHtml(route(service.learnHref))}">Learn more</a>` : ''}
+      ${service.learnHref ? `<a class="learn-link" href="${escapeHtml(route(service.learnHref))}">${escapeHtml(ui().learnMore)}</a>` : ''}
     </article>`
 }
 
-const defaultServicesHeading = {
-  eyebrow: 'What We Do',
-  title: 'Painting and renovation services for every part of your home',
-  body:
-    'Whether you need a full exterior repaint, a kitchen refresh, or prep-for-sale touch-ups, Pixel Paint delivers organized crews and warranty-backed results.'
+function defaultServicesHeading() {
+  const copy = ui()
+  return {
+    eyebrow: copy.servicesDefaultEyebrow,
+    title: copy.servicesDefaultTitle,
+    body: copy.servicesDefaultBody
+  }
 }
 
 function renderServices(block = {}) {
   const full = typeof block === 'boolean' ? block : Boolean(block.full)
-  const heading = typeof block === 'object' && block.heading ? block.heading : defaultServicesHeading
+  const heading = typeof block === 'object' && block.heading ? block.heading : defaultServicesHeading()
+  const services = getServices()
+  const serviceGroups = getServiceGroups()
 
   if (full) {
     return `
@@ -424,7 +468,7 @@ function renderServices(block = {}) {
           </div>`
           )
           .join('')}
-        <div class="section-actions"><a class="text-link" href="${escapeHtml(href('contact/'))}">Get a Free Quote</a></div>
+        <div class="section-actions"><a class="text-link" href="${escapeHtml(href('contact/'))}">${escapeHtml(ui().getFreeQuote)}</a></div>
       </section>
     `
   }
@@ -442,23 +486,20 @@ function renderServices(block = {}) {
 }
 
 function renderSocialGalleryIntro() {
+  const copy = ui()
   return `
     <section class="gallery-intro">
-      ${sectionHeading(
-        'More Photos',
-        'Follow us for the latest project updates',
-        'We post fresh before-and-after photos on Instagram and Facebook — kitchens, exteriors, bathrooms, and whole-home repaints across Central Florida.'
-      )}
+      ${sectionHeading(copy.socialEyebrow, copy.socialTitle, copy.socialBody)}
       <div class="social-gallery-actions">
-        <a class="text-link" href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">View Instagram</a>
-        <a class="text-link" href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_facebook">View Facebook</a>
+        <a class="text-link" href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">${escapeHtml(copy.viewInstagram)}</a>
+        <a class="text-link" href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_facebook">${escapeHtml(copy.viewFacebook)}</a>
       </div>
     </section>
   `
 }
 
 function getProjectItems(block) {
-  let pool = projectShowcase
+  let pool = getProjectShowcase()
   if (block.filter) {
     pool = pool.filter((item) => item.tags?.includes(block.filter))
   }
@@ -494,24 +535,28 @@ function renderProjectCard(item, options = {}) {
     </article>`
 }
 
-const defaultProjectShowcaseHeading = {
-  eyebrow: 'Project Showcase',
-  title: 'Work you can picture in your home',
-  body:
-    'Recent project types we handle every week across Lake Nona, Orlando, and the surrounding metro.'
+function defaultProjectShowcaseHeading() {
+  const copy = ui()
+  return {
+    eyebrow: copy.projectsEyebrow,
+    title: copy.projectsTitle,
+    body: copy.projectsBodyHome
+  }
 }
 
-const fullProjectShowcaseHeading = {
-  eyebrow: 'Project Showcase',
-  title: 'Work you can picture in your home',
-  body:
-    'Every image is from a real Pixel Paint job — protected prep, premium materials, and finishes built for Central Florida.'
+function fullProjectShowcaseHeading() {
+  const copy = ui()
+  return {
+    eyebrow: copy.projectsEyebrow,
+    title: copy.projectsTitle,
+    body: copy.projectsBodyFull
+  }
 }
 
 function renderProjectShowcase(block) {
   const items = getProjectItems(block)
   const isFeatured = block.layout === 'featured'
-  const defaultHeading = block.full ? fullProjectShowcaseHeading : defaultProjectShowcaseHeading
+  const defaultHeading = block.full ? fullProjectShowcaseHeading() : defaultProjectShowcaseHeading()
   const heading = block.heading ? block.heading : defaultHeading
 
   return `
@@ -527,22 +572,19 @@ function renderProjectShowcase(block) {
       ${
         block.full
           ? ''
-          : `<div class="section-actions"><a class="text-link" href="${escapeHtml(href('projects/'))}">View All Projects</a></div>`
+          : `<div class="section-actions"><a class="text-link" href="${escapeHtml(href('projects/'))}">${escapeHtml(ui().viewAllProjects)}</a></div>`
       }
     </section>
   `
 }
 
 function renderProcessSteps() {
+  const copy = ui()
   return `
     <section id="process" class="process-section">
-      ${sectionHeading(
-        'How It Works',
-        'Three steps, no guesswork',
-        'Know the price before work starts, stay comfortable while we paint, and get a finish backed in writing.'
-      )}
+      ${sectionHeading(copy.processEyebrow, copy.processTitle, copy.processBody)}
       <ol class="process-grid">
-        ${processSteps
+        ${getProcessSteps()
           .map(
             (step, index) => `
           <li class="process-step">
@@ -558,15 +600,12 @@ function renderProcessSteps() {
 }
 
 function renderBenefits() {
+  const copy = ui()
   return `
     <section id="why-us">
-      ${sectionHeading(
-        'Why Choose Pixel Paint',
-        'Trusted. Professional. Local.',
-        'Homeowners across Central Florida choose Pixel Paint for communication, craftsmanship, and follow-through that lasts beyond the final walkthrough.'
-      )}
+      ${sectionHeading(copy.benefitsEyebrow, copy.benefitsTitle, copy.benefitsBody)}
       <div class="benefit-grid">
-        ${whyChooseUs
+        ${getWhyChooseUs()
           .map(
             ([title, body]) => `
               <article class="content-card">
@@ -581,15 +620,12 @@ function renderBenefits() {
 }
 
 function renderServiceAreas() {
+  const copy = ui()
   return `
     <section id="areas">
-      ${sectionHeading(
-        'Areas We Serve',
-        'Serving Lake Nona, Orlando, and Central Florida',
-        'Pixel Paint and Renovations works across the Orlando metro and surrounding communities.'
-      )}
+      ${sectionHeading(copy.areasEyebrow, copy.areasTitle, copy.areasBody)}
       <div class="areas-grid">
-        ${serviceAreas
+        ${getServiceAreas()
           .map(
             (group) => `
               <article class="area-card">
@@ -630,6 +666,8 @@ function renderReviewCard(item, { source } = {}) {
 }
 
 function renderTestimonials(block) {
+  const copy = ui()
+  const testimonials = getTestimonials()
   const limit = block.limit || testimonials.length
   const filter = block.filter
   let items = testimonials.filter(
@@ -649,18 +687,14 @@ function renderTestimonials(block) {
     items = items.slice(0, limit - 1)
 
     return `
-      <section id="reviews" class="reviews-section" aria-label="Customer reviews">
-        ${sectionHeading(
-          'Customer Reviews',
-          'What homeowners say about Pixel Paint',
-          'Real feedback from painting and renovation clients across Central Florida.'
-        )}
+      <section id="reviews" class="reviews-section" aria-label="${escapeHtml(copy.reviewsAria)}">
+        ${sectionHeading(copy.reviewsEyebrow, copy.reviewsTitle, copy.reviewsBody)}
         <article class="review-featured">
-          <span class="eyebrow">Neighbor review</span>
+          <span class="eyebrow">${escapeHtml(copy.reviewsEyebrow)}</span>
           <blockquote>${escapeHtml(featured.quote)}</blockquote>
-          <footer><span aria-hidden="true">★★★★★</span><span class="sr-only">5 out of 5 stars</span> · Lake Nona homeowner · ${escapeHtml(featured.service)}</footer>
+          <footer><span aria-hidden="true">★★★★★</span><span class="sr-only">5 out of 5 stars</span> · ${escapeHtml(featured.service)}</footer>
         </article>
-        <div class="${gridClasses.join(' ')}" role="region" aria-label="More customer reviews">
+        <div class="${gridClasses.join(' ')}" role="region" aria-label="${escapeHtml(copy.reviewsMoreAria)}">
           ${items.map((item) => renderReviewCard(item, { source: block.source })).join('')}
         </div>
       </section>
@@ -671,23 +705,18 @@ function renderTestimonials(block) {
     items = items.slice(0, limit)
   }
 
+  const isGoogle = block.source === 'Google'
   const headingEyebrow =
-    block.heading?.eyebrow || (block.source === 'Google' ? 'Google Reviews' : 'Customer Reviews')
+    block.heading?.eyebrow || (isGoogle ? copy.reviewsEyebrowGoogle : copy.reviewsEyebrow)
   const headingTitle =
-    block.heading?.title ||
-    (block.source === 'Google'
-      ? 'What neighbors say on Google'
-      : 'What homeowners say about Pixel Paint')
+    block.heading?.title || (isGoogle ? copy.reviewsTitleGoogle : copy.reviewsTitle)
   const headingLead =
-    block.heading?.body ||
-    (block.source === 'Google'
-      ? 'Real Google reviews from painting and renovation clients across Central Florida.'
-      : 'Real feedback from painting and renovation clients across Central Florida.')
+    block.heading?.body || (isGoogle ? copy.reviewsBodyGoogle : copy.reviewsBody)
 
   return `
-    <section id="reviews" class="reviews-section" aria-label="Customer reviews">
+    <section id="reviews" class="reviews-section" aria-label="${escapeHtml(copy.reviewsAria)}">
       ${sectionHeading(headingEyebrow, headingTitle, headingLead)}
-      <div class="${gridClasses.join(' ')}" role="region" aria-label="Customer review cards">
+      <div class="${gridClasses.join(' ')}" role="region" aria-label="${escapeHtml(copy.reviewsCardsAria)}">
         ${items.map((item) => renderReviewCard(item, { source: block.source })).join('')}
       </div>
     </section>
@@ -704,9 +733,10 @@ function renderTextSplit(block) {
 }
 
 function renderValues(block) {
+  const copy = ui()
   return `
     <section id="values">
-      ${sectionHeading('Our Values', 'How we show up on every job')}
+      ${sectionHeading(copy.valuesEyebrow, copy.valuesTitle)}
       <div class="values-grid">
         ${block.items
           .map(
@@ -723,36 +753,41 @@ function renderValues(block) {
 }
 
 function renderInstagramStrip() {
+  const copy = ui()
   return `
     <section class="instagram-strip">
-      <span class="eyebrow">Fresh project photos</span>
+      <span class="eyebrow">${escapeHtml(copy.instagramEyebrow)}</span>
       <p>
-        See before-and-after kitchens, exteriors, and whole-home repaints on
+        ${escapeHtml(copy.instagramBodyBefore)}
         <a href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer" data-track="social_instagram">@pixelpaint.renovations</a>
-        — updated weekly across Central Florida.
+        ${escapeHtml(copy.instagramBodyAfter)}
       </p>
     </section>
   `
 }
 
 function renderWarrantyPanel() {
+  const copy = ui()
+  const w = warranty()
   return `
     <section id="warranty" class="warranty-panel">
-      ${sectionHeading('Our Warranty', WARRANTY_HEADLINE, `${WARRANTY_SUMMARY} ${WARRANTY_QUOTE_NOTE}`)}
+      ${sectionHeading(copy.warrantyEyebrow, w.headline, `${w.summary} ${w.quoteNote}`)}
       <div class="warranty-terms-panel">
-        <p class="warranty-terms-intro">${escapeHtml(WARRANTY_QUOTE_NOTE)}</p>
+        <p class="warranty-terms-intro">${escapeHtml(w.quoteNote)}</p>
         <dl class="warranty-terms-list">
-          ${WARRANTY_TERMS_PLACEHOLDER.map(
-            ({ term, detail }) => `
+          ${w.terms
+            .map(
+              ({ term, detail }) => `
               <div class="warranty-term">
                 <dt>${escapeHtml(term)}</dt>
                 <dd>${escapeHtml(detail)}</dd>
               </div>`
-          ).join('')}
+            )
+            .join('')}
         </dl>
         <p class="warranty-terms-note">
-          <span class="eyebrow">Pending review</span>
-          Replace all XXX placeholders with final legal language before launch.
+          <span class="eyebrow">${escapeHtml(copy.warrantyPendingEyebrow)}</span>
+          ${escapeHtml(copy.warrantyPendingNote)}
         </p>
       </div>
     </section>
@@ -760,49 +795,42 @@ function renderWarrantyPanel() {
 }
 
 function renderWarrantyStrip(block) {
+  const copy = ui()
+  const w = warranty()
   const warrantyHref = block.homeWarranty ? `${route('')}#warranty` : '#warranty'
-  const stripText = block.text || WARRANTY_STRIP_TEXT
+  const stripText = block.text || w.stripText
   return `
-    <section class="warranty-strip" aria-label="Warranty">
-      <span class="eyebrow">Warranty-backed</span>
+    <section class="warranty-strip" aria-label="${escapeHtml(copy.warrantyStripAria)}">
+      <span class="eyebrow">${escapeHtml(copy.warrantyStripEyebrow)}</span>
       <p>
         ${escapeHtml(stripText)}
-        <a href="${escapeHtml(warrantyHref)}">Review full warranty terms</a>
+        <a href="${escapeHtml(warrantyHref)}">${escapeHtml(copy.warrantyReviewLink)}</a>
       </p>
     </section>
   `
 }
 
 function renderMeetTeam() {
+  const copy = ui()
   return `
     <section id="team" class="meet-team">
-      ${sectionHeading(
-        'Local crew',
-        'Meet the team behind Pixel Paint and Renovations',
-        `${escapeHtml(COMPANY_LEGAL_NAME)} serves Lake Nona, Orlando, and Central Florida.`
-      )}
+      ${sectionHeading(copy.teamEyebrow, copy.teamTitle, copy.teamIntro)}
       <article class="meet-team-card">
         <div class="meet-team-visual">
           <img
             class="meet-team-badge"
             src="${escapeHtml(href('logo-icon.png'))}"
-            alt="Pixel Paint and Renovations logo badge"
+            alt="${escapeHtml(copy.teamBadgeAlt)}"
             width="120"
             height="120"
           />
         </div>
         <div class="meet-team-copy">
-          <h3>Pixel Paint and Renovations</h3>
-          <p class="meet-team-role">Lake Nona painting &amp; renovation</p>
-          <p>
-            We built Pixel Paint around jobs we would trust in our own homes — organized crews, honest timelines,
-            and coatings that survive Florida heat and humidity. One project manager coordinates painters and renovation subs directly,
-            so your questions go to one team that knows your scope.
-          </p>
+          <h3>${escapeHtml(copy.teamName)}</h3>
+          <p class="meet-team-role">${escapeHtml(copy.teamRole)}</p>
+          <p>${escapeHtml(copy.teamBody)}</p>
           <ul class="meet-team-highlights">
-            <li>On-site for walkthroughs, mid-project check-ins, and punch lists</li>
-            <li>Direct line for schedule changes and warranty questions</li>
-            <li>Lake Nona–based — serving Orlando and the wider metro daily</li>
+            ${copy.teamHighlights.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
           </ul>
         </div>
       </article>
@@ -819,10 +847,12 @@ function renderSectionDivider() {
 }
 
 function renderContact(block = {}) {
+  const copy = ui()
+  const w = warranty()
   const heading = block.heading || {
-    eyebrow: 'Get in touch',
-    title: 'We are ready to help with your next project',
-    body: 'Reach out by phone, email, or the form. Follow us on Instagram and Facebook for recent project photos.'
+    eyebrow: copy.contactDefaultEyebrow,
+    title: copy.contactDefaultTitle,
+    body: copy.contactDefaultBody
   }
 
   return `
@@ -831,96 +861,85 @@ function renderContact(block = {}) {
         <div class="contact-details">
           ${sectionHeading(heading.eyebrow, heading.title, heading.body)}
 
-          <div class="contact-trust-badges" aria-label="Why homeowners reach out">
-            <span class="contact-badge">Fully insured</span>
-            <span class="contact-badge">Written warranty</span>
-            <span class="contact-badge">Free estimates</span>
-            <span class="contact-badge">Local crew</span>
+          <div class="contact-trust-badges" aria-label="${escapeHtml(copy.contactTrustAria)}">
+            <span class="contact-badge">${escapeHtml(copy.contactBadgeInsured)}</span>
+            <span class="contact-badge">${escapeHtml(copy.contactBadgeWarranty)}</span>
+            <span class="contact-badge">${escapeHtml(copy.contactBadgeEstimates)}</span>
+            <span class="contact-badge">${escapeHtml(copy.contactBadgeLocal)}</span>
           </div>
 
           <p class="contact-seasonal">
-            <span class="contact-seasonal-label">Florida season</span>
-            Book exterior and humidity-sensitive work before peak summer heat — interior refreshes and cabinet painting stay year-round.
+            <span class="contact-seasonal-label">${escapeHtml(copy.contactSeasonalLabel)}</span>
+            ${escapeHtml(copy.contactSeasonalBody)}
           </p>
 
           <p class="contact-response-note">
-            Most quotes answered within <strong>XXX hours</strong> when you include photos and your target start window.
+            ${escapeHtml(copy.contactResponseNoteBefore)} <strong>${escapeHtml(copy.contactResponseNoteHours)}</strong> ${escapeHtml(copy.contactResponseNoteAfter)}
           </p>
 
           <div class="contact-channels">
             <a class="contact-channel" href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_contact">
-              <span class="contact-channel-label">Phone</span>
+              <span class="contact-channel-label">${escapeHtml(copy.contactPhoneLabel)}</span>
               <span class="contact-channel-value">${escapeHtml(CONTACT_PHONE_DISPLAY)}</span>
-              <span class="contact-channel-hint">Talk to our team directly</span>
+              <span class="contact-channel-hint">${escapeHtml(copy.contactPhoneHint)}</span>
             </a>
             <a class="contact-channel" href="mailto:${escapeHtml(CONTACT_EMAIL)}">
-              <span class="contact-channel-label">Email</span>
+              <span class="contact-channel-label">${escapeHtml(copy.contactEmailLabel)}</span>
               <span class="contact-channel-value">${escapeHtml(CONTACT_EMAIL)}</span>
-              <span class="contact-channel-hint">Attach photos anytime</span>
+              <span class="contact-channel-hint">${escapeHtml(copy.contactEmailHint)}</span>
             </a>
             <div class="contact-channel">
-              <span class="contact-channel-label">Service area</span>
-              <span class="contact-channel-value">${escapeHtml(BUSINESS_LOCATION)} &amp; Central Florida</span>
-              <span class="contact-channel-hint">On-site walkthroughs across the metro</span>
+              <span class="contact-channel-label">${escapeHtml(copy.contactAreaLabel)}</span>
+              <span class="contact-channel-value">${escapeHtml(copy.contactAreaValue)}</span>
+              <span class="contact-channel-hint">${escapeHtml(copy.contactAreaHint)}</span>
             </div>
           </div>
 
-          <div class="contact-social" aria-label="Follow Pixel Paint">
+          <div class="contact-social" aria-label="${escapeHtml(copy.contactSocialAria)}">
             <a class="contact-social-pill" href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">◆</span> Instagram · @pixelpaint.renovations
+              <span aria-hidden="true">◆</span> ${escapeHtml(copy.contactSocialInstagram)}
             </a>
             <a class="contact-social-pill" href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">
-              <span aria-hidden="true">◆</span> Facebook · Recent project photos
+              <span aria-hidden="true">◆</span> ${escapeHtml(copy.contactSocialFacebook)}
             </a>
           </div>
 
           <div class="map-embed contact-map">
             <iframe
-              title="Lake Nona, Florida map"
+              title="${escapeHtml(copy.contactMapTitle)}"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps?q=Lake%20Nona%2C%20FL&output=embed"
             ></iframe>
           </div>
 
-          <p class="contact-warranty-note">${escapeHtml(WARRANTY_QUOTE_NOTE)} <a href="${escapeHtml(route(''))}#warranty">Review placeholder terms</a>.</p>
+          <p class="contact-warranty-note">${escapeHtml(w.quoteNote)} <a href="${escapeHtml(route(''))}#warranty">${escapeHtml(copy.contactWarrantyReview)}</a>.</p>
         </div>
 
         <div class="contact-form-column">
           <div class="contact-form-hook">
-            <span class="eyebrow">Start here</span>
-            <p class="contact-form-hook-lead">Photos beat guesswork — snap your room, cabinets, or exterior and attach below.</p>
+            <span class="eyebrow">${escapeHtml(copy.contactFormHookEyebrow)}</span>
+            <p class="contact-form-hook-lead">${escapeHtml(copy.contactFormHookLead)}</p>
           </div>
-          ${renderQuoteFormInner('Request a Free Quote', true, {
-            intro:
-              'Tell us what you are planning — room, timeline, and colors. We reply with next steps and a free on-site estimate.',
-            photoHint:
-              'A quick phone photo of the space helps us quote accurately on the first reply — kitchens, baths, and exteriors welcome.'
+          ${renderQuoteFormInner(formCopy().title, true, {
+            intro: copy.contactFormIntro,
+            photoHint: copy.contactFormPhotoHint
           })}
-          <div class="contact-next-steps" aria-label="What happens after you submit">
-            <h3>What happens next</h3>
+          <div class="contact-next-steps" aria-label="${escapeHtml(copy.contactNextAria)}">
+            <h3>${escapeHtml(copy.contactNextTitle)}</h3>
             <ol class="contact-timeline">
+              ${copy.contactNextSteps
+                .map(
+                  (step, index) => `
               <li class="contact-timeline-step">
-                <span class="contact-timeline-num" aria-hidden="true">1</span>
+                <span class="contact-timeline-num" aria-hidden="true">${index + 1}</span>
                 <div>
-                  <strong>We reply personally</strong>
-                  <p>Target within XXX hours — your questions answered or a free home visit scheduled, not an auto-reply.</p>
+                  <strong>${escapeHtml(step.title)}</strong>
+                  <p>${escapeHtml(step.body)}</p>
                 </div>
-              </li>
-              <li class="contact-timeline-step">
-                <span class="contact-timeline-num" aria-hidden="true">2</span>
-                <div>
-                  <strong>Free home visit</strong>
-                  <p>We see the space, discuss your goals, and leave you with a written quote — price, materials, and schedule spelled out.</p>
-                </div>
-              </li>
-              <li class="contact-timeline-step">
-                <span class="contact-timeline-num" aria-hidden="true">3</span>
-                <div>
-                  <strong>You approve with confidence</strong>
-                  <p>Everything is in writing before work starts — cost, prep plan, and warranty terms. No surprise bills or strangers on site.</p>
-                </div>
-              </li>
+              </li>`
+                )
+                .join('')}
             </ol>
           </div>
         </div>
@@ -933,7 +952,7 @@ function renderTextLinkCta(block) {
   return `
     <section class="section-cta-link">
       <div class="section-actions">
-        <a class="text-link" href="${escapeHtml(route(block.href || 'contact/'))}" data-track="text_link_cta">${escapeHtml(block.label || 'Get a Free Quote')}</a>
+        <a class="text-link" href="${escapeHtml(route(block.href || 'contact/'))}" data-track="text_link_cta">${escapeHtml(block.label || ui().getFreeQuote)}</a>
       </div>
       ${block.note ? `<p class="cta-note">${escapeHtml(block.note)}</p>` : ''}
     </section>
@@ -941,18 +960,25 @@ function renderTextLinkCta(block) {
 }
 
 function renderPrivacyPolicy() {
+  const p = privacyCopy()
+  const emailLink = `<a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${escapeHtml(CONTACT_EMAIL)}</a>`
+  const phoneLink = `<a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>`
+  const contactBody = escapeHtml(p.contactBody)
+    .replace('{email}', emailLink)
+    .replace('{phone}', phoneLink)
+
   return `
     <section class="privacy-policy">
       <div class="privacy-content">
-        <p><strong>Last updated:</strong> ${new Date().getFullYear()}</p>
-        <h2>Information we collect</h2>
-        <p>When you submit our quote form, we collect your name, email, phone number, optional address, service interest, optional project photo, and message. We use this information only to respond to your request and provide an estimate.</p>
-        <h2>How we use your information</h2>
-        <p>We contact you about your project, schedule walkthroughs, and follow up on quotes. We do not sell or rent your personal information to third parties.</p>
-        <h2>Form processing</h2>
-        <p>Form submissions are delivered securely to our team via a third-party form service. Optional photos you upload are used solely to understand your project scope.</p>
-        <h2>Contact</h2>
-        <p>Questions about this policy? Email <a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${escapeHtml(CONTACT_EMAIL)}</a> or call <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>.</p>
+        <p><strong>${escapeHtml(p.lastUpdated)}</strong> ${new Date().getFullYear()}</p>
+        <h2>${escapeHtml(p.collectTitle)}</h2>
+        <p>${escapeHtml(p.collectBody)}</p>
+        <h2>${escapeHtml(p.useTitle)}</h2>
+        <p>${escapeHtml(p.useBody)}</p>
+        <h2>${escapeHtml(p.formTitle)}</h2>
+        <p>${escapeHtml(p.formBody)}</p>
+        <h2>${escapeHtml(p.contactTitle)}</h2>
+        <p>${contactBody}</p>
       </div>
     </section>
   `
@@ -980,25 +1006,29 @@ function renderBlock(block) {
 }
 
 function renderFooter() {
+  const copy = ui()
+  const w = warranty()
   return `
     <footer>
       <div>
         <a href="${escapeHtml(href(''))}" class="footer-logo"><img src="${escapeHtml(href('logo.png'))}" alt="${escapeHtml(COMPANY_LEGAL_NAME)}" /></a>
-        <p>${escapeHtml(COMPANY_LEGAL_NAME)} — professional painting and home renovations serving Lake Nona, Orlando, and Central Florida.</p>
-        <p class="footer-warranty">${escapeHtml(WARRANTY_FOOTER_LINE)} <a href="${escapeHtml(route(''))}#warranty">Review terms</a></p>
+        <p>${escapeHtml(copy.footerBlurb)}</p>
+        <p class="footer-warranty">${escapeHtml(w.footerLine)} <a href="${escapeHtml(route(''))}#warranty">${escapeHtml(copy.footerReviewTerms)}</a></p>
       </div>
-      <nav aria-label="Footer navigation">
-        ${nav.map((item) => `<a href="${escapeHtml(href(item.path))}">${escapeHtml(item.label)}</a>`).join('')}
-        <a href="${escapeHtml(href('kitchen-renovations/'))}">Kitchen Renovations</a>
-        <a href="${escapeHtml(href('bathroom-renovations/'))}">Bathroom Refresh</a>
-        <a href="${escapeHtml(href('privacy/'))}">Privacy</a>
+      <nav aria-label="${escapeHtml(copy.footerNav)}">
+        ${getNav()
+          .map((item) => `<a href="${escapeHtml(href(item.path))}">${escapeHtml(item.label)}</a>`)
+          .join('')}
+        <a href="${escapeHtml(href('kitchen-renovations/'))}">${escapeHtml(copy.footerKitchen)}</a>
+        <a href="${escapeHtml(href('bathroom-renovations/'))}">${escapeHtml(copy.footerBathroom)}</a>
+        <a href="${escapeHtml(href('privacy/'))}">${escapeHtml(copy.footerPrivacy)}</a>
       </nav>
       <div class="footer-cta">
         <a href="tel:${escapeHtml(CONTACT_PHONE_TEL)}" data-track="phone_footer">${escapeHtml(CONTACT_PHONE_DISPLAY)}</a>
         <a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${escapeHtml(CONTACT_EMAIL)}</a>
-        <a href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <span>Serving ${escapeHtml(BUSINESS_LOCATION)} and Central Florida.</span>
+        <a href="${escapeHtml(INSTAGRAM_URL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.viewInstagram)}</a>
+        <a href="${escapeHtml(FACEBOOK_URL)}" target="_blank" rel="noopener noreferrer">${escapeHtml(copy.viewFacebook)}</a>
+        <span>${escapeHtml(copy.footerServing)}</span>
       </div>
     </footer>
   `
@@ -1079,14 +1109,16 @@ function bindInteractions(app) {
 }
 
 export function mountPage(pageKey) {
+  setActiveLocale(detectLocale())
   const app = document.querySelector('#app')
-  const page = pages[pageKey]
+  const page = getPages()[pageKey]
   if (!app || !page) return
 
   initAnalytics()
   setMeta(page)
   injectLocalBusinessSchema()
 
+  const copy = ui()
   const html = `
     <div class="wrapper ${pageKey === 'home' ? 'home-wrapper' : ''}">
       ${renderHeader(pageKey)}
@@ -1098,7 +1130,7 @@ export function mountPage(pageKey) {
           .join('')}
       </main>
       ${renderFooter()}
-      ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${escapeHtml(href('contact/'))}" aria-label="Get a free quote — contact page">Get a Free Quote</a>` : ''}
+      ${pageKey !== 'home' && pageKey !== 'contactPage' ? `<a class="mobile-sticky-cta" href="${escapeHtml(href('contact/'))}" aria-label="${escapeHtml(copy.stickyCtaAria)}">${escapeHtml(copy.getFreeQuote)}</a>` : ''}
     </div>
   `
 
